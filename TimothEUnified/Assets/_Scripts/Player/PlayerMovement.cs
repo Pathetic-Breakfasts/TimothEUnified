@@ -40,6 +40,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_movement == Vector2.zero) return;
 
-        _rb.MovePosition(_rb.position + _movement.normalized * _moveSpeed * Time.fixedDeltaTime);
+        Vector2 originalPos = transform.position;
+
+        
+
+        originalPos += _movement.normalized * _moveSpeed * Time.fixedDeltaTime;
+
+
+        transform.position = originalPos;
+
+        //_rb.MovePosition(_rb.position + _movement.normalized * _moveSpeed * Time.fixedDeltaTime);
     }
 }
