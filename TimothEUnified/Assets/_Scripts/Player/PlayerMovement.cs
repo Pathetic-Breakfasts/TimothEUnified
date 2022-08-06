@@ -39,16 +39,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (_movement == Vector2.zero) return;
-
         Vector2 originalPos = transform.position;
-
-        
-
         originalPos += _movement.normalized * _moveSpeed * Time.fixedDeltaTime;
-
-
         transform.position = originalPos;
-
-        //_rb.MovePosition(_rb.position + _movement.normalized * _moveSpeed * Time.fixedDeltaTime);
     }
 }
