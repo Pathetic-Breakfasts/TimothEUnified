@@ -39,8 +39,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (_movement == Vector2.zero) return;
+
         Vector2 originalPos = transform.position;
         originalPos += _movement.normalized * _moveSpeed * Time.fixedDeltaTime;
         transform.position = originalPos;
+
+        _animator.SetFloat("LastHorizontal", _movement.x);
+        _animator.SetFloat("LastVertical", _movement.y);
     }
 }
