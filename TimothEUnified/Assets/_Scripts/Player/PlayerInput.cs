@@ -33,12 +33,16 @@ public class PlayerInput : MonoBehaviour
 
     private void AttackingInput()
     {
+        //If we are in the attacking state
         if (_attacking)
         {
+            //Increment the attack timer by frame time
             _attackingTimer += Time.deltaTime;
 
+            //If we have exceeded an attacks duration
             if (_attackingTimer > _attackingDuration)
             {
+                //Reset the timer and the attacking states
                 _attackingTimer = 0.0f;
                 _attacking = false;
                 _animator.SetBool("Attacking", _attacking);
@@ -46,6 +50,7 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
+        //stops us from being able to do multiple attacks in one go
         if (_attacking) return;
 
         if (Input.GetMouseButtonDown(0))
