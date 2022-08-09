@@ -9,6 +9,8 @@ public class PlayerInput : MonoBehaviour
 
     Animator _animator;
 
+    Mover _mover;
+    Vector2 _movement;
 
     float _attackingDuration = 0.5f;
     float _attackingTimer = 0.0f;
@@ -19,6 +21,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _mover = GetComponent<Mover>();
     }
 
     // Start is called before the first frame update
@@ -42,6 +45,28 @@ public class PlayerInput : MonoBehaviour
             AttackingInput();
         }
 
+        if (_attacking)
+        {
+            _movement = Vector2.zero;
+            return;
+        }
+
+        _movement.x = Input.GetAxisRaw("Horizontal");
+        _movement.y = Input.GetAxisRaw("Vertical");
+
+        _animator.SetFloat("Horizontal", _movement.x);
+        _animator.SetFloat("Vertical", _movement.y);
+        _animator.SetFloat("Speed", _movement.sqrMagnitude);
+    }
+
+    private void FixedUpdate()
+    {
+        if (_movement == Vector2.zero) return;
+
+        _mover.Move(_movement);
+
+        _animator.SetFloat("LastHorizontal", _movement.x);
+        _animator.SetFloat("LastVertical", _movement.y);
     }
 
     private void AttackingInput()
