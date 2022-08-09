@@ -9,10 +9,12 @@ public class PlayerInput : MonoBehaviour
 
     Animator _animator;
 
-    bool _attacking = false;
 
-    float _attackingDuration = 1.0f;
+    float _attackingDuration = 0.5f;
     float _attackingTimer = 0.0f;
+
+    bool _combatMode = false;
+    bool _attacking = false;
 
     private void Awake()
     {
@@ -28,7 +30,18 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AttackingInput();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _combatMode = !_combatMode;
+
+            _animator.SetBool("InCombatMode", _combatMode);
+        }
+
+        if (_combatMode)
+        {
+            AttackingInput();
+        }
+
     }
 
     private void AttackingInput()
@@ -46,6 +59,7 @@ public class PlayerInput : MonoBehaviour
                 _attackingTimer = 0.0f;
                 _attacking = false;
                 _animator.SetBool("Attacking", _attacking);
+                _animator.SetBool("HeavyAttack", true);
                 _weaponToSwing.SetActive(false);
             }
         }
@@ -59,8 +73,34 @@ public class PlayerInput : MonoBehaviour
 
             //Play Attack Animation
             _animator.SetBool("Attacking", _attacking);
+            _animator.SetBool("HeavyAttack", true);
 
             _weaponToSwing.SetActive(true);
+
+            Vector2 mousePosition = Input.mousePosition;
+
+            Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+
+            float horizontalDistance = playerScreenPos.x - mousePosition.x;
+            float verticalDistance = playerScreenPos.y - mousePosition.y;
+
+            float xDistToZero = horizontalDistance < 0.0f ? Mathf.Abs(horizontalDistance) : horizontalDistance;
+            float yDistToZero = verticalDistance < 0.0f ? Mathf.Abs(verticalDistance) : verticalDistance;
+
+            if (xDistToZero > yDistToZero)
+            {
+                float x = horizontalDistance > 0.0f ? -1.0f : 1.0f;
+
+                _animator.SetFloat("CombatHorizontal", x);
+                _animator.SetFloat("CombatVertical", 0.0f);
+            }
+            else
+            {
+                float y = verticalDistance > 0.0f ? -1.0f : 1.0f;
+
+                _animator.SetFloat("CombatHorizontal", 0.0f);
+                _animator.SetFloat("CombatVertical", y);
+            }
         }
     }
 }
