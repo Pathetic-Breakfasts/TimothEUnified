@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public enum InteractDirection
+{
+    None = -1,
+    Up = 0,
+    Down = 1,
+    Left = 2, 
+    Right = 3
+}
+
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] GameObject _weaponToSwing;
@@ -18,6 +28,11 @@ public class PlayerInput : MonoBehaviour
     bool _combatMode = false;
     bool _attacking = false;
     bool _heavyAttack = false;
+
+    public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
+
+    InteractDirection _interactionDirection;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -28,6 +43,7 @@ public class PlayerInput : MonoBehaviour
     void Start()
     {
         _weaponToSwing.SetActive(false);
+        _interactionDirection = InteractDirection.None;
     }
 
     // Update is called once per frame
@@ -120,6 +136,8 @@ public class PlayerInput : MonoBehaviour
 
                 _animator.SetFloat("CombatHorizontal", x);
                 _animator.SetFloat("CombatVertical", 0.0f);
+
+                _interactionDirection = x < 0.0f ? InteractDirection.Left : InteractDirection.Right;
             }
             else
             {
@@ -127,6 +145,8 @@ public class PlayerInput : MonoBehaviour
 
                 _animator.SetFloat("CombatHorizontal", 0.0f);
                 _animator.SetFloat("CombatVertical", y);
+
+                _interactionDirection = y < 0.0f ? InteractDirection.Down : InteractDirection.Up;
             }
         }
     }
