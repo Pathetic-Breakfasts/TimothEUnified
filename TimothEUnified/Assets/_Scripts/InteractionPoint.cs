@@ -8,6 +8,7 @@ public class InteractionPoint : MonoBehaviour
     public List<GameObject> ObjectsInTrigger { get => _objectsInTrigger; }
 
     List<GameObject> _objectsInTrigger;
+    [SerializeField] string[] _acceptedTags;
 
     private void Awake()
     {
@@ -16,17 +17,23 @@ public class InteractionPoint : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Enemy"))
+        foreach (string tag in _acceptedTags)
         {
-            _objectsInTrigger.Add(col.gameObject);
+            if (col.CompareTag(tag))
+            {
+                _objectsInTrigger.Add(col.gameObject);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Enemy"))
+        foreach (string tag in _acceptedTags)
         {
-            _objectsInTrigger.Remove(col.gameObject);
+            if (col.CompareTag(tag))
+            {
+                _objectsInTrigger.Remove(col.gameObject);
+            }
         }
     }
 }

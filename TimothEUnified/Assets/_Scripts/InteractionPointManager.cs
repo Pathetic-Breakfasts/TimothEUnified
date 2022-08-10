@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionPointManager : MonoBehaviour
 {
     [SerializeField] InteractionPoint[] _interactables;
+    
 
     private void Awake()
     {

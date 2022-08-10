@@ -14,20 +14,17 @@ public enum InteractDirection
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] GameObject _weaponToSwing;
+    //[SerializeField] GameObject _weaponToSwing;
 
 
+    Fighter _fighter;
     Animator _animator;
 
-
-    InteractionPointManager _interactPoints;
 
     Mover _mover;
     Vector2 _movement;
 
     bool _combatMode = false;
-    bool _attacking = false;
-    bool _heavyAttack = false;
 
     public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
 
@@ -37,13 +34,12 @@ public class PlayerInput : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
-        _interactPoints = GetComponentInChildren<InteractionPointManager>();
+        _fighter = GetComponent<Fighter>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _weaponToSwing.SetActive(false);
         _interactionDirection = InteractDirection.None;
     }
 
@@ -62,7 +58,7 @@ public class PlayerInput : MonoBehaviour
             AttackingInput();
         }
 
-        if (_attacking)
+        if (_fighter.IsAttacking)
         {
             _movement = Vector2.zero;
             return;
@@ -89,62 +85,39 @@ public class PlayerInput : MonoBehaviour
     private void AttackingInput()
     {
         //stops us from being able to do multiple attacks in one go
-        if (_attacking) return;
+        if (_fighter.IsAttacking) return;
 
-        _heavyAttack = Input.GetKey(KeyCode.LeftShift);
 
         if (Input.GetMouseButtonDown(0))
         {
-            _attacking = true;
-
-            //Play Attack Animation
-            _animator.SetBool("Attacking", _attacking);
-            _animator.SetBool("HeavyAttack", _heavyAttack);
-
-            _weaponToSwing.SetActive(true);
-
+            //Finds the pixel position of the mouse and the player
             Vector2 mousePosition = Input.mousePosition;
-
             Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 
+            //Gets the distance between the player and mouse 
             float horizontalDistance = playerScreenPos.x - mousePosition.x;
             float verticalDistance = playerScreenPos.y - mousePosition.y;
 
+            //Finds out if the distance in the x axis or the y axis is greatest
             float xDistToZero = horizontalDistance < 0.0f ? Mathf.Abs(horizontalDistance) : horizontalDistance;
             float yDistToZero = verticalDistance < 0.0f ? Mathf.Abs(verticalDistance) : verticalDistance;
 
+            //Attack on the left or right
             if (xDistToZero > yDistToZero)
             {
-                float x = horizontalDistance > 0.0f ? -1.0f : 1.0f;
-
-                _animator.SetFloat("CombatHorizontal", x);
-                _animator.SetFloat("CombatVertical", 0.0f);
-
-                _interactionDirection = x < 0.0f ? InteractDirection.Left : InteractDirection.Right;
+                _interactionDirection = horizontalDistance > 0.0f ? InteractDirection.Left : InteractDirection.Right;
             }
+            //attack up or down
             else
             {
-                float y = verticalDistance > 0.0f ? -1.0f : 1.0f;
-
-                _animator.SetFloat("CombatHorizontal", 0.0f);
-                _animator.SetFloat("CombatVertical", y);
-
-                _interactionDirection = y < 0.0f ? InteractDirection.Down : InteractDirection.Up;
+                _interactionDirection = verticalDistance > 0.0f ? InteractDirection.Down : InteractDirection.Up;
             }
+
+
+            //Should we heavy attack
+            bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
+            _fighter.Attack(_interactionDirection, heavyAttack);
         }
     }
 
-    public void AttackFinished()
-    {
-        _attacking = false;
-        _animator.SetBool("Attacking", _attacking);
-        _animator.SetBool("HeavyAttack", _heavyAttack);
-        _weaponToSwing.SetActive(false);
-
-        InteractionPoint point = _interactPoints.GetInteractionPoint(_interactionDirection);
-        foreach (GameObject obj in point.ObjectsInTrigger)
-        {
-            Debug.Log(obj.name);
-        }
-    }
 }
