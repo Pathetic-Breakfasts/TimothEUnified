@@ -25,9 +25,6 @@ public class PlayerInput : MonoBehaviour
     Mover _mover;
     Vector2 _movement;
 
-    float _attackingDuration = 0.5f;
-    float _attackingTimer = 0.0f;
-
     bool _combatMode = false;
     bool _attacking = false;
     bool _heavyAttack = false;
@@ -91,31 +88,6 @@ public class PlayerInput : MonoBehaviour
 
     private void AttackingInput()
     {
-        //If we are in the attacking state
-        if (_attacking)
-        {
-            //Increment the attack timer by frame time
-            _attackingTimer += Time.deltaTime;
-
-            //If we have exceeded an attacks duration
-            if (_attackingTimer > _attackingDuration)
-            {
-                //Reset the timer and the attacking states
-                _attackingTimer = 0.0f;
-                _attacking = false;
-                _animator.SetBool("Attacking", _attacking);
-                _animator.SetBool("HeavyAttack", _heavyAttack);
-                _weaponToSwing.SetActive(false);
-
-                InteractionPoint point = _interactPoints.GetInteractionPoint(_interactionDirection);
-
-                foreach(GameObject obj in point.ObjectsInTrigger)
-                {
-                    Debug.Log(obj.name);
-                }
-            }
-        }
-
         //stops us from being able to do multiple attacks in one go
         if (_attacking) return;
 
@@ -159,6 +131,20 @@ public class PlayerInput : MonoBehaviour
 
                 _interactionDirection = y < 0.0f ? InteractDirection.Down : InteractDirection.Up;
             }
+        }
+    }
+
+    public void AttackFinished()
+    {
+        _attacking = false;
+        _animator.SetBool("Attacking", _attacking);
+        _animator.SetBool("HeavyAttack", _heavyAttack);
+        _weaponToSwing.SetActive(false);
+
+        InteractionPoint point = _interactPoints.GetInteractionPoint(_interactionDirection);
+        foreach (GameObject obj in point.ObjectsInTrigger)
+        {
+            Debug.Log(obj.name);
         }
     }
 }

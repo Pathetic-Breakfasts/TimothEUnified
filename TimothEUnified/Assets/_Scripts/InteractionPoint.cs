@@ -20,7 +20,6 @@ public class InteractionPoint : MonoBehaviour
         {
             _objectsInTrigger.Add(col.gameObject);
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D col)
