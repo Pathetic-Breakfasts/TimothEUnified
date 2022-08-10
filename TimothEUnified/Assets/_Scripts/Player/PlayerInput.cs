@@ -19,6 +19,9 @@ public class PlayerInput : MonoBehaviour
 
     Animator _animator;
 
+
+    InteractionPointManager _interactPoints;
+
     Mover _mover;
     Vector2 _movement;
 
@@ -37,6 +40,7 @@ public class PlayerInput : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
+        _interactPoints = GetComponentInChildren<InteractionPointManager>();
     }
 
     // Start is called before the first frame update
@@ -102,6 +106,13 @@ public class PlayerInput : MonoBehaviour
                 _animator.SetBool("Attacking", _attacking);
                 _animator.SetBool("HeavyAttack", _heavyAttack);
                 _weaponToSwing.SetActive(false);
+
+                InteractionPoint point = _interactPoints.GetInteractionPoint(_interactionDirection);
+
+                foreach(GameObject obj in point.ObjectsInTrigger)
+                {
+                    Debug.Log(obj.name);
+                }
             }
         }
 

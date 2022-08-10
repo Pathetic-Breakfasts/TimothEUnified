@@ -9,13 +9,25 @@ public class InteractionPoint : MonoBehaviour
 
     List<GameObject> _objectsInTrigger;
 
+    private void Awake()
+    {
+        _objectsInTrigger = new List<GameObject>();
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
-        _objectsInTrigger.Add(col.gameObject);
+        if (col.CompareTag("Enemy"))
+        {
+            _objectsInTrigger.Add(col.gameObject);
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        _objectsInTrigger.Remove(col.gameObject);
+        if (col.CompareTag("Enemy"))
+        {
+            _objectsInTrigger.Remove(col.gameObject);
+        }
     }
 }
