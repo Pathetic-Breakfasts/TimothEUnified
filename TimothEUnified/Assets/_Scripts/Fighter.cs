@@ -61,16 +61,25 @@ public class Fighter : MonoBehaviour
         _animator.SetBool("HeavyAttack", heavyAttack);
     }
 
-
+    //Called by animation event
     public void AttackFinished()
     {
+        //No longer attacking
         _attacking = false;
         _animator.SetBool("Attacking", _attacking);
         _weaponToSwing.SetActive(false);
 
+        //Gets the desired interaction point
         InteractionPoint point = _interactPoints.GetInteractionPoint(_interactionDirection);
         foreach (GameObject obj in point.ObjectsInTrigger)
         {
+            Health health = obj.GetComponent<Health>();
+
+            if (health)
+            {
+                health.TakeDamage(5.0f); //TODO: Swap this for weapon damage
+            }
+
             Debug.Log(obj.name);
         }
     }

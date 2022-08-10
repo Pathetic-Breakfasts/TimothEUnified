@@ -776,6 +776,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponToSwing: {fileID: 1032669314}
+--- !u!114 &694413719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694413717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684e64d5bdd1e54c8ac1264252751ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _immortal: 0
+  _startingHealth: 50
+  _maxHealth: 100
+  _onDeathAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDamageAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &878626642
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +811,7 @@ GameObject:
   - component: {fileID: 878626644}
   - component: {fileID: 878626643}
   - component: {fileID: 878626645}
+  - component: {fileID: 878626646}
   m_Layer: 0
   m_Name: Player_Idle_Left
   m_TagString: Enemy
@@ -886,6 +911,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &878626646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878626642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684e64d5bdd1e54c8ac1264252751ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _immortal: 0
+  _startingHealth: 50
+  _maxHealth: 100
+  _onDeathAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDamageAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1032669314 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4913633714297042349, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
@@ -1074,6 +1123,7 @@ GameObject:
   - component: {fileID: 1138847283}
   - component: {fileID: 1138847282}
   - component: {fileID: 1138847281}
+  - component: {fileID: 1138847284}
   m_Layer: 0
   m_Name: Player_Idle_Left (2)
   m_TagString: Enemy
@@ -1173,6 +1223,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1138847284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138847280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684e64d5bdd1e54c8ac1264252751ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _immortal: 0
+  _startingHealth: 50
+  _maxHealth: 100
+  _onDeathAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onDamageAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1160044698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,6 +1270,7 @@ GameObject:
   - component: {fileID: 1160044701}
   - component: {fileID: 1160044700}
   - component: {fileID: 1160044699}
+  - component: {fileID: 1160044702}
   m_Layer: 0
   m_Name: Player_Idle_Left (3)
   m_TagString: Enemy
@@ -1283,6 +1370,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1160044702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160044698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684e64d5bdd1e54c8ac1264252751ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _immortal: 0
+  _startingHealth: 50
+  _maxHealth: 100
+  _onDeathAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onDamageAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1339963937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,6 +1417,7 @@ GameObject:
   - component: {fileID: 1339963940}
   - component: {fileID: 1339963939}
   - component: {fileID: 1339963938}
+  - component: {fileID: 1339963941}
   m_Layer: 0
   m_Name: Player_Idle_Left (1)
   m_TagString: Enemy
@@ -1393,6 +1517,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1339963941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339963937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684e64d5bdd1e54c8ac1264252751ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _immortal: 0
+  _startingHealth: 50
+  _maxHealth: 100
+  _onDeathAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onDamageAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1406004271
 GameObject:
   m_ObjectHideFlags: 0
