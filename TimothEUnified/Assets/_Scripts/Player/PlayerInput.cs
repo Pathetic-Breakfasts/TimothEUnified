@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
 
     bool _combatMode = false;
     bool _attacking = false;
-
+    bool _heavyAttack = false;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -84,7 +84,7 @@ public class PlayerInput : MonoBehaviour
                 _attackingTimer = 0.0f;
                 _attacking = false;
                 _animator.SetBool("Attacking", _attacking);
-                _animator.SetBool("HeavyAttack", true);
+                _animator.SetBool("HeavyAttack", _heavyAttack);
                 _weaponToSwing.SetActive(false);
             }
         }
@@ -92,13 +92,15 @@ public class PlayerInput : MonoBehaviour
         //stops us from being able to do multiple attacks in one go
         if (_attacking) return;
 
+        _heavyAttack = Input.GetKey(KeyCode.LeftShift);
+
         if (Input.GetMouseButtonDown(0))
         {
             _attacking = true;
 
             //Play Attack Animation
             _animator.SetBool("Attacking", _attacking);
-            _animator.SetBool("HeavyAttack", true);
+            _animator.SetBool("HeavyAttack", _heavyAttack);
 
             _weaponToSwing.SetActive(true);
 
