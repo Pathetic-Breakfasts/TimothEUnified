@@ -25,6 +25,9 @@ public class ResourceNode : MonoBehaviour
     [SerializeField] ToolType _typeToDestroy;
 
     float _currentHealth;
+
+    float _spriteSwapTarget;
+
     SpriteRenderer _renderer;
 
     private void Awake()
@@ -36,24 +39,26 @@ public class ResourceNode : MonoBehaviour
     {
         _currentHealth = _nodeMaxHealth;
         _renderer.sprite = _sprites[0];
+
+        int lengthOfSpritesArr = _sprites.Length;
+
+        _spriteSwapTarget = _nodeMaxHealth / lengthOfSpritesArr;
     }
 
     public bool CanDestroy(ToolConfig config)
     {
-        return (config._type == _typeToDestroy && config._toolPower > _minimumToolPower);
+        return (config._type == _typeToDestroy && config._toolPower >= _minimumToolPower);
     }
 
     public void TakeHit(float damage)
     {
         _currentHealth -= damage;
 
-        int lengthOfSpritesArr = _sprites.Length;
 
-        float increments = _nodeMaxHealth / lengthOfSpritesArr;
 
-        if(_currentHealth < _nodeMaxHealth - (increments * _currentSpriteIndex))
+        if(_currentHealth <= _nodeMaxHealth - (_spriteSwapTarget * (_currentSpriteIndex + 1)))
         {
-            _currentSpriteIndex = (_currentSpriteIndex + 1) % lengthOfSpritesArr;
+            _currentSpriteIndex = (_currentSpriteIndex + 1) % _sprites.Length;
             _renderer.sprite = _sprites[_currentSpriteIndex];
         }
 

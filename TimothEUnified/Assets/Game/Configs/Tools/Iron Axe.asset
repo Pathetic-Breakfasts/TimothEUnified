@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Iron Axe
   m_EditorClassIdentifier: 
   _type: 2
-  _toolPower: 50
+  _toolPower: 30
   _horizontalSprite: {fileID: -6991178692315468081, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
   _verticalSprite: {fileID: 0}
