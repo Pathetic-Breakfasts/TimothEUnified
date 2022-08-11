@@ -20,12 +20,16 @@ public class PlayerInput : MonoBehaviour
     Mover _mover;
     ActiveWeapon _activeWeapon;
     Vector2 _movement;
+    Vector2 _mousePosAtClick;
 
     bool _combatMode = false;
+    bool _usingTool = false;
 
     public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
 
     InteractDirection _interactionDirection;
+
+    InteractionPointManager _interactPoints;
 
     private void Awake()
     {
@@ -34,6 +38,7 @@ public class PlayerInput : MonoBehaviour
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
         _fighter = GetComponent<Fighter>();
+        _interactPoints = GetComponentInChildren<InteractionPointManager>();
     }
 
     // Start is called before the first frame update
@@ -56,8 +61,12 @@ public class PlayerInput : MonoBehaviour
         {
             AttackingInput();
         }
+        else
+        {
+            ToolInput();
+        }
 
-        if (_fighter.IsAttacking)
+        if (_fighter.IsAttacking || _usingTool)
         {
             _movement = Vector2.zero;
             return;
@@ -69,6 +78,30 @@ public class PlayerInput : MonoBehaviour
         _animator.SetFloat("Horizontal", _movement.x);
         _animator.SetFloat("Vertical", _movement.y);
         _animator.SetFloat("Speed", _movement.sqrMagnitude);
+    }
+
+    private void ToolInput()
+    {
+        if (_usingTool) return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            _usingTool = true;
+            _animator.SetBool("UsingTool", true);
+
+            _mousePosAtClick = Input.mousePosition;
+            Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+
+            _interactionDirection = CalculateDirection(playerScreenPos, _mousePosAtClick);
+            Vector2 dir = GetDirectionVector(_interactionDirection);
+
+            _animator.SetFloat("CombatHorizontal", dir.x);
+            _animator.SetFloat("CombatVertical", dir.y);
+
+
+
+
+        }
     }
 
     private void FixedUpdate()
@@ -84,7 +117,7 @@ public class PlayerInput : MonoBehaviour
     private void AttackingInput()
     {
         //stops us from being able to do multiple attacks in one go
-        if (_fighter.IsAttacking) return;
+        if (_fighter.IsAttacking || _usingTool) return;
 
 
         if (Input.GetMouseButtonDown(0))
@@ -93,25 +126,7 @@ public class PlayerInput : MonoBehaviour
             Vector2 mousePosition = Input.mousePosition;
             Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 
-            //Gets the distance between the player and mouse 
-            float horizontalDistance = playerScreenPos.x - mousePosition.x;
-            float verticalDistance = playerScreenPos.y - mousePosition.y;
-
-            //Finds out if the distance in the x axis or the y axis is greatest
-            float xDistToZero = horizontalDistance < 0.0f ? Mathf.Abs(horizontalDistance) : horizontalDistance;
-            float yDistToZero = verticalDistance < 0.0f ? Mathf.Abs(verticalDistance) : verticalDistance;
-
-            //Attack on the left or right
-            if (xDistToZero > yDistToZero)
-            {
-                _interactionDirection = horizontalDistance > 0.0f ? InteractDirection.Left : InteractDirection.Right;
-            }
-            //attack up or down
-            else
-            {
-                _interactionDirection = verticalDistance > 0.0f ? InteractDirection.Down : InteractDirection.Up;
-            }
-
+            _interactionDirection = CalculateDirection(playerScreenPos, mousePosition);
 
             //Should we heavy attack
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
@@ -119,4 +134,92 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public void ToolUseFinished()
+    {
+        _usingTool = false;
+        _animator.SetBool("UsingTool", false);
+
+        Vector2 lastDir = GetDirectionVector(_interactionDirection);
+        _animator.SetFloat("LastHorizontal", lastDir.x);
+        _animator.SetFloat("LastVertical", lastDir.y);
+
+        GameObject closestObj = null;
+        float closestDistance = 10000.0f;
+
+        InteractionPoint ip = _interactPoints.GetInteractionPoint(_interactionDirection);
+
+        foreach (GameObject obj in ip.ObjectsInTrigger)
+        {
+            if (!obj.CompareTag("ResourceNode")) continue;
+
+            Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+
+            float dist = Vector2.Distance(rnPos, _mousePosAtClick);
+            if (dist < closestDistance)
+            {
+                closestObj = obj;
+                closestDistance = dist;
+            }
+        }
+
+        if (closestObj != null)
+        {
+            ResourceNode rn = closestObj.GetComponent<ResourceNode>();
+
+            if (rn)
+            {
+                rn.TakeHit(50.0f);
+            }
+        }
+    }
+
+
+    public InteractDirection CalculateDirection(Vector2 a, Vector2 b)
+    {
+        InteractDirection dir;
+
+        //Gets the distance between the player and mouse 
+        float horizontalDistance = a.x - b.x;
+        float verticalDistance = a.y - b.y;
+
+        //Finds out if the distance in the x axis or the y axis is greatest
+        float xDistToZero = horizontalDistance < 0.0f ? Mathf.Abs(horizontalDistance) : horizontalDistance;
+        float yDistToZero = verticalDistance < 0.0f ? Mathf.Abs(verticalDistance) : verticalDistance;
+
+        if (xDistToZero > yDistToZero)
+        {
+            dir = horizontalDistance > 0.0f ? InteractDirection.Left : InteractDirection.Right;
+        }
+        else
+        {
+            dir = verticalDistance > 0.0f ? InteractDirection.Down : InteractDirection.Up;
+        }
+
+        return dir;
+    }
+
+    private Vector2 GetDirectionVector(InteractDirection dir)
+    {
+        Vector2 vec = Vector2.zero;
+
+        switch (dir)
+        {
+            case InteractDirection.None:
+                break;
+            case InteractDirection.Up:
+                vec.y = 1.0f;
+                break;
+            case InteractDirection.Down:
+                vec.y = -1.0f;
+                break;
+            case InteractDirection.Left:
+                vec.x = -1.0f;
+                break;
+            case InteractDirection.Right:
+                vec.x = 1.0f;
+                break;
+        }
+
+        return vec;
+    }
 }
