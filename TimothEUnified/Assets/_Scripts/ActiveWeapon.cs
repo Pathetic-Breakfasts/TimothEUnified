@@ -5,8 +5,6 @@ using UnityEngine;
 public class ActiveWeapon : MonoBehaviour
 {
     [SerializeField] WeaponConfig _config;
-
-
     [SerializeField] SpriteRenderer _swordSpriteRenderer;
 
     Fighter _fighter;

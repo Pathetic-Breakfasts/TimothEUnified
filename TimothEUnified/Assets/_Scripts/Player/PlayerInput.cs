@@ -19,11 +19,13 @@ public class PlayerInput : MonoBehaviour
 
     Mover _mover;
     ActiveWeapon _activeWeapon;
+    ActiveTool _activeTool;
+
     Vector2 _movement;
     Vector2 _mousePosAtClick;
 
     bool _combatMode = false;
-    bool _usingTool = false;
+    //bool _usingTool = false;
 
     public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
 
@@ -34,6 +36,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         _activeWeapon = GetComponent<ActiveWeapon>();
+        _activeTool = GetComponent<ActiveTool>();
 
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
@@ -66,9 +69,10 @@ public class PlayerInput : MonoBehaviour
             ToolInput();
         }
 
-        if (_fighter.IsAttacking || _usingTool)
+        if (_fighter.IsAttacking || _activeTool.UsingTool)
         {
             _movement = Vector2.zero;
+            _animator.SetFloat("Speed", 0.0f);
             return;
         }
 
@@ -80,29 +84,7 @@ public class PlayerInput : MonoBehaviour
         _animator.SetFloat("Speed", _movement.sqrMagnitude);
     }
 
-    private void ToolInput()
-    {
-        if (_usingTool) return;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            _usingTool = true;
-            _animator.SetBool("UsingTool", true);
-
-            _mousePosAtClick = Input.mousePosition;
-            Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-
-            _interactionDirection = CalculateDirection(playerScreenPos, _mousePosAtClick);
-            Vector2 dir = GetDirectionVector(_interactionDirection);
-
-            _animator.SetFloat("CombatHorizontal", dir.x);
-            _animator.SetFloat("CombatVertical", dir.y);
-
-
-
-
-        }
-    }
 
     private void FixedUpdate()
     {
@@ -117,7 +99,7 @@ public class PlayerInput : MonoBehaviour
     private void AttackingInput()
     {
         //stops us from being able to do multiple attacks in one go
-        if (_fighter.IsAttacking || _usingTool) return;
+        if (_fighter.IsAttacking || _activeTool.UsingTool) return;
 
 
         if (Input.GetMouseButtonDown(0))
@@ -134,45 +116,26 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    public void ToolUseFinished()
+    private void ToolInput()
     {
-        _usingTool = false;
-        _animator.SetBool("UsingTool", false);
+        if (_activeTool.UsingTool || _fighter.IsAttacking) return;
 
-        Vector2 lastDir = GetDirectionVector(_interactionDirection);
-        _animator.SetFloat("LastHorizontal", lastDir.x);
-        _animator.SetFloat("LastVertical", lastDir.y);
-
-        GameObject closestObj = null;
-        float closestDistance = 10000.0f;
-
-        InteractionPoint ip = _interactPoints.GetInteractionPoint(_interactionDirection);
-
-        foreach (GameObject obj in ip.ObjectsInTrigger)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (!obj.CompareTag("ResourceNode")) continue;
+            _mousePosAtClick = Input.mousePosition;
+            Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 
-            Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+            _interactionDirection = CalculateDirection(playerScreenPos, _mousePosAtClick);
+            Vector2 dir = GetDirectionVector(_interactionDirection);
 
-            float dist = Vector2.Distance(rnPos, _mousePosAtClick);
-            if (dist < closestDistance)
-            {
-                closestObj = obj;
-                closestDistance = dist;
-            }
-        }
+            _activeTool.UseTool(_interactionDirection, _mousePosAtClick);
 
-        if (closestObj != null)
-        {
-            ResourceNode rn = closestObj.GetComponent<ResourceNode>();
-
-            if (rn)
-            {
-                rn.TakeHit(50.0f);
-            }
+            _animator.SetFloat("CombatHorizontal", dir.x);
+            _animator.SetFloat("CombatVertical", dir.y);
+            _animator.SetFloat("LastHorizontal", dir.x);
+            _animator.SetFloat("LastVertical", dir.y);
         }
     }
-
 
     public InteractDirection CalculateDirection(Vector2 a, Vector2 b)
     {

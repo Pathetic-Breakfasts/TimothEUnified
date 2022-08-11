@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27db9db2ddf4e64881d8a8688bc643c, type: 3}
+  m_Name: Steel Axe
+  m_EditorClassIdentifier: 
+  _type: 2
+  _toolPower: 120
+  _horizontalSprite: {fileID: 6316759896842925169, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
+  _verticalSprite: {fileID: 0}

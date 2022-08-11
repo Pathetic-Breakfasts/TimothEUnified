@@ -83,8 +83,6 @@ public class Fighter : MonoBehaviour
             {
                 health.TakeDamage(_current._damage); //TODO: Swap this for weapon damage
             }
-
-            Debug.Log(obj.name);
         }
     }
 }
