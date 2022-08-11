@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab6f999ccfe559498187970e3bcd09f, type: 3}
   m_Name: Iron Sword
   m_EditorClassIdentifier: 
-  _horizontalSprite: {fileID: 21300000, guid: 782b3e0885c471a458a1b0cb57a38d83, type: 3}
-  _verticalSprite: {fileID: 0}
+  _horizontalSprite: {fileID: 5381698226662430329, guid: 782b3e0885c471a458a1b0cb57a38d83, type: 3}
+  _verticalSprite: {fileID: 8439377768975851580, guid: 782b3e0885c471a458a1b0cb57a38d83, type: 3}
   _damage: 5
