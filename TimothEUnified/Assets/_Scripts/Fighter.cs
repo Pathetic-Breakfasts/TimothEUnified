@@ -12,6 +12,7 @@ public class Fighter : MonoBehaviour
     [SerializeField] GameObject _weaponToSwing;
     InteractDirection _interactionDirection;
 
+    WeaponConfig _current;
     public bool IsAttacking { get => _attacking; }
 
     private void Awake()
@@ -26,8 +27,9 @@ public class Fighter : MonoBehaviour
 
     }
 
-    public void Attack(InteractDirection desiredDirection, bool heavyAttack)
+    public void Attack(InteractDirection desiredDirection, bool heavyAttack, WeaponConfig config)
     {
+        _current = config;
         _weaponToSwing.SetActive(true);
         _interactionDirection = desiredDirection;
         _attacking = true;
@@ -61,6 +63,8 @@ public class Fighter : MonoBehaviour
         _animator.SetBool("HeavyAttack", heavyAttack);
     }
 
+
+
     //Called by animation event
     public void AttackFinished()
     {
@@ -77,7 +81,7 @@ public class Fighter : MonoBehaviour
 
             if (health)
             {
-                health.TakeDamage(5.0f); //TODO: Swap this for weapon damage
+                health.TakeDamage(_current._damage); //TODO: Swap this for weapon damage
             }
 
             Debug.Log(obj.name);

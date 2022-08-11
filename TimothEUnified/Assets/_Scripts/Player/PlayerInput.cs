@@ -14,14 +14,11 @@ public enum InteractDirection
 
 public class PlayerInput : MonoBehaviour
 {
-    //[SerializeField] GameObject _weaponToSwing;
-
-
     Fighter _fighter;
     Animator _animator;
 
-
     Mover _mover;
+    ActiveWeapon _activeWeapon;
     Vector2 _movement;
 
     bool _combatMode = false;
@@ -32,6 +29,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Awake()
     {
+        _activeWeapon = GetComponent<ActiveWeapon>();
+
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
         _fighter = GetComponent<Fighter>();
@@ -116,7 +115,7 @@ public class PlayerInput : MonoBehaviour
 
             //Should we heavy attack
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
-            _fighter.Attack(_interactionDirection, heavyAttack);
+            _activeWeapon.Attack(_interactionDirection, heavyAttack);
         }
     }
 

@@ -800,6 +800,20 @@ MonoBehaviour:
   _onHealAction:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &694413720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694413717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1d04921425b614a8533a60908a6b4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
+  _swordSpriteRenderer: {fileID: 4913633714780046164}
 --- !u!1 &878626642
 GameObject:
   m_ObjectHideFlags: 0
@@ -6935,6 +6949,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4913633713854478205, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _swap
+      value: 
+      objectReference: {fileID: 11400000, guid: c48beb4044940f244b0f09f3acc75a5c, type: 2}
+    - target: {fileID: 4913633713854478205, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _default
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
     - target: {fileID: 4913633714074625856, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
       value: 1.7777778
@@ -6978,3 +7000,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4913633713854478200, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+--- !u!212 &4913633714780046164 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4913633714297042003, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+  m_PrefabInstance: {fileID: 4913633714780046163}
+  m_PrefabAsset: {fileID: 0}
