@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: 4d15689602b2e9a419f4729e622b4cd0
+guid: 4fc670b2d1641384e8dfc5c5871c3def
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7650908931602768939
-    second: Rock_Small_0
+      213: -4341760069129859358
+    second: IronHoe_0
   - first:
-      213: -8230500852408548011
-    second: Rock_Small_1
-  - first:
-      213: -649534272968378525
-    second: Rock_Small_2
-  - first:
-      213: -7210524886987992813
-    second: Rock_Small_3
+      213: 8042863427149715223
+    second: IronHoe_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,7 +133,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rock_Small_0
+      name: IronHoe_0
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b24eb05132d7d2a60800000000000000
-      internalID: 7650908931602768939
+      spriteID: 2ee0a838838feb3c0800000000000000
+      internalID: -4341760069129859358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rock_Small_1
+      name: IronHoe_1
       rect:
         serializedVersion: 2
         x: 32
@@ -174,50 +168,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55583a0f41367cd80800000000000000
-      internalID: -8230500852408548011
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rock_Small_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 367374625046cf6f0800000000000000
-      internalID: -649534272968378525
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rock_Small_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31197fa71d11feb90800000000000000
-      internalID: -7210524886987992813
+      spriteID: 7175d309cadfd9f60800000000000000
+      internalID: 8042863427149715223
       vertices: []
       indices: 
       edges: []

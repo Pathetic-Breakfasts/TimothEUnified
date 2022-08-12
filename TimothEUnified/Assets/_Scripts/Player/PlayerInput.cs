@@ -33,6 +33,11 @@ public class PlayerInput : MonoBehaviour
 
     InteractionPointManager _interactPoints;
 
+    //TODO: This is temporary until we have a hot bar setup
+    [SerializeField] ToolConfig _axeConfig;
+    [SerializeField] ToolConfig _pickaxeConfig;
+    [SerializeField] ToolConfig _hoeConfig;
+
     private void Awake()
     {
         _activeWeapon = GetComponent<ActiveWeapon>();
@@ -53,6 +58,19 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _activeTool.ChangeTool(_axeConfig);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _activeTool.ChangeTool(_pickaxeConfig);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _activeTool.ChangeTool(_hoeConfig);
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _combatMode = !_combatMode;
