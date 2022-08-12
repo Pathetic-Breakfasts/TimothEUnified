@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22f04b620b95d4643b524edabe86814e, type: 3}
+  m_Name: DirtTiles
+  m_EditorClassIdentifier: 
+  tiles:
+  - {fileID: 11400000, guid: 021674fa0a1662d4091dd348606cbc59, type: 2}
+  - {fileID: 11400000, guid: 382cfe73959d57542824b6af59d51820, type: 2}
+  - {fileID: 11400000, guid: 922de03333d434a418c0d849d672304f, type: 2}
+  - {fileID: 11400000, guid: dbce4fb05f59e5c4eaeab0095bf40a1d, type: 2}
+  - {fileID: 11400000, guid: e97331dd4aea7a24ab24fac3f48aeb55, type: 2}
+  - {fileID: 11400000, guid: d41c265aa2d79ff41913914845ff543a, type: 2}
+  - {fileID: 11400000, guid: f01e9eb0df5d1d24da6d3b3a5a4005b6, type: 2}
+  - {fileID: 11400000, guid: 473f77e994fae7549acd4845966ac1b1, type: 2}
+  - {fileID: 11400000, guid: ef11e2f5b3d40544ea78910916575d95, type: 2}
+  - {fileID: 11400000, guid: 4b7ee7f17a3d56f45941749773006ac3, type: 2}
+  - {fileID: 11400000, guid: 13ca1d4b9a0209c4988ce670c878bd4c, type: 2}
+  - {fileID: 11400000, guid: 4240c984ff221374b8347f5b783712aa, type: 2}
+  - {fileID: 11400000, guid: e5e009686790d5d45b0fdafb6caaef6e, type: 2}
+  _farmable: 0

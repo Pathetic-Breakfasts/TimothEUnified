@@ -24,8 +24,8 @@ public class PlayerInput : MonoBehaviour
     Vector2 _movement;
     Vector2 _mousePosAtClick;
 
+
     bool _combatMode = false;
-    //bool _usingTool = false;
 
     public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
 

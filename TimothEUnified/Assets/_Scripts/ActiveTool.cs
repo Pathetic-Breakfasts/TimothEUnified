@@ -53,7 +53,7 @@ public class ActiveTool : MonoBehaviour
         InteractionPoint ip = _interactPoints.GetInteractionPoint(_interactionDirection);
         foreach (GameObject obj in ip.ObjectsInTrigger)
         {
-            if (!obj.CompareTag("ResourceNode")) continue;
+            if (!obj.CompareTag("ResourceNode") && !obj.CompareTag("Farmland")) continue;
 
             Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
 
@@ -74,6 +74,21 @@ public class ActiveTool : MonoBehaviour
                 if (rn.CanDestroy(_config))
                 {
                     rn.TakeHit(_config._toolPower);
+                }
+            }
+            else
+            {
+                if(_config._type == ToolType.Hoe)
+                {
+                    FarmableLand fl = closestObj.GetComponent<FarmableLand>();
+
+                    if (fl)
+                    {
+                        if(!fl.IsOccupied)
+                        {
+                            fl.IsTilled = true;
+                        }
+                    }
                 }
             }
         }
