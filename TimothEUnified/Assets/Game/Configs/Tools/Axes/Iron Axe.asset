@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 2
   _toolPower: 30
-  _horizontalSprite: {fileID: -6991178692315468081, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
-  _verticalSprite: {fileID: 0}
+  _horizontalSprite: {fileID: 5127326418951840272, guid: 63d3af640d0e79048a57648e46810a05, type: 3}
+  _verticalSprite: {fileID: -2450834262562999488, guid: 63d3af640d0e79048a57648e46810a05, type: 3}

@@ -20,19 +20,30 @@ public class ResourceNode : MonoBehaviour
 
     int _currentSpriteIndex = 0;
 
-    [SerializeField] Sprite[] _sprites;
     [SerializeField] float _minimumToolPower = 30.0f;
     [SerializeField] ToolType _typeToDestroy;
+
+    [Header("Graphics Settings")]
+    [SerializeField] Sprite[] _sprites;
+
+    [Header("Sound Settings")]
+    [SerializeField] AudioClip _canDestroyHitSfx;
+    [SerializeField] AudioClip _cantDestroyHitSfx;
+    [SerializeField] AudioClip _destroyedSfx;
 
     float _currentHealth;
 
     float _spriteSwapTarget;
 
+    
     SpriteRenderer _renderer;
+    AudioSource _source;
+
 
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
+        _source = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -47,7 +58,17 @@ public class ResourceNode : MonoBehaviour
 
     public bool CanDestroy(ToolConfig config)
     {
-        return (config._type == _typeToDestroy && config._toolPower >= _minimumToolPower);
+        bool returnVal = (config._type == _typeToDestroy && config._toolPower >= _minimumToolPower);
+
+        if (!returnVal)
+        {
+            if(_source != null && _cantDestroyHitSfx != null)
+            {
+                _source.PlayOneShot(_cantDestroyHitSfx);
+            }
+        }
+
+        return returnVal;
     }
 
     public void TakeHit(float damage)
@@ -64,7 +85,19 @@ public class ResourceNode : MonoBehaviour
 
         if (_currentHealth <= 0.0f)
         {
+            if(_source != null && _destroyedSfx != null)
+            {
+                _source.PlayOneShot(_destroyedSfx);
+            }
+
             Destroy(gameObject);
+        }
+        else
+        {
+            if(_source != null && _canDestroyHitSfx != null)
+            {
+                _source.PlayOneShot(_canDestroyHitSfx);
+            }
         }
     }
 }
