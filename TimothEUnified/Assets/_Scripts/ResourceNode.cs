@@ -19,6 +19,8 @@ public class ResourceNode : MonoBehaviour
     [SerializeField] int _amount = 1;
 
     int _currentSpriteIndex = 0;
+    Animation _shakeAnim;
+
 
     [SerializeField] float _minimumToolPower = 30.0f;
     [SerializeField] ToolType _typeToDestroy;
@@ -44,6 +46,7 @@ public class ResourceNode : MonoBehaviour
     {
         _renderer = GetComponent<SpriteRenderer>();
         _source = GetComponent<AudioSource>();
+        _shakeAnim = GetComponent<Animation>();
     }
 
     private void Start()
@@ -97,6 +100,7 @@ public class ResourceNode : MonoBehaviour
             if(_source != null && _canDestroyHitSfx != null)
             {
                 _source.PlayOneShot(_canDestroyHitSfx);
+                _shakeAnim.Play();
             }
         }
     }

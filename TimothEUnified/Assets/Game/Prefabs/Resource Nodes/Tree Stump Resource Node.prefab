@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7108386890364588318}
   - component: {fileID: 7108386890364588385}
   - component: {fileID: 7108386890364588314}
+  - component: {fileID: 8255411072442365088}
   m_Layer: 0
   m_Name: Tree Stump Resource Node
   m_TagString: ResourceNode
@@ -255,3 +256,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!111 &8255411072442365088
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7108386890364588384}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: fadb87472b3da2a4cb9a796cc923ff80, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: fadb87472b3da2a4cb9a796cc923ff80, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
