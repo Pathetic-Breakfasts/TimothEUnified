@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fb0695cc9bc7f4ab6c62a1f8afe2cb, type: 3}
   m_Name: Lettuce
   m_EditorClassIdentifier: 
-  type: 0
+  type: 6
   growthSpriteArray:
   - {fileID: -7523970955242101793, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}
   - {fileID: 4535925395531633388, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}

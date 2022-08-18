@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fb0695cc9bc7f4ab6c62a1f8afe2cb, type: 3}
   m_Name: Tomatoe
   m_EditorClassIdentifier: 
-  type: 0
+  type: 5
   growthSpriteArray:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
+  - {fileID: 3824498671837561107, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
+  - {fileID: -6474780379893477836, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
+  - {fileID: -966772353475456211, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   daysToGrow: 7
   incorrectSeasonPentalty: 0.2
   idealSeasonToGrow: 0

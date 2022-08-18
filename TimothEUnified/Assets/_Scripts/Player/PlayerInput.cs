@@ -45,7 +45,7 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] LayerMask _farmableLand;
 
-
+    DayManager _dayManager;
     private void Awake()
     {
         _activeWeapon = GetComponent<ActiveWeapon>();
@@ -55,6 +55,7 @@ public class PlayerInput : MonoBehaviour
         _mover = GetComponent<Mover>();
         _fighter = GetComponent<Fighter>();
         _interactPoints = GetComponentInChildren<InteractionPointManager>();
+        _dayManager = FindObjectOfType<DayManager>();
     }
 
     // Start is called before the first frame update
@@ -95,6 +96,11 @@ public class PlayerInput : MonoBehaviour
             _selectedConfig = _lettuceConfig;
         }
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            _dayManager.NewDay();
+        }
+
         //F to pay respects (plant)
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -108,6 +114,24 @@ public class PlayerInput : MonoBehaviour
                     if (fl.ReadyToPlant())
                     {
                         fl.Plant(_selectedConfig);
+                    }
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (Vector2.Distance(mousePosition, transform.position) < 1.5f)
+            {
+                RaycastHit2D h = Physics2D.Raycast(mousePosition, Vector2.zero, 10.0f, _farmableLand);
+                if (h.collider != null)
+                {
+                    FarmableLand fl = h.collider.GetComponent<FarmableLand>();
+                    if (fl.ReadyToHarvest())
+                    {
+                        fl.Harvest();
                     }
                 }
             }

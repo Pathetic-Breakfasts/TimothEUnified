@@ -6,9 +6,13 @@ public class Crop : MonoBehaviour
 {
     private CropConfig _config;
 
+    public CropConfig Config { get => _config; }
+
     private int _daysSincePlanted = 0;
 
     SpriteRenderer _sp;
+
+    bool _readyToPick = false;
 
     private void Awake()
     {
@@ -21,11 +25,26 @@ public class Crop : MonoBehaviour
 
         Debug.Log("Crop has been planted for: " + _daysSincePlanted + " days");
 
-        //TODO: Handle sprite switching logic
+        int noOfSprites = _config.growthSpriteArray.Length; //4
+        int spriteDivider = _config.daysToGrow / noOfSprites; //3
+
+        int spriteElement = (_daysSincePlanted / spriteDivider);
+        if(spriteElement >= noOfSprites)
+        {
+            spriteElement = noOfSprites - 1;
+        }
+
+        _sp.sprite = _config.growthSpriteArray[spriteElement];
+
+        if(_daysSincePlanted > _config.daysToGrow)
+        {
+            _readyToPick = true;
+        }
     }
 
     public bool ReadyToPick()
     {
+        return _readyToPick;
         if(_daysSincePlanted >= _config.daysToGrow)
         {
             return true;

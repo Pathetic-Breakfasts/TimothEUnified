@@ -8,7 +8,10 @@ public enum CropType
     Potatoes,
     Beetroots,
     Oat,
-    Wheat
+    Wheat,
+    Tomatoes,
+    Lettuce,
+    Cabbage
 }
 
 public enum Seasons
@@ -20,7 +23,7 @@ public enum Seasons
 }
 
 
-[CreateAssetMenu(menuName ="Configs/New Crop Config")]
+[CreateAssetMenu(menuName ="Configs/Crop Config")]
 public class CropConfig : ScriptableObject
 {
     public CropType type;

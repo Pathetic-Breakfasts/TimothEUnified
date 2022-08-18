@@ -5,6 +5,8 @@ using UnityEngine;
 public class FarmableLand : MonoBehaviour
 {
     [SerializeField] Crop _cropPrefab;
+    [SerializeField] Sprite _tilledSprite;
+    [SerializeField] Sprite _untilledSprite;
 
     public bool IsOccupied { get => _isOccupied; set => _isOccupied = value; }
     bool _isOccupied = false;
@@ -12,7 +14,7 @@ public class FarmableLand : MonoBehaviour
     public bool IsTilled { get => _isTilled; set
         {
             _isTilled = value;
-            GetComponent<SpriteRenderer>().color = _isTilled ? Color.green : Color.red;
+            GetComponent<SpriteRenderer>().sprite = _isTilled ? _tilledSprite : _untilledSprite;
         }
     }
     bool _isTilled = false;
@@ -36,8 +38,36 @@ public class FarmableLand : MonoBehaviour
         }
     }
 
+    public void Harvest()
+    {
+
+        Crop co = GetComponentInChildren<Crop>();
+        if (co)
+        {
+            if (co.ReadyToPick())
+            {
+                //TODO: Actually pickup the crop (requires inventory)
+                Debug.Log("Gained 1 " + co.Config.type);
+
+                _isOccupied = false;
+                Destroy(co.gameObject);
+
+            }
+        }
+    }
+
     public bool ReadyToPlant()
     {
         return !_isOccupied && _isTilled;
+    }
+
+    public bool ReadyToHarvest()
+    {
+        Crop co = GetComponentInChildren<Crop>();
+        if (co)
+        {
+            if (co.ReadyToPick()) return true;
+        }
+        return false;
     }
 }

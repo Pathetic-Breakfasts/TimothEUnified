@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cropPrefab: {fileID: 3604818203093086020, guid: 74dada15615f5294981a70e6daee3c78, type: 3}
+  _tilledSprite: {fileID: 954490159988430888, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
+  _untilledSprite: {fileID: 5744295494702524529, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
 --- !u!61 &1838247497330030909
 BoxCollider2D:
   m_ObjectHideFlags: 0
