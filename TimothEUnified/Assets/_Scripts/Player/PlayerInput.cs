@@ -43,6 +43,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] ToolConfig _pickaxeConfig;
     [SerializeField] ToolConfig _hoeConfig;
 
+    [SerializeField] LayerMask _farmableLand;
+
 
     private void Awake()
     {
@@ -96,29 +98,17 @@ public class PlayerInput : MonoBehaviour
         //F to pay respects (plant)
         if (Input.GetKeyDown(KeyCode.F))
         {
-            GameObject closestObj = null;
-            float closestDistance = 1000.0f;
-            InteractionPoint ip = _interactPoints.GetInteractionPoint(_interactionDirection);
-            foreach (GameObject obj in ip.ObjectsInTrigger)
-            {
-                if (!obj.CompareTag("ResourceNode") && !obj.CompareTag("Farmland")) continue;
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
-
-                float dist = Vector2.Distance(rnPos, _mousePosAtClick);
-                if (dist < closestDistance)
+            if(Vector2.Distance(mousePosition, transform.position) < 1.5f) {
+                RaycastHit2D h = Physics2D.Raycast(mousePosition, Vector2.zero, 10.0f, _farmableLand);
+                if (h.collider != null)
                 {
-                    closestObj = obj;
-                    closestDistance = dist;
-                }
-            }
-
-            if (closestObj != null)
-            {
-                FarmableLand fl = closestObj.GetComponent<FarmableLand>();
-                if (fl.ReadyToPlant())
-                {
-                    fl.Plant(_selectedConfig);
+                    FarmableLand fl = h.collider.GetComponent<FarmableLand>();
+                    if (fl.ReadyToPlant())
+                    {
+                        fl.Plant(_selectedConfig);
+                    }
                 }
             }
         }
