@@ -25,6 +25,11 @@ public class PlayerInput : MonoBehaviour
     Vector2 _mousePosAtClick;
 
 
+    [SerializeField] CropConfig _carrotConfig;
+    [SerializeField] CropConfig _tomatoesConfig;
+    [SerializeField] CropConfig _lettuceConfig;
+    CropConfig _selectedConfig;
+
     bool _combatMode = false;
 
     public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
@@ -37,6 +42,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] ToolConfig _axeConfig;
     [SerializeField] ToolConfig _pickaxeConfig;
     [SerializeField] ToolConfig _hoeConfig;
+
 
     private void Awake()
     {
@@ -53,11 +59,14 @@ public class PlayerInput : MonoBehaviour
     void Start()
     {
         _interactionDirection = InteractDirection.None;
+
+        _selectedConfig = _carrotConfig;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //TESTING CODE START
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _activeTool.ChangeTool(_axeConfig);
@@ -70,6 +79,53 @@ public class PlayerInput : MonoBehaviour
         {
             _activeTool.ChangeTool(_hoeConfig);
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            _selectedConfig = _carrotConfig;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            _selectedConfig = _tomatoesConfig;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            _selectedConfig = _lettuceConfig;
+        }
+
+        //F to pay respects (plant)
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject closestObj = null;
+            float closestDistance = 1000.0f;
+            InteractionPoint ip = _interactPoints.GetInteractionPoint(_interactionDirection);
+            foreach (GameObject obj in ip.ObjectsInTrigger)
+            {
+                if (!obj.CompareTag("ResourceNode") && !obj.CompareTag("Farmland")) continue;
+
+                Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+
+                float dist = Vector2.Distance(rnPos, _mousePosAtClick);
+                if (dist < closestDistance)
+                {
+                    closestObj = obj;
+                    closestDistance = dist;
+                }
+            }
+
+            if (closestObj != null)
+            {
+                FarmableLand fl = closestObj.GetComponent<FarmableLand>();
+                if (fl.ReadyToPlant())
+                {
+                    fl.Plant(_selectedConfig);
+                }
+            }
+        }
+
+
+
+        //TESTING CODE END
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
