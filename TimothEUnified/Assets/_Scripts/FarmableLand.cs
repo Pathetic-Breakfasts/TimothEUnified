@@ -6,65 +6,50 @@ using UnityEngine.Tilemaps;
 public class FarmableLand : MonoBehaviour
 {
     [SerializeField] Crop _cropPrefab;
-    [SerializeField] Sprite _tilledSprite;
-    [SerializeField] Sprite _untilledSprite;
 
+    [Header("Graphics Settings")]
     [SerializeField] RuleTile _untilledTile;
     [SerializeField] RuleTile _tilledTile;
 
 
     Tilemap _tilemap; 
-    public bool IsOccupied { get => _isOccupied; set => _isOccupied = value; }
+
     bool _isOccupied = false;
+    public bool IsOccupied { get => _isOccupied; set => _isOccupied = value; }
+
+    Crop _childCrop;
+    bool _isTilled = false;
 
     public bool IsTilled { get => _isTilled; set
         {
             _isTilled = value;
 
-            if(_tilemap == null)
-            {
-                Tilemap[] tms = FindObjectsOfType<Tilemap>();
-
-                foreach (Tilemap tm in tms)
-                {
-                    if (tm.gameObject.name == "Tilemap_Decoration")
-                    {
-                        _tilemap = tm;
-                    }
-                }
-
-                if (_tilemap == null)
-                {
-                    Debug.Log("Tilemap_Decoration was not found");
-                }
-            }
-
             Vector3Int tPos = _tilemap.WorldToCell(transform.position);
             TileBase tb = value ? _tilledTile : _untilledTile;
             _tilemap.SetTile(tPos, tb);
-            //GetComponent<SpriteRenderer>().sprite = _isTilled ? _tilledSprite : _untilledSprite;
         }
     }
-    bool _isTilled = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //Finds all tilemap objects in the scene
         Tilemap[] tms = FindObjectsOfType<Tilemap>();
-
         foreach(Tilemap tm in tms)
         {
-            if(tm.gameObject.name == "Tilemap_Decoration")
+            //Finds the correct tilemap 
+            if(tm.gameObject.name == "Tilemap_Farmland")
             {
                 _tilemap = tm;
+                break;
             }
         }
 
         if(_tilemap == null)
         {
-            Debug.Log("Tilemap_Decoration was not found");
+            Debug.LogWarning("Tilemap_Decoration was not found");
         }
+
         IsTilled = false;
     }
 
@@ -72,29 +57,27 @@ public class FarmableLand : MonoBehaviour
     {
         if (ReadyToPlant())
         {
-            Crop cropObject = Instantiate(_cropPrefab);
-            cropObject.transform.parent = transform;
-            cropObject.transform.position = Vector2.zero;
-            cropObject.transform.localPosition = Vector2.zero;
-            cropObject.Plant(desiredCrop);
+            _childCrop = Instantiate(_cropPrefab);
+            _childCrop.transform.parent = transform;
+            _childCrop.transform.position = Vector2.zero;
+            _childCrop.transform.localPosition = Vector2.zero;
+            _childCrop.Plant(desiredCrop);
             _isOccupied = true;
         }
     }
 
     public void Harvest()
     {
-
-        Crop co = GetComponentInChildren<Crop>();
-        if (co)
+        if (_childCrop)
         {
-            if (co.ReadyToPick())
+            if (_childCrop.ReadyToPick())
             {
                 //TODO: Actually pickup the crop (requires inventory)
-                Debug.Log("Gained 1 " + co.Config.type);
+                Debug.Log("Gained 1 " + _childCrop.Config.type);
 
+                Destroy(_childCrop.gameObject);
                 _isOccupied = false;
-                Destroy(co.gameObject);
-
+                _childCrop = null;
             }
         }
     }
@@ -106,11 +89,7 @@ public class FarmableLand : MonoBehaviour
 
     public bool ReadyToHarvest()
     {
-        Crop co = GetComponentInChildren<Crop>();
-        if (co)
-        {
-            if (co.ReadyToPick()) return true;
-        }
-        return false;
+        //Makes sure we have a child crop and if it is ready to harvest
+        return (_childCrop && _childCrop.ReadyToPick());
     }
 }

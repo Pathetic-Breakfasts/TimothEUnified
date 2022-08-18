@@ -51,47 +51,69 @@ public class ActiveTool : MonoBehaviour
         float closestDistance = 10000.0f;
 
         InteractionPoint ip = _interactPoints.GetInteractionPoint(_interactionDirection);
-        foreach (GameObject obj in ip.ObjectsInTrigger)
+
+        //Current tool is a hoe. Checks for closest farmland in trigger
+        if (_config._type == ToolType.Hoe)
         {
-            if (!obj.CompareTag("ResourceNode") && !obj.CompareTag("Farmland")) continue;
-
-            Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
-
-            float dist = Vector2.Distance(rnPos, _mousePosAtClick);
-            if (dist < closestDistance)
+            foreach (GameObject obj in ip.ObjectsInTrigger)
             {
-                closestObj = obj;
-                closestDistance = dist;
-            }
-        }
+                if (!obj.CompareTag("Farmland")) continue;
 
-        if (closestObj != null)
-        {
-            ResourceNode rn = closestObj.GetComponent<ResourceNode>();
+                Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
 
-            if (rn)
-            {
-                if (rn.CanDestroy(_config))
+                float dist = Vector2.Distance(rnPos, _mousePosAtClick);
+                if (dist < closestDistance)
                 {
-                    rn.TakeHit(_config._toolPower);
+                    closestObj = obj;
+                    closestDistance = dist;
                 }
             }
-            else
-            {
-                if(_config._type == ToolType.Hoe)
-                {
-                    FarmableLand fl = closestObj.GetComponent<FarmableLand>();
 
-                    if (fl)
+            if (closestObj != null)
+            {
+
+                FarmableLand fl = closestObj.GetComponent<FarmableLand>();
+
+                if (fl)
+                {
+                    if (!fl.IsOccupied)
                     {
-                        if(!fl.IsOccupied)
-                        {
-                            fl.IsTilled = true;
-                        }
+                        fl.IsTilled = true;
                     }
                 }
             }
         }
+        //Current tool is not a hoe. Checks for resource nodes instead of farmland
+        else
+        {
+            foreach (GameObject obj in ip.ObjectsInTrigger)
+            {
+                if (!obj.CompareTag("ResourceNode")) continue;
+
+                Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+
+                float dist = Vector2.Distance(rnPos, _mousePosAtClick);
+                if (dist < closestDistance)
+                {
+                    closestObj = obj;
+                    closestDistance = dist;
+                }
+            }
+
+            if (closestObj)
+            {
+                ResourceNode rn = closestObj.GetComponent<ResourceNode>();
+
+                if (rn)
+                {
+                    if (rn.CanDestroy(_config))
+                    {
+                        rn.TakeHit(_config._toolPower);
+                    }
+                }
+            }
+        }
+
         _toolSpriteRenderer.gameObject.SetActive(false);
     }
 

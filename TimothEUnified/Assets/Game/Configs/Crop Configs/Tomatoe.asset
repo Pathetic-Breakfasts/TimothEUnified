@@ -19,5 +19,5 @@ MonoBehaviour:
   - {fileID: -6474780379893477836, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   - {fileID: -966772353475456211, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   daysToGrow: 7
-  incorrectSeasonPentalty: 0.2
+  incorrectSeasonPentalty: 1
   idealSeasonToGrow: 0

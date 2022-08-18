@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DayManager : MonoBehaviour
 {
+    [SerializeField] Seasons _currentSeason;
+    public Seasons CurrentSeason { get => _currentSeason; }
+
     public void NewDay()
     {
         FarmableLand[] fls = FindObjectsOfType<FarmableLand>();

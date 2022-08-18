@@ -14,9 +14,13 @@ public class Crop : MonoBehaviour
 
     bool _readyToPick = false;
 
+    int _timeToGrowCrop;
+
+    DayManager _dm;
+
     private void Awake()
     {
-        
+        _dm = FindObjectOfType<DayManager>();
     }
 
     public void ProgressDay()
@@ -26,7 +30,7 @@ public class Crop : MonoBehaviour
         Debug.Log("Crop has been planted for: " + _daysSincePlanted + " days");
 
         int noOfSprites = _config.growthSpriteArray.Length; //4
-        int spriteDivider = _config.daysToGrow / noOfSprites; //3
+        int spriteDivider = _timeToGrowCrop / noOfSprites; //3
 
         int spriteElement = (_daysSincePlanted / spriteDivider);
         if(spriteElement >= noOfSprites)
@@ -36,7 +40,7 @@ public class Crop : MonoBehaviour
 
         _sp.sprite = _config.growthSpriteArray[spriteElement];
 
-        if(_daysSincePlanted > _config.daysToGrow)
+        if(_daysSincePlanted > _timeToGrowCrop)
         {
             _readyToPick = true;
         }
@@ -45,17 +49,16 @@ public class Crop : MonoBehaviour
     public bool ReadyToPick()
     {
         return _readyToPick;
-        if(_daysSincePlanted >= _config.daysToGrow)
-        {
-            return true;
-        }
-        return false;
     }
 
     public void Plant(CropConfig config)
     {
         _config = config;
 
+        //Calculates the amount of time it will take to grow the plant based on if we are in the correct season or not
+        float timeToGrow = (_dm.CurrentSeason == _config.idealSeasonToGrow) ? (float)_config.daysToGrow : (float)_config.daysToGrow * (1.0f + _config.incorrectSeasonPentalty);
+
+        _timeToGrowCrop = (int)timeToGrow;
 
         _sp = GetComponent<SpriteRenderer>();
         _sp.sprite = _config.growthSpriteArray[0];
