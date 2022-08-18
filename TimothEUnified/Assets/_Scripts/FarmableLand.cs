@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class FarmableLand : MonoBehaviour
 {
@@ -8,13 +9,40 @@ public class FarmableLand : MonoBehaviour
     [SerializeField] Sprite _tilledSprite;
     [SerializeField] Sprite _untilledSprite;
 
+    [SerializeField] RuleTile _untilledTile;
+    [SerializeField] RuleTile _tilledTile;
+
+
+    Tilemap _tilemap; 
     public bool IsOccupied { get => _isOccupied; set => _isOccupied = value; }
     bool _isOccupied = false;
 
     public bool IsTilled { get => _isTilled; set
         {
             _isTilled = value;
-            GetComponent<SpriteRenderer>().sprite = _isTilled ? _tilledSprite : _untilledSprite;
+
+            if(_tilemap == null)
+            {
+                Tilemap[] tms = FindObjectsOfType<Tilemap>();
+
+                foreach (Tilemap tm in tms)
+                {
+                    if (tm.gameObject.name == "Tilemap_Decoration")
+                    {
+                        _tilemap = tm;
+                    }
+                }
+
+                if (_tilemap == null)
+                {
+                    Debug.Log("Tilemap_Decoration was not found");
+                }
+            }
+
+            Vector3Int tPos = _tilemap.WorldToCell(transform.position);
+            TileBase tb = value ? _tilledTile : _untilledTile;
+            _tilemap.SetTile(tPos, tb);
+            //GetComponent<SpriteRenderer>().sprite = _isTilled ? _tilledSprite : _untilledSprite;
         }
     }
     bool _isTilled = false;
@@ -22,7 +50,22 @@ public class FarmableLand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        IsTilled = false;   
+
+        Tilemap[] tms = FindObjectsOfType<Tilemap>();
+
+        foreach(Tilemap tm in tms)
+        {
+            if(tm.gameObject.name == "Tilemap_Decoration")
+            {
+                _tilemap = tm;
+            }
+        }
+
+        if(_tilemap == null)
+        {
+            Debug.Log("Tilemap_Decoration was not found");
+        }
+        IsTilled = false;
     }
 
     public void Plant(CropConfig desiredCrop)
