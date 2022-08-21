@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
-    [SerializeField] string levelToTransitionTo;
-    [SerializeField] int indexToTransitionTo;
+    [SerializeField] string _levelToTransitionTo;
+    [SerializeField] int _indexToTransitionTo;
 
+    [SerializeField] int _transitionId;
+
+    public int TransitionID { get => _transitionId; }
 
     IEnumerator LoadScene()
     {
@@ -17,13 +20,25 @@ public class SceneTransition : MonoBehaviour
 
         yield return StartCoroutine(fade.FadeIn());
 
-        yield return SceneManager.LoadSceneAsync(levelToTransitionTo);
+        yield return SceneManager.LoadSceneAsync(_levelToTransitionTo);
 
+        fade = FindObjectOfType<Fader>();
+        fade.FadeOutImmediate();
 
         yield return StartCoroutine(fade.FadeWait());
 
+        SceneTransition trans = null;
+        foreach (SceneTransition transition in FindObjectsOfType<SceneTransition>())
+        {
+            if (transition.TransitionID == _indexToTransitionTo)
+            {
+                trans = transition;
+                break;
+            }
+        }
 
-        fade = FindObjectOfType<Fader>();
+        FindObjectOfType<PlayerInput>().transform.position = trans.transform.GetChild(0).position;
+
         yield return StartCoroutine(fade.FadeOut());
 
         Destroy(gameObject);
