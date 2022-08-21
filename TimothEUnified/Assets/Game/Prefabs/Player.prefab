@@ -80,7 +80,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8365147085001494864
@@ -125,14 +125,13 @@ GameObject:
   - component: {fileID: 8365147085474458261}
   - component: {fileID: 8365147085474458260}
   - component: {fileID: 8365147085474458262}
-  - component: {fileID: 8365147085474458263}
   - component: {fileID: 8365147085474458256}
   - component: {fileID: 8365147085474458257}
   - component: {fileID: 8365147085474458258}
   - component: {fileID: 609090401565977042}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 8365147085474458267}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8365147086381552742}
   m_Father: {fileID: 0}
@@ -225,19 +224,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8365147085474458263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8365147085474458267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66a3f4d339db1ac49aa32b0c4003d88f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 5
 --- !u!95 &8365147085474458256
 Animator:
   serializedVersion: 3
@@ -274,7 +260,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 1}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 0.5, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -295,7 +281,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed6804d01673554eaf2c0e487aa8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponToSwing: {fileID: 8365147084948138050}
+  _carrotConfig: {fileID: 0}
+  _tomatoesConfig: {fileID: 0}
+  _lettuceConfig: {fileID: 0}
+  _axeConfig: {fileID: 0}
+  _pickaxeConfig: {fileID: 0}
+  _hoeConfig: {fileID: 0}
+  _farmableLand:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &609090401565977042
 MonoBehaviour:
   m_ObjectHideFlags: 0
