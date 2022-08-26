@@ -1,16 +1,17 @@
 using Pathfinding;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPathfinder : MonoBehaviour
 {
+    [Header("Destination Settings")]
     [SerializeField] Transform _target;
 
-    [SerializeField] float _moveSpeed;
+    [Header("Speed Settings")]
+    [SerializeField] float _moveSpeed = 200.0f;
 
-    [SerializeField] float _speed = 200.0f;
-    [SerializeField] float _nextWaypointDistance = 3f;
+    [Header("Tolerance Settings")]
+    [Tooltip("Next Waypoint Tolerance specifies the amount of distance required between the moving object and it's current waypoint before moving to it's next target")]
+    [Min(0.01f)][SerializeField] float _nextWaypointTolerance = 3f;
 
     Path _path;
     Seeker _seeker;
@@ -26,14 +27,12 @@ public class EnemyPathfinder : MonoBehaviour
         _seeker = GetComponent<Seeker>();
         
     }
-
-    private void Start()
-    {
-        InvokeRepeating("UpdatePath", 0f, 1f);
-    }
-
     void UpdatePath()
     {
+        //Safety check
+        if (_target == null) return;
+
+        //Checks that the seeker has finished calculating it's current path. Stops the risk of continually calculating a path
         if (_seeker.IsDone())
         {
             _seeker.StartPath(_rb.position, _target.position, OnPathComplete);
@@ -42,6 +41,7 @@ public class EnemyPathfinder : MonoBehaviour
 
     void OnPathComplete(Path p)
     {
+        //If the path did not have an error then set the path point
         if (!p.error)
         {
             _path = p;
@@ -49,35 +49,58 @@ public class EnemyPathfinder : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if(_path == null)
+        if(_path != null)
         {
-            return;
+            Move();
         }    
+    }
 
-        if(_currentWaypoint >= _path.vectorPath.Count)
-        {
-            _reachedEndOfPath = true;
-            return;
-        }
-        else
-        {
-            _reachedEndOfPath = false;
-        }
+    void Move()
+    {
+        //Have we finished the path
+        _reachedEndOfPath = _currentWaypoint >= _path.vectorPath.Count;
 
+        //Don't calculate movement forces if we do not need to move
+        if (_reachedEndOfPath) return;
+
+        //Calculate our direction vector and the force vector
         Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] - _rb.position).normalized;
-        Vector2 force = direction * _moveSpeed * Time.fixedDeltaTime;
+        Vector2 force = direction * _moveSpeed * Time.fixedDeltaTime; //Move() is called in the FixedUpdate() hence the need for fixedDeltaTime
 
+        //Adds the force to our rigidbody
         _rb.AddForce(force);
 
+        //checks to see if we are within distance of our next waypoint
         float distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentWaypoint]);
-        if(distance < _nextWaypointDistance)
+        if (distance < _nextWaypointTolerance)
         {
             _currentWaypoint++;
         }
+    }
 
+    /// <summary>
+    /// Sets the target for this pathfinder
+    /// </summary>
+    /// <param name="t">New target transform</param>
+    /// <param name="repeatDestination">If this is set to true then the path will be updated every updateIncrement (next paramater)</param>
+    /// <param name="updateIncrement">The amount of time between calculating a updated path</param>
+    public void SetTargetTransform(Transform t, bool repeatDestination = false, float updateIncrement = 1.0f)
+    {
+        //Sets the target
+        _target = t;
 
+            
+        //Cancel the current invoke of the update path method
+        //Regardless of if the repeatDestination is true or false this needs to happen to avoid the same method being invoked multiple times
+        CancelInvoke("UpdatePath");
+
+        if (repeatDestination)
+        {
+            //Reinvokes the update path method with the desired update increment
+            InvokeRepeating("UpdatePath", 0f, updateIncrement);
+        }
+        
     }
 }
