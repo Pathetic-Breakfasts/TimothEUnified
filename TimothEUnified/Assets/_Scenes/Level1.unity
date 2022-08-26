@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 430074517}
   - component: {fileID: 430074518}
+  - component: {fileID: 430074519}
   m_Layer: 0
   m_Name: Gfx
   m_TagString: Untagged
@@ -195,7 +196,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 120
-  m_Sprite: {fileID: 598807780130508675, guid: c27b91594ea88e64599531e71700f1c4, type: 3}
+  m_Sprite: {fileID: 6038494560130200728, guid: 58fa96db28c4d2149825de096a36f14e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -206,6 +207,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &430074519
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430074516}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 9249cf56244eeca49b6387baa0187ecf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +793,7 @@ GameObject:
   - component: {fileID: 967880959}
   - component: {fileID: 967880958}
   - component: {fileID: 967880955}
+  - component: {fileID: 967880960}
   m_Layer: 0
   m_Name: Test Enemy
   m_TagString: Untagged
@@ -861,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0410f240343b824499ca983e8488fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  _target: {fileID: 4913633714780046164}
   _moveSpeed: 200
   _nextWaypointTolerance: 0.5
 --- !u!50 &967880959
@@ -885,6 +906,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &967880960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967880953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb3341858468b141a4fb3daf5921021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1038324610
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,14 +7350,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
-    - target: {fileID: 4913633713854478202, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4913633713854478203, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4913633713854478203, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -7334,12 +7359,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4913633713854478203, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 7623802574860782647, guid: 4da32f304edade644a993be6da80ae1b, type: 3}
-    - target: {fileID: 4913633713854478203, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4913633713854478206, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4913633713854478206, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4913633714297042349, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_Layer

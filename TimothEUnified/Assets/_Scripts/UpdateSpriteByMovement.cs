@@ -6,10 +6,12 @@ using UnityEngine;
 public class UpdateSpriteByMovement : MonoBehaviour
 {
     Rigidbody2D _rb;
+    Animator _animator;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
 
@@ -20,8 +22,14 @@ public class UpdateSpriteByMovement : MonoBehaviour
 
 
         //Calculates which axis has the stronger pull
-        float xDistToZero = rbVelocity.x < 0.0f ? Mathf.Abs(rbVelocity.x) : rbVelocity.y;
+        float xDistToZero = rbVelocity.x < 0.0f ? Mathf.Abs(rbVelocity.x) : rbVelocity.x;
         float yDistToZero = rbVelocity.y < 0.0f ? Mathf.Abs(rbVelocity.y) : rbVelocity.y;
+
+        if (Mathf.Approximately(rbVelocity.x, 0.0f) && Mathf.Approximately(rbVelocity.y, 0.0f))
+        {
+            _animator.SetFloat("speed", 0.0f);
+            return;
+        }
 
         //Is the character moving more in the X axis than the Y
         if(xDistToZero > yDistToZero)
@@ -35,7 +43,9 @@ public class UpdateSpriteByMovement : MonoBehaviour
             direction.y = rbVelocity.y < 0.0f ? -1.0f : 1.0f;
         }
 
-
+        _animator.SetFloat("horizontal", direction.x);
+        _animator.SetFloat("vertical", direction.y);
+        _animator.SetFloat("speed", direction.magnitude);
 
     }
 }

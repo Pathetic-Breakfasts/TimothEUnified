@@ -45,9 +45,12 @@ public class EnemyPathfinder : MonoBehaviour
         //Safety check
         if (_target == null) return;
 
+        Debug.Log("Updating path");
+
         //Checks that the seeker has finished calculating it's current path. Stops the risk of continually calculating a path
         if (_seeker.IsDone())
         {
+            Debug.Log("Finding new path");
             _seeker.StartPath(_rb.position, _target.position, OnPathComplete);
         }
     }
@@ -59,6 +62,10 @@ public class EnemyPathfinder : MonoBehaviour
         {
             _path = p;
             _currentWaypoint = 0;
+        }
+        else
+        {
+            Debug.Log("Pathing on agent: " + transform.name + " failed. Reason: " + p.errorLog);
         }
     }
 
@@ -72,6 +79,7 @@ public class EnemyPathfinder : MonoBehaviour
 
     void Move()
     {
+
         //Have we finished the path
         _reachedEndOfPath = _currentWaypoint >= _path.vectorPath.Count;
 
@@ -84,6 +92,7 @@ public class EnemyPathfinder : MonoBehaviour
 
         //Adds the force to our rigidbody
         _rb.AddForce(force);
+        Debug.Log("Adding Force");
 
         //checks to see if we are within distance of our next waypoint
         float distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentWaypoint]);
@@ -104,15 +113,14 @@ public class EnemyPathfinder : MonoBehaviour
         //Sets the target
         _target = t;
 
-            
-        //Cancel the current invoke of the update path method
-        //Regardless of if the repeatDestination is true or false this needs to happen to avoid the same method being invoked multiple times
-        CancelInvoke("UpdatePath");
-
         if (repeatDestination)
         {
             //Reinvokes the update path method with the desired update increment
             InvokeRepeating("UpdatePath", 0f, updateIncrement);
+        }
+        else
+        {
+            UpdatePath();
         }
         
     }
