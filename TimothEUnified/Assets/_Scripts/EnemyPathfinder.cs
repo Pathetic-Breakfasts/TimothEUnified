@@ -1,6 +1,9 @@
 using Pathfinding;
 using UnityEngine;
 
+//Adds Rigidbody2D and Seeker components to this object by default if they do not exist
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Seeker))]
 public class EnemyPathfinder : MonoBehaviour
 {
     [Header("Destination Settings")]
@@ -27,6 +30,16 @@ public class EnemyPathfinder : MonoBehaviour
         _seeker = GetComponent<Seeker>();
         
     }
+
+    private void Start()
+    {
+        //If the pathfinder has a target by default then navigate to it on Start()
+        if(_target != null)
+        {
+            SetTargetTransform(_target);
+        }
+    }
+
     void UpdatePath()
     {
         //Safety check
