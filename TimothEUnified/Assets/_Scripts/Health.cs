@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
     {
         _onDamageAction.Invoke();
 
-        Debug.Log("Health: " + _currentHealth);
+        Debug.Log(gameObject.name + " Health: " + _currentHealth);
     }
 
     public virtual void OnDeath()

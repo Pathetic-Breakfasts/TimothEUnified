@@ -18,19 +18,31 @@ public class Fighter : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        if(_animator == null)
+        {
+            _animator = GetComponentInChildren<Animator>();
+        }
+
         _interactPoints = GetComponentInChildren<InteractionPointManager>();
     }
 
     private void Start()
     {
-        _weaponToSwing.SetActive(false);
-
+        if(_weaponToSwing)
+            _weaponToSwing.SetActive(false);
     }
 
     public void Attack(InteractDirection desiredDirection, bool heavyAttack, WeaponConfig config)
     {
+        if (_attacking) return;
+
         _current = config;
-        _weaponToSwing.SetActive(true);
+
+        if (_weaponToSwing)
+        {
+            _weaponToSwing.SetActive(true);
+        }
+
         _interactionDirection = desiredDirection;
         _attacking = true;
 
@@ -71,7 +83,11 @@ public class Fighter : MonoBehaviour
         //No longer attacking
         _attacking = false;
         _animator.SetBool("Attacking", _attacking);
-        _weaponToSwing.SetActive(false);
+
+        if (_weaponToSwing)
+        {
+            _weaponToSwing.SetActive(false);
+        }
 
         //Gets the desired interaction point
         InteractionPoint point = _interactPoints.GetInteractionPoint(_interactionDirection);

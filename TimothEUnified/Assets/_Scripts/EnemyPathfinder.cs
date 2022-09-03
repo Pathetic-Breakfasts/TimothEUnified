@@ -8,6 +8,8 @@ public class EnemyPathfinder : MonoBehaviour
 {
     [Header("Destination Settings")]
     [SerializeField] Transform _target;
+    [Min(0.01f)][SerializeField] float _stoppingDistance;
+
 
     [Header("Speed Settings")]
     [SerializeField] float _moveSpeed = 200.0f;
@@ -83,8 +85,15 @@ public class EnemyPathfinder : MonoBehaviour
         //Have we finished the path
         _reachedEndOfPath = _currentWaypoint >= _path.vectorPath.Count;
 
+        float remainingDistance = Vector2.Distance(_rb.position, _path.vectorPath[_path.vectorPath.Count - 1]);
+        if(remainingDistance < _stoppingDistance)
+        {
+            _reachedEndOfPath = true;
+        }
+
         //Don't calculate movement forces if we do not need to move
         if (_reachedEndOfPath) return;
+
 
         //Calculate our direction vector and the force vector
         Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] - _rb.position).normalized;
