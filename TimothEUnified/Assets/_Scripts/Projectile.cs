@@ -22,10 +22,6 @@ public class Projectile : MonoBehaviour
 
     public void SetTarget(Transform intendedTarget, GameObject instigator, float damage)
     {
-        Vector3 dirVec = (intendedTarget.position - transform.position).normalized;
-
-        Debug.Log(dirVec);
-
         Vector3 dir = intendedTarget.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

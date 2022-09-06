@@ -28,6 +28,17 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] CropConfig _carrotConfig;
     [SerializeField] CropConfig _tomatoesConfig;
     [SerializeField] CropConfig _lettuceConfig;
+
+    [SerializeField] Transform _weaponAttach;
+    float _originalEulerZ;
+    float _eulerZTargetAngle;
+    float _attackDuration = 1.0f;
+    float _attackTimer;
+    bool _attacking = false;
+
+    [SerializeField] float _weaponSwingAmount = 90.0f;
+
+
     CropConfig _selectedConfig;
 
     bool _combatMode = false;
@@ -137,8 +148,6 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-
-
         //TESTING CODE END
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -157,7 +166,33 @@ public class PlayerInput : MonoBehaviour
             ToolInput();
         }
 
-        if (_fighter.IsAttacking || _activeTool.UsingTool)
+        if(_attacking)
+        {
+            Vector3 euler = _weaponAttach.localEulerAngles;
+            euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, 15.0f * Time.deltaTime);
+            _weaponAttach.localEulerAngles = euler;
+
+            float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
+
+            if(diffToTarget < 3.0f)
+            {
+                _attacking = false;
+            }
+
+        }
+
+        if (!_attacking)
+        {
+            Vector2 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 dir = mPos - (Vector2)transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            _weaponAttach.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+
+        if (_fighter.IsAttacking || _activeTool.UsingTool || _attacking)
         {
             _movement = Vector2.zero;
             _animator.SetFloat("Speed", 0.0f);
@@ -189,6 +224,7 @@ public class PlayerInput : MonoBehaviour
         //stops us from being able to do multiple attacks in one go
         if (_fighter.IsAttacking || _activeTool.UsingTool) return;
 
+        if (_attacking) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -200,7 +236,21 @@ public class PlayerInput : MonoBehaviour
 
             //Should we heavy attack
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
-            _activeWeapon.Attack(_interactionDirection, heavyAttack);
+            //_activeWeapon.Attack(_interactionDirection, heavyAttack);
+
+            _originalEulerZ = _weaponAttach.localEulerAngles.z;
+            _attacking = true;
+            _attackTimer = 0.0f;
+            _eulerZTargetAngle = _originalEulerZ + _weaponSwingAmount;
+
+            //if(_interactionDirection == InteractDirection.Left || _interactionDirection == InteractDirection.Up)
+            //{
+            //    _eulerZTargetAngle = _originalEulerZ  - _weaponSwingAmount;
+            //}
+            //else if(_interactionDirection == InteractDirection.Right || _interactionDirection == InteractDirection.Down)
+            //{
+            //    _eulerZTargetAngle = _originalEulerZ + _weaponSwingAmount;
+            //}
         }
     }
 
