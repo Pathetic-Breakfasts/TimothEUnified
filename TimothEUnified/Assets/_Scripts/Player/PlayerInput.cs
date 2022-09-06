@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
 
     Mover _mover;
     ActiveWeapon _activeWeapon;
+    PlayerWeapon _playerWeapon;
     ActiveTool _activeTool;
 
     Vector2 _movement;
@@ -32,8 +33,6 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] Transform _weaponAttach;
     float _originalEulerZ;
     float _eulerZTargetAngle;
-    float _attackDuration = 1.0f;
-    float _attackTimer;
     bool _attacking = false;
 
     [SerializeField] float _weaponSwingAmount = 90.0f;
@@ -61,6 +60,7 @@ public class PlayerInput : MonoBehaviour
     {
         _activeWeapon = GetComponent<ActiveWeapon>();
         _activeTool = GetComponent<ActiveTool>();
+        _playerWeapon = GetComponentInChildren<PlayerWeapon>();
 
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
@@ -154,6 +154,9 @@ public class PlayerInput : MonoBehaviour
         {
             _combatMode = !_combatMode;
 
+            _weaponAttach.GetChild(0).gameObject.SetActive(_combatMode);
+            
+
             _animator.SetBool("InCombatMode", _combatMode);
         }
 
@@ -176,6 +179,7 @@ public class PlayerInput : MonoBehaviour
 
             if(diffToTarget < 3.0f)
             {
+                _playerWeapon.EndSwing();
                 _attacking = false;
             }
 
@@ -239,18 +243,11 @@ public class PlayerInput : MonoBehaviour
             //_activeWeapon.Attack(_interactionDirection, heavyAttack);
 
             _originalEulerZ = _weaponAttach.localEulerAngles.z;
+
             _attacking = true;
-            _attackTimer = 0.0f;
             _eulerZTargetAngle = _originalEulerZ + _weaponSwingAmount;
 
-            //if(_interactionDirection == InteractDirection.Left || _interactionDirection == InteractDirection.Up)
-            //{
-            //    _eulerZTargetAngle = _originalEulerZ  - _weaponSwingAmount;
-            //}
-            //else if(_interactionDirection == InteractDirection.Right || _interactionDirection == InteractDirection.Down)
-            //{
-            //    _eulerZTargetAngle = _originalEulerZ + _weaponSwingAmount;
-            //}
+            _playerWeapon.StartSwing();
         }
     }
 
