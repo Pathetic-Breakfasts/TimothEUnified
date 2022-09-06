@@ -8,7 +8,9 @@ public class EnemyPathfinder : MonoBehaviour
 {
     [Header("Destination Settings")]
     [SerializeField] Transform _target;
-    [Min(0.01f)][SerializeField] float _stoppingDistance;
+
+    [Tooltip("Currently stopping distance should be no lower than 1.0. This is due to Rigidbodies can push each other around. Will require extreme fuckery to fix.")]
+    [Min(1.01f)][SerializeField] float _stoppingDistance = 0.5f;
 
 
     [Header("Speed Settings")]
@@ -23,6 +25,9 @@ public class EnemyPathfinder : MonoBehaviour
     int _currentWaypoint;
     bool _reachedEndOfPath = false;
 
+    public Vector2 DirectionVector { get => _directionVector; }
+
+    Vector2 _directionVector;
     
     Rigidbody2D _rb;
 
@@ -89,19 +94,25 @@ public class EnemyPathfinder : MonoBehaviour
         if(remainingDistance < _stoppingDistance)
         {
             _reachedEndOfPath = true;
+            _rb.velocity = Vector2.zero;
+            _rb.angularVelocity = 0.0f;
         }
 
         //Don't calculate movement forces if we do not need to move
         if (_reachedEndOfPath) return;
 
 
-        //Calculate our direction vector and the force vector
-        Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] - _rb.position).normalized;
-        Vector2 force = direction * _moveSpeed * Time.fixedDeltaTime; //Move() is called in the FixedUpdate() hence the need for fixedDeltaTime
+        //Calculate our direction vector
+        _directionVector = ((Vector2)_path.vectorPath[_currentWaypoint] - _rb.position).normalized;
 
-        //Adds the force to our rigidbody
-        _rb.AddForce(force);
-        Debug.Log("Adding Force");
+
+        //Calculates our new position
+        Vector2 newPos = transform.position;
+        newPos += _directionVector * _moveSpeed * Time.fixedDeltaTime;
+        
+        //Sets our new position
+        transform.position = newPos;
+
 
         //checks to see if we are within distance of our next waypoint
         float distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentWaypoint]);

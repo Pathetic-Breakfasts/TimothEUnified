@@ -43,7 +43,7 @@ public class AIController : MonoBehaviour
             if(distance < 1.5f)
             {
                 //Calculate actual attack direction
-                _weapon.Attack(InteractDirection.Left, true);
+                //_weapon.Attack(InteractDirection.Left, true);
 
             }
         }

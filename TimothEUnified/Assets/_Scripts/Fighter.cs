@@ -93,11 +93,16 @@ public class Fighter : MonoBehaviour
         InteractionPoint point = _interactPoints.GetInteractionPoint(_interactionDirection);
         foreach (GameObject obj in point.ObjectsInTrigger)
         {
+            if (obj == null) continue;
+
             Health health = obj.GetComponent<Health>();
 
             if (health)
             {
-                health.TakeDamage(_current._damage); //TODO: Swap this for weapon damage
+                if (_current)
+                {
+                    health.TakeDamage(_current._damage); //TODO: Swap this for weapon damage
+                }
             }
         }
     }
