@@ -117,9 +117,10 @@ public class AIController : MonoBehaviour
         {
             SetTarget(closestObj.transform);
         }
-
-
-
+        else
+        {
+            SetTarget(_playerTrans);
+        }
     }
 
     public void SetTarget(Transform target)

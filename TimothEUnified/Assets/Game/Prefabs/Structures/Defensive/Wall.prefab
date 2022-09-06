@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5604993021470598154}
   - component: {fileID: 5604993021470598153}
   - component: {fileID: 5604993021470598152}
+  - component: {fileID: 2391133465595418051}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Defence Structure
@@ -158,3 +159,19 @@ MonoBehaviour:
   _onHealAction:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2391133465595418051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604993021470598157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 8260269128960922117
+  updateError: 1
+  checkTime: 0.2

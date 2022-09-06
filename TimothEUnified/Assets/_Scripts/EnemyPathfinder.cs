@@ -9,8 +9,8 @@ public class EnemyPathfinder : MonoBehaviour
     [Header("Destination Settings")]
     [SerializeField] Transform _target;
 
-    [Tooltip("Currently stopping distance should be no lower than 1.0. This is due to Rigidbodies can push each other around. Will require extreme fuckery to fix.")]
-    [Min(1.01f)][SerializeField] float _stoppingDistance = 0.5f;
+    [Tooltip("Currently stopping distance should be no lower than 1.0. This is due to Rigidbodies can push each other around. Will require extreme fuckery to fix.\nPlayer and Enemy will be able to push each other. Not ideal")]
+    [Min(0.9f)][SerializeField] float _stoppingDistance = 0.5f;
 
 
     [Header("Speed Settings")]
