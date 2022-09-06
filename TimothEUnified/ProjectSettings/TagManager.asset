@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - ResourceNode
   - Farmland
+  - Defence Structure
+  - Valuable Structure
+  - Offence Structure
   layers:
   - Default
   - TransparentFX

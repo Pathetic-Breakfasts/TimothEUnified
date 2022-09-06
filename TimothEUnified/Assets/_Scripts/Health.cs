@@ -5,19 +5,21 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] bool _immortal = false;
-
+    [Header("General Settings")]
     [SerializeField] float _startingHealth = 50.0f;
     [SerializeField] float _maxHealth = 100.0f;
 
+    [Header("Death Related Settings")]
+    [SerializeField] bool _immortal = false;
+    [SerializeField] bool _destroyOnDeath = false;
+
+    [Header("Events")]
     [SerializeField] UnityEvent _onDeathAction;
     [SerializeField] UnityEvent _onDamageAction;
     [SerializeField] UnityEvent _onHealAction;
 
+
     bool _dead = false;
-
-    [SerializeField] bool _destroyOnDeath = false;
-
     float _currentHealth;
 
     private void LateUpdate()
