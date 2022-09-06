@@ -13,18 +13,49 @@ public class Projectile : MonoBehaviour
     [SerializeField] string[] _acceptedTags;
 
 
+    float _damage;
 
-
-    // Update is called once per frame
     void Update()
     {
-        Vector3 pos = transform.position;
-        pos += transform.forward * _movementSpeed;
-        transform.position = pos;
+        transform.position += transform.right * Time.deltaTime * _movementSpeed;
     }
 
+    public void SetTarget(Transform intendedTarget, GameObject instigator, float damage)
+    {
+        Vector3 dirVec = (intendedTarget.position - transform.position).normalized;
+
+        Debug.Log(dirVec);
+
+        Vector3 dir = intendedTarget.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        _damage = damage;
+    }
     void OnTriggerEnter2D(Collider2D col)
     {
-        
+        bool _shouldBeDestroyed = false;
+
+        foreach (string s in _acceptedTags)
+        {
+            if (col.CompareTag(s))
+            {
+                Health targetHealth = col.gameObject.GetComponent<Health>();
+
+                if (targetHealth)
+                {
+                    targetHealth.TakeDamage(_damage);
+                }
+
+                _shouldBeDestroyed = true;
+
+                continue;
+            }
+        }
+
+        if (_shouldBeDestroyed)
+        {
+            Destroy(gameObject);
+        }
     }
 }
