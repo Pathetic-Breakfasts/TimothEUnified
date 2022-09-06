@@ -244,8 +244,16 @@ public class PlayerInput : MonoBehaviour
 
             _originalEulerZ = _weaponAttach.localEulerAngles.z;
 
+            _eulerZTargetAngle = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ + _weaponSwingAmount, _weaponSwingAmount);
+
+            _originalEulerZ = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ - 60.0f, 60.0f);
+
+            Vector3 eulers = _weaponAttach.localEulerAngles;
+            eulers.z = _originalEulerZ;
+            _weaponAttach.localEulerAngles = eulers;
+
             _attacking = true;
-            _eulerZTargetAngle = _originalEulerZ + _weaponSwingAmount;
+            //_eulerZTargetAngle = _weaponAttach.localEulerAngles.z + _weaponSwingAmount;
 
             _playerWeapon.StartSwing();
         }
