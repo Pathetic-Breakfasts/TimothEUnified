@@ -876,6 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c31f7b90e03d4641a384ed9ea1f4d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackDistance: 1.5
 --- !u!114 &967880956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,6 +1005,7 @@ MonoBehaviour:
   _onHealAction:
     m_PersistentCalls:
       m_Calls: []
+  _destroyOnDeath: 1
 --- !u!114 &967880963
 MonoBehaviour:
   m_ObjectHideFlags: 0

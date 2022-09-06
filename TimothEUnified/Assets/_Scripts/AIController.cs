@@ -9,7 +9,8 @@ public class AIController : MonoBehaviour
 
     ActiveWeapon _weapon;
 
-
+    [Header("Temporary Debug Variables")]
+    [SerializeField] float _attackDistance = 1.5f;
     private void Awake()
     {
         _weapon = GetComponent<ActiveWeapon>();
@@ -40,10 +41,10 @@ public class AIController : MonoBehaviour
         {
             float distance = Vector2.Distance(transform.position, _target.position);
 
-            if(distance < 1.5f)
+            if(distance < _attackDistance)
             {
                 //Calculate actual attack direction
-                //_weapon.Attack(InteractDirection.Left, true);
+                _weapon.Attack(InteractDirection.Left, true);
 
             }
         }

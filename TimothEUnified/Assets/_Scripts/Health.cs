@@ -16,8 +16,17 @@ public class Health : MonoBehaviour
 
     bool _dead = false;
 
+    [SerializeField] bool _destroyOnDeath = false;
+
     float _currentHealth;
 
+    private void LateUpdate()
+    {
+        if(_dead && _destroyOnDeath)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
