@@ -25,6 +25,10 @@ public class EnemyPathfinder : MonoBehaviour
     int _currentWaypoint;
     bool _reachedEndOfPath = false;
 
+    Weapon _weapon;
+
+    [SerializeField] Transform _weaponAttachPoint;
+
     public Vector2 DirectionVector { get => _directionVector; }
 
     Vector2 _directionVector;
@@ -35,7 +39,7 @@ public class EnemyPathfinder : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _seeker = GetComponent<Seeker>();
-        
+        _weapon = GetComponentInChildren<Weapon>();
     }
 
     private void Start()
@@ -74,6 +78,62 @@ public class EnemyPathfinder : MonoBehaviour
         {
             Debug.Log("Pathing on agent: " + transform.name + " failed. Reason: " + p.errorLog);
         }
+    }
+
+    private void Update()
+    {
+        if(!_weapon.Attacking)
+        {
+            Vector3 eulers = _weaponAttachPoint.localEulerAngles;
+
+            InteractDirection dir = CalculateDirection(_directionVector);
+
+            float zRot = 0.0f;
+            switch (dir)
+            {
+                case InteractDirection.None:
+                    break;
+                case InteractDirection.Up:
+                    zRot = 300.0f;
+                    break;
+                case InteractDirection.Down:
+                    zRot = 150.0f;
+                    break;
+                case InteractDirection.Left:
+                    zRot = 370.0f;
+                    break;
+                case InteractDirection.Right:
+                    zRot = 225.0f;
+                    break;
+            }
+
+            eulers.z = zRot;
+            _weaponAttachPoint.localEulerAngles = eulers;
+        }
+    }
+
+    public InteractDirection CalculateDirection(Vector2 a)
+    {
+        InteractDirection dir;
+
+        //Gets the distance between the player and mouse 
+        float horizontalDistance = a.x;
+        float verticalDistance = a.y;
+
+        //Finds out if the distance in the x axis or the y axis is greatest
+        float xDistToZero = horizontalDistance < 0.0f ? Mathf.Abs(horizontalDistance) : horizontalDistance;
+        float yDistToZero = verticalDistance < 0.0f ? Mathf.Abs(verticalDistance) : verticalDistance;
+
+        if (xDistToZero > yDistToZero)
+        {
+            dir = horizontalDistance > 0.0f ? InteractDirection.Left : InteractDirection.Right;
+        }
+        else
+        {
+            dir = verticalDistance > 0.0f ? InteractDirection.Down : InteractDirection.Up;
+        }
+
+        return dir;
     }
 
     void FixedUpdate()

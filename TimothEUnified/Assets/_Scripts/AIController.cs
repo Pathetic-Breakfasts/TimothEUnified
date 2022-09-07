@@ -17,9 +17,12 @@ public class AIController : MonoBehaviour
     List<GameObject> _targets;
     List<GameObject> _objectsToRemove;
 
+    Weapon _aiWeapon;
+
     private void Awake()
     {
         _weapon = GetComponent<ActiveWeapon>();
+        _aiWeapon = GetComponentInChildren<Weapon>();
         _pathfinder = GetComponent<EnemyPathfinder>();
         _playerTrans = FindObjectOfType<PlayerInput>().transform;
         _objectsToRemove = new List<GameObject>();
@@ -30,11 +33,11 @@ public class AIController : MonoBehaviour
     {
         //TODO: Automate this process with a target tag array.
         _targets = new List<GameObject>();
-        foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Defence Structure"))
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Defence Structure"))
         {
             _targets.Add(obj);
         }
-        foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Offence Structure"))
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Offence Structure"))
         {
             _targets.Add(obj);
         }
@@ -51,7 +54,7 @@ public class AIController : MonoBehaviour
     {
         //TODO: Change this to check a pathfinding distance to the player instead of a euclidian distance
         float distanceToPlayer = Vector2.Distance(transform.position, _playerTrans.position);
-        if(distanceToPlayer < 2.5f)
+        if (distanceToPlayer < 2.5f)
         {
             AttemptAttackOnTransform(_playerTrans);
         }
@@ -79,7 +82,8 @@ public class AIController : MonoBehaviour
             if (distance < _attackDistance)
             {
                 //Calculate actual attack direction
-                _weapon.Attack(InteractDirection.Left, true);
+                //_weapon.Attack(InteractDirection.Left, true);
+                _aiWeapon.StartSwing();
             }
         }
     }
@@ -97,7 +101,7 @@ public class AIController : MonoBehaviour
     {
         float closestDistance = float.MaxValue;
         GameObject closestObj = null;
-        foreach (GameObject obj in _targets) 
+        foreach (GameObject obj in _targets)
         {
             if (obj == null)
             {
@@ -113,7 +117,7 @@ public class AIController : MonoBehaviour
             }
         }
 
-        if(closestObj != null)
+        if (closestObj != null)
         {
             SetTarget(closestObj.transform);
         }

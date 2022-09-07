@@ -8,7 +8,7 @@ public enum InteractDirection
     None = -1,
     Up = 0,
     Down = 1,
-    Left = 2, 
+    Left = 2,
     Right = 3
 }
 
@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
 
     Mover _mover;
     ActiveWeapon _activeWeapon;
-    [SerializeField] PlayerWeapon _playerWeapon;
+    [SerializeField] Weapon _playerWeapon;
     ActiveTool _activeTool;
 
     Vector2 _movement;
@@ -31,18 +31,13 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] CropConfig _lettuceConfig;
 
     [SerializeField] Transform _weaponAttach;
-    float _originalEulerZ;
-    float _eulerZTargetAngle;
     bool _attacking = false;
-
-    [SerializeField] float _weaponSwingAmount = 90.0f;
-
 
     CropConfig _selectedConfig;
 
     bool _combatMode = false;
 
-    public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
+    public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; }
 
     InteractDirection _interactionDirection;
 
@@ -116,7 +111,8 @@ public class PlayerInput : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if(Vector2.Distance(mousePosition, transform.position) < 1.5f) {
+            if (Vector2.Distance(mousePosition, transform.position) < 1.5f)
+            {
                 RaycastHit2D h = Physics2D.Raycast(mousePosition, Vector2.zero, 10.0f, _farmableLand);
                 if (h.collider != null)
                 {
@@ -154,7 +150,7 @@ public class PlayerInput : MonoBehaviour
             _combatMode = !_combatMode;
 
             _weaponAttach.GetChild(0).gameObject.SetActive(_combatMode);
-            
+
 
             _animator.SetBool("InCombatMode", _combatMode);
         }
@@ -168,23 +164,9 @@ public class PlayerInput : MonoBehaviour
             ToolInput();
         }
 
-        if(_attacking)
-        {
-            Vector3 euler = _weaponAttach.localEulerAngles;
-            euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, 15.0f * Time.deltaTime);
-            _weaponAttach.localEulerAngles = euler;
+        _attacking = _playerWeapon.Attacking;
 
-            float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
-
-            if(diffToTarget < 3.0f)
-            {
-                _playerWeapon.EndSwing();
-                _attacking = false;
-            }
-
-        }
-
-        if (!_attacking)
+        if (!_playerWeapon.Attacking)
         {
             Vector2 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -241,15 +223,15 @@ public class PlayerInput : MonoBehaviour
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
             //_activeWeapon.Attack(_interactionDirection, heavyAttack);
 
-            _originalEulerZ = _weaponAttach.localEulerAngles.z;
+            //_originalEulerZ = _weaponAttach.localEulerAngles.z;
+            //
+            //_eulerZTargetAngle = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ + _weaponSwingAmount, _weaponSwingAmount);
+            //
+            //_originalEulerZ = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ - 60.0f, 60.0f);
 
-            _eulerZTargetAngle = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ + _weaponSwingAmount, _weaponSwingAmount);
-
-            _originalEulerZ = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ - 60.0f, 60.0f);
-
-            Vector3 eulers = _weaponAttach.localEulerAngles;
-            eulers.z = _originalEulerZ;
-            _weaponAttach.localEulerAngles = eulers;
+            //Vector3 eulers = _weaponAttach.localEulerAngles;
+            //eulers.z = _originalEulerZ;
+            //_weaponAttach.localEulerAngles = eulers;
 
             _attacking = true;
             //_eulerZTargetAngle = _weaponAttach.localEulerAngles.z + _weaponSwingAmount;

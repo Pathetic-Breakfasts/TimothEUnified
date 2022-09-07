@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
+  _acceptableTags:
+  - Enemy
 --- !u!61 &1025497163323065421
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -162,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
     m_ImpulseChannel: 1
-    m_RawSignal: {fileID: 11400000, guid: 20a705aea2d80e0478fb89b6f43d8530, type: 2}
+    m_RawSignal: {fileID: 11400000, guid: f0abd5b060e7a2f4b880a71c2bb0c8a5, type: 2}
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
     m_RepeatMode: 0
@@ -637,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed6804d01673554eaf2c0e487aa8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerWeapon: {fileID: 0}
   _carrotConfig: {fileID: 11400000, guid: ae65b19b96d16a349b19c1d4f6d498d0, type: 2}
   _tomatoesConfig: {fileID: 11400000, guid: 6fa32e830f6b65e49b119401210999a7, type: 2}
   _lettuceConfig: {fileID: 11400000, guid: 37fea1010b24c2c47ad02482c99326fa, type: 2}
