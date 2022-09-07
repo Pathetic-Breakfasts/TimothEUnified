@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
 
     Mover _mover;
     ActiveWeapon _activeWeapon;
-    PlayerWeapon _playerWeapon;
+    [SerializeField] PlayerWeapon _playerWeapon;
     ActiveTool _activeTool;
 
     Vector2 _movement;
@@ -60,7 +60,6 @@ public class PlayerInput : MonoBehaviour
     {
         _activeWeapon = GetComponent<ActiveWeapon>();
         _activeTool = GetComponent<ActiveTool>();
-        _playerWeapon = GetComponentInChildren<PlayerWeapon>();
 
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();

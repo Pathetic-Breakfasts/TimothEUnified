@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerWeapon : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] WeaponConfig _config;
     Collider2D _col;
 
+    Cinemachine.CinemachineImpulseSource _impulseSource;
+
 
     private void Awake()
     {
@@ -19,6 +22,7 @@ public class PlayerWeapon : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         _trail.gameObject.SetActive(false);
         _col = GetComponent<Collider2D>();
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void Update()
@@ -56,6 +60,7 @@ public class PlayerWeapon : MonoBehaviour
         if (targetHealth)
         {
             targetHealth.TakeDamage(_config._damage);
+            _impulseSource.GenerateImpulse();
         }
 
         if (collision.CompareTag("Enemy"))
