@@ -11,7 +11,7 @@ public class FarmableLand : MonoBehaviour
     [SerializeField] RuleTile _untilledTile;
     [SerializeField] RuleTile _tilledTile;
 
-
+    
     Tilemap _tilemap; 
 
     bool _isOccupied = false;
