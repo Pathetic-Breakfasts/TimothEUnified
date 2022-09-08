@@ -98,7 +98,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            _dayManager.NewDay();
+            _dayManager.ProgressDay();
         }
 
         //F to pay respects (plant)

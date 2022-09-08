@@ -14,13 +14,13 @@ public enum CropType
     Cabbage
 }
 
-public enum Seasons
-{
-    Spring,
-    Summer,
-    Autumn,
-    Winter
-}
+//public enum Seasons
+//{
+//    Spring,
+//    Summer,
+//    Autumn,
+//    Winter
+//}
 
 
 [CreateAssetMenu(menuName ="Configs/Crop Config")]
