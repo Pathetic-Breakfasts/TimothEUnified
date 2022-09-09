@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    ActiveWeapon _weapon;
     EnemyPathfinder _pathfinder;
     Transform _playerTrans;
 
@@ -21,7 +20,6 @@ public class AIController : MonoBehaviour
 
     private void Awake()
     {
-        _weapon = GetComponent<ActiveWeapon>();
         _aiWeapon = GetComponentInChildren<Weapon>();
         _pathfinder = GetComponent<EnemyPathfinder>();
         _playerTrans = FindObjectOfType<PlayerInput>().transform;
@@ -81,8 +79,6 @@ public class AIController : MonoBehaviour
 
             if (distance < _attackDistance)
             {
-                //Calculate actual attack direction
-                //_weapon.Attack(InteractDirection.Left, true);
                 _aiWeapon.StartSwing();
             }
         }

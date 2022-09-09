@@ -14,11 +14,9 @@ public enum InteractDirection
 
 public class PlayerInput : MonoBehaviour
 {
-    Fighter _fighter;
     Animator _animator;
 
     Mover _mover;
-    ActiveWeapon _activeWeapon;
     [SerializeField] Weapon _playerWeapon;
     ActiveTool _activeTool;
 
@@ -31,7 +29,12 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] CropConfig _lettuceConfig;
 
     [SerializeField] Transform _weaponAttach;
-    bool _attacking = false;
+
+    //TODO: This is temporary until we have a hot bar setup
+    [SerializeField] ToolConfig _axeConfig;
+    [SerializeField] ToolConfig _pickaxeConfig;
+    [SerializeField] ToolConfig _hoeConfig;
+    [SerializeField] LayerMask _farmableLand;
 
     CropConfig _selectedConfig;
 
@@ -43,22 +46,14 @@ public class PlayerInput : MonoBehaviour
 
     InteractionPointManager _interactPoints;
 
-    //TODO: This is temporary until we have a hot bar setup
-    [SerializeField] ToolConfig _axeConfig;
-    [SerializeField] ToolConfig _pickaxeConfig;
-    [SerializeField] ToolConfig _hoeConfig;
-
-    [SerializeField] LayerMask _farmableLand;
 
     DayManager _dayManager;
     private void Awake()
     {
-        _activeWeapon = GetComponent<ActiveWeapon>();
         _activeTool = GetComponent<ActiveTool>();
 
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
-        _fighter = GetComponent<Fighter>();
         _interactPoints = GetComponentInChildren<InteractionPointManager>();
         _dayManager = FindObjectOfType<DayManager>();
     }
@@ -164,8 +159,6 @@ public class PlayerInput : MonoBehaviour
             ToolInput();
         }
 
-        _attacking = _playerWeapon.Attacking;
-
         if (!_playerWeapon.Attacking)
         {
             Vector2 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -177,7 +170,7 @@ public class PlayerInput : MonoBehaviour
         }
 
 
-        if (_fighter.IsAttacking || _activeTool.UsingTool || _attacking)
+        if (_activeTool.UsingTool || _playerWeapon.Attacking)
         {
             _movement = Vector2.zero;
             _animator.SetFloat("Speed", 0.0f);
@@ -207,9 +200,7 @@ public class PlayerInput : MonoBehaviour
     private void AttackingInput()
     {
         //stops us from being able to do multiple attacks in one go
-        if (_fighter.IsAttacking || _activeTool.UsingTool) return;
-
-        if (_attacking) return;
+        if (_playerWeapon.Attacking || _activeTool.UsingTool) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -222,16 +213,13 @@ public class PlayerInput : MonoBehaviour
             //Should we heavy attack
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
 
-
-            _attacking = true;
-
             _playerWeapon.StartSwing();
         }
     }
 
     private void ToolInput()
     {
-        if (_activeTool.UsingTool || _fighter.IsAttacking) return;
+        if (_activeTool.UsingTool || _playerWeapon.Attacking) return;
 
         if (Input.GetMouseButtonDown(0))
         {
