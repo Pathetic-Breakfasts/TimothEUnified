@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
 
             float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
 
-            Debug.Log("Z Angle: " + euler.z);
+            //Debug.Log("Z Angle: " + euler.z);
 
             if(diffToTarget < 3.0f)
             {
@@ -64,14 +64,9 @@ public class Weapon : MonoBehaviour
 
         _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
 
-        Debug.Log("Original Euler Z: " + _originalEulerZ);
-
         _eulerZTargetAngle = _originalEulerZ + (_weaponSwingAmount / 2.0f) % 360.0f;
 
         float angle = _originalEulerZ - (_weaponSwingAmount / 2.0f) % 360.0f;
-
-        Debug.Log("Original Euler Z after swing offset: " + angle);
-        Debug.Log("Target Angle: " + _eulerZTargetAngle);
 
         Vector3 eulers = transform.parent.localEulerAngles;
         eulers.z = angle;

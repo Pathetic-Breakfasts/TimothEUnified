@@ -221,20 +221,9 @@ public class PlayerInput : MonoBehaviour
 
             //Should we heavy attack
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
-            //_activeWeapon.Attack(_interactionDirection, heavyAttack);
 
-            //_originalEulerZ = _weaponAttach.localEulerAngles.z;
-            //
-            //_eulerZTargetAngle = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ + _weaponSwingAmount, _weaponSwingAmount);
-            //
-            //_originalEulerZ = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ - 60.0f, 60.0f);
-
-            //Vector3 eulers = _weaponAttach.localEulerAngles;
-            //eulers.z = _originalEulerZ;
-            //_weaponAttach.localEulerAngles = eulers;
 
             _attacking = true;
-            //_eulerZTargetAngle = _weaponAttach.localEulerAngles.z + _weaponSwingAmount;
 
             _playerWeapon.StartSwing();
         }
