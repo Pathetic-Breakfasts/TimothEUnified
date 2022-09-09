@@ -12,7 +12,10 @@ public class Weapon : MonoBehaviour
     public bool Attacking { get => _attacking; }
     bool _attacking;
 
+    bool _heavyAttack;
+
     [SerializeField] WeaponConfig _config;
+    public WeaponConfig  GetWeaponConfig { get => _config; }
 
     [SerializeField] string[] _acceptableTags;
 
@@ -20,7 +23,8 @@ public class Weapon : MonoBehaviour
 
     float _originalEulerZ;
     float _eulerZTargetAngle;
-    [SerializeField] float _weaponSwingAmount = 90.0f;
+
+    float _currentAttackSpeed;
 
     [Header("Events")]
     [SerializeField] UnityEvent _onStartSwing;
@@ -44,7 +48,7 @@ public class Weapon : MonoBehaviour
         if (_attacking && !_config._isRanged)
         {
             Vector3 euler = transform.parent.localEulerAngles;
-            euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, 15.0f * Time.deltaTime) % 360.0f;
+            euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, _currentAttackSpeed * Time.deltaTime) % 360.0f;
             transform.parent.localEulerAngles = euler;
 
             float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
@@ -53,9 +57,12 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void StartSwing(Transform target)
+    public void StartSwing(Transform target, bool heavyAttack = false)
     {
         if (_attacking) return;
+
+        _heavyAttack = heavyAttack;
+        _currentAttackSpeed = heavyAttack ? _config._heavyAttackSwingRate : _config._lightAttackSwingRate;
 
         if (target)
         {
@@ -69,6 +76,7 @@ public class Weapon : MonoBehaviour
         {
             Projectile projectile = Instantiate(_config._projectilePrefab);
             projectile.transform.position = transform.position;
+
             projectile.SetTarget(transform.parent.rotation, _config._damage, _acceptableTags);
 
             _attacking = false;
@@ -83,9 +91,9 @@ public class Weapon : MonoBehaviour
 
             _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
 
-            _eulerZTargetAngle = _originalEulerZ + (_weaponSwingAmount / 2.0f) % 360.0f;
+            _eulerZTargetAngle = _originalEulerZ + (_config._weaponSwingDistance / 2.0f) % 360.0f;
 
-            float angle = _originalEulerZ - (_weaponSwingAmount / 2.0f) % 360.0f;
+            float angle = _originalEulerZ - (_config._weaponSwingDistance / 2.0f) % 360.0f;
 
             Vector3 eulers = transform.parent.localEulerAngles;
             eulers.z = angle;
@@ -124,7 +132,9 @@ public class Weapon : MonoBehaviour
 
                 if (targetHealth)
                 {
-                    targetHealth.TakeDamage(_config._damage);
+                    float damage = _heavyAttack ? _config._damage * _config._heavyAttackDamageBoost : _config._damage;
+
+                    targetHealth.TakeDamage(damage);
 
                     _onHit.Invoke();
                 }

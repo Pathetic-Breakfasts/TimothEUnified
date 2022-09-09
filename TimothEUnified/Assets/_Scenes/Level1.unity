@@ -3353,7 +3353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1b6ff7dbb9eb440b5c081d5a4b63ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
+  _config: {fileID: 11400000, guid: 303f6fad0c8ab334baa4b9c5c360e38b, type: 2}
   _acceptableTags:
   - Defence Structure
   - Player

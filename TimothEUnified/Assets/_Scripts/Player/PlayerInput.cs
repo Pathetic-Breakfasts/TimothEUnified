@@ -213,7 +213,7 @@ public class PlayerInput : MonoBehaviour
             //Should we heavy attack
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
 
-            _playerWeapon.StartSwing(null);
+            _playerWeapon.StartSwing(null, heavyAttack);
         }
     }
 

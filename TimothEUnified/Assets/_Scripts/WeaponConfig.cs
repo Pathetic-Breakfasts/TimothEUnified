@@ -9,6 +9,10 @@ public class WeaponConfig : ScriptableObject
     public float _damage = 10.0f;
     public float _attackRange = 1.5f;
     public float _attackSpeed = 1.5f;
+    public float _heavyAttackDamageBoost = 2.0f;
+    public float _lightAttackSwingRate = 15.0f;
+    public float _heavyAttackSwingRate = 7.5f;
+    public float _weaponSwingDistance = 90.0f;
 
     [Header("Graphics Settings")]
     public Sprite _sprite;

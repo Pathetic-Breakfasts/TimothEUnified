@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   _damage: 10
-  _attackRange: 1.5
+  _attackRange: 15
   _attackSpeed: 1.5
   _sprite: {fileID: 21300000, guid: 19c5be016bda1b14eb21bd7ec6b0d12c, type: 3}
   _isRanged: 1
