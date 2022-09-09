@@ -25,6 +25,11 @@ public class EnemyPathfinder : MonoBehaviour
     int _currentWaypoint;
     bool _reachedEndOfPath = false;
 
+    bool _isStopped = false;
+
+    public bool IsStopped { get => _isStopped; set => _isStopped = value; }
+
+
     public Vector2 DirectionVector { get => _directionVector; }
 
     Vector2 _directionVector;
@@ -35,7 +40,6 @@ public class EnemyPathfinder : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _seeker = GetComponent<Seeker>();
-        
     }
 
     private void Start()
@@ -52,12 +56,9 @@ public class EnemyPathfinder : MonoBehaviour
         //Safety check
         if (_target == null) return;
 
-        Debug.Log("Updating path");
-
         //Checks that the seeker has finished calculating it's current path. Stops the risk of continually calculating a path
         if (_seeker.IsDone())
         {
-            Debug.Log("Finding new path");
             _seeker.StartPath(_rb.position, _target.position, OnPathComplete);
         }
     }
@@ -78,7 +79,7 @@ public class EnemyPathfinder : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(_path != null)
+        if(_path != null && !_isStopped)
         {
             Move();
         }    

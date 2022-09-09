@@ -8,17 +8,16 @@ public enum InteractDirection
     None = -1,
     Up = 0,
     Down = 1,
-    Left = 2, 
+    Left = 2,
     Right = 3
 }
 
 public class PlayerInput : MonoBehaviour
 {
-    Fighter _fighter;
     Animator _animator;
 
     Mover _mover;
-    ActiveWeapon _activeWeapon;
+    [SerializeField] Weapon _playerWeapon;
     ActiveTool _activeTool;
 
     Vector2 _movement;
@@ -28,32 +27,33 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] CropConfig _carrotConfig;
     [SerializeField] CropConfig _tomatoesConfig;
     [SerializeField] CropConfig _lettuceConfig;
-    CropConfig _selectedConfig;
 
-    bool _combatMode = false;
-
-    public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; } 
-
-    InteractDirection _interactionDirection;
-
-    InteractionPointManager _interactPoints;
+    [SerializeField] Transform _weaponAttach;
 
     //TODO: This is temporary until we have a hot bar setup
     [SerializeField] ToolConfig _axeConfig;
     [SerializeField] ToolConfig _pickaxeConfig;
     [SerializeField] ToolConfig _hoeConfig;
-
     [SerializeField] LayerMask _farmableLand;
+
+    CropConfig _selectedConfig;
+
+    bool _combatMode = false;
+
+    public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; }
+
+    InteractDirection _interactionDirection;
+
+    InteractionPointManager _interactPoints;
+
 
     DayManager _dayManager;
     private void Awake()
     {
-        _activeWeapon = GetComponent<ActiveWeapon>();
         _activeTool = GetComponent<ActiveTool>();
 
         _animator = GetComponent<Animator>();
         _mover = GetComponent<Mover>();
-        _fighter = GetComponent<Fighter>();
         _interactPoints = GetComponentInChildren<InteractionPointManager>();
         _dayManager = FindObjectOfType<DayManager>();
     }
@@ -106,7 +106,8 @@ public class PlayerInput : MonoBehaviour
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if(Vector2.Distance(mousePosition, transform.position) < 1.5f) {
+            if (Vector2.Distance(mousePosition, transform.position) < 1.5f)
+            {
                 RaycastHit2D h = Physics2D.Raycast(mousePosition, Vector2.zero, 10.0f, _farmableLand);
                 if (h.collider != null)
                 {
@@ -137,13 +138,14 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-
-
         //TESTING CODE END
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _combatMode = !_combatMode;
+
+            _weaponAttach.GetChild(0).gameObject.SetActive(_combatMode);
+
 
             _animator.SetBool("InCombatMode", _combatMode);
         }
@@ -157,7 +159,18 @@ public class PlayerInput : MonoBehaviour
             ToolInput();
         }
 
-        if (_fighter.IsAttacking || _activeTool.UsingTool)
+        if (!_playerWeapon.Attacking)
+        {
+            Vector2 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 dir = mPos - (Vector2)transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            _weaponAttach.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+
+
+        if (_activeTool.UsingTool || _playerWeapon.Attacking)
         {
             _movement = Vector2.zero;
             _animator.SetFloat("Speed", 0.0f);
@@ -187,8 +200,7 @@ public class PlayerInput : MonoBehaviour
     private void AttackingInput()
     {
         //stops us from being able to do multiple attacks in one go
-        if (_fighter.IsAttacking || _activeTool.UsingTool) return;
-
+        if (_playerWeapon.Attacking || _activeTool.UsingTool) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -200,13 +212,14 @@ public class PlayerInput : MonoBehaviour
 
             //Should we heavy attack
             bool heavyAttack = Input.GetKey(KeyCode.LeftShift);
-            _activeWeapon.Attack(_interactionDirection, heavyAttack);
+
+            _playerWeapon.StartSwing();
         }
     }
 
     private void ToolInput()
     {
-        if (_activeTool.UsingTool || _fighter.IsAttacking) return;
+        if (_activeTool.UsingTool || _playerWeapon.Attacking) return;
 
         if (Input.GetMouseButtonDown(0))
         {
