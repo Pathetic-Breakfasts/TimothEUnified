@@ -9,8 +9,7 @@ public class Projectile : MonoBehaviour
 
 
 
-    [Header("Tag Settings")]
-    [SerializeField] string[] _acceptedTags;
+    string[] _acceptedTags;
 
 
     float _damage;
@@ -20,11 +19,10 @@ public class Projectile : MonoBehaviour
         transform.position += transform.right * Time.deltaTime * _movementSpeed;
     }
 
-    public void SetTarget(Transform intendedTarget, GameObject instigator, float damage)
+    public void SetTarget(Quaternion rotation, float damage, string[] acceptedTags)
     {
-        Vector3 dir = intendedTarget.position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = rotation;
+        _acceptedTags = acceptedTags;
 
         _damage = damage;
     }

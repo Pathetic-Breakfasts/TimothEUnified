@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab6f999ccfe559498187970e3bcd09f, type: 3}
   m_Name: Steel Sword
   m_EditorClassIdentifier: 
-  _horizontalSprite: {fileID: -8009266828317475340, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
-  _verticalSprite: {fileID: 0}
   _damage: 10
+  _attackRange: 1.5
+  _attackSpeed: 1.5
+  _sprite: {fileID: 5381698226662430329, guid: 782b3e0885c471a458a1b0cb57a38d83, type: 3}
+  _isRanged: 0
+  _projectilePrefab: {fileID: 0}

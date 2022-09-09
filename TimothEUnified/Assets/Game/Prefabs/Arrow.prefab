@@ -148,8 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 5
-  _acceptedTags:
-  - Player
+  _acceptedTags: []
 --- !u!114 &-4080744713099283415
 MonoBehaviour:
   m_ObjectHideFlags: 0

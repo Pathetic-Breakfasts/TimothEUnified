@@ -3273,7 +3273,7 @@ GameObject:
   - component: {fileID: 1375751943}
   - component: {fileID: 1375751942}
   m_Layer: 8
-  m_Name: Sword
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8918,6 +8918,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: 303f6fad0c8ab334baa4b9c5c360e38b, type: 2}
     - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.size
       value: 1

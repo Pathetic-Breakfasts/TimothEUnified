@@ -45,8 +45,6 @@ public class AIController : MonoBehaviour
         }
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
@@ -79,7 +77,7 @@ public class AIController : MonoBehaviour
 
             if (distance < _attackDistance)
             {
-                _aiWeapon.StartSwing();
+                _aiWeapon.StartSwing(target);
             }
         }
     }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ab6f999ccfe559498187970e3bcd09f, type: 3}
-  m_Name: Iron Sword
+  m_Name: Bow
   m_EditorClassIdentifier: 
-  _damage: 5
+  _damage: 10
   _attackRange: 1.5
   _attackSpeed: 1.5
-  _sprite: {fileID: 5381698226662430329, guid: 782b3e0885c471a458a1b0cb57a38d83, type: 3}
-  _isRanged: 0
-  _projectilePrefab: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 19c5be016bda1b14eb21bd7ec6b0d12c, type: 3}
+  _isRanged: 1
+  _projectilePrefab: {fileID: 799067171036328660, guid: e50afbd50724a684f82369c1d1eef22c, type: 3}

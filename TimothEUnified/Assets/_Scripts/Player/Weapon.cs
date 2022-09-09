@@ -34,40 +34,63 @@ public class Weapon : MonoBehaviour
         _col = GetComponent<Collider2D>();
     }
 
+    private void Start()
+    {
+        EquipWeapon(_config);
+    }
+
     private void Update()
     {
-        if (_attacking)
-        {            
+        if (_attacking && !_config._isRanged)
+        {
             Vector3 euler = transform.parent.localEulerAngles;
             euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, 15.0f * Time.deltaTime) % 360.0f;
             transform.parent.localEulerAngles = euler;
 
             float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
 
-            if(diffToTarget < 3.0f) EndSwing();
-
+            if (diffToTarget < 3.0f) EndSwing();
         }
     }
 
-    public void StartSwing()
+    public void StartSwing(Transform target)
     {
         if (_attacking) return;
 
-        _trail.gameObject.SetActive(true);
-        _attacking = true;
-        _col.enabled = true;
+        if (target)
+        {
+            Vector2 dir = (Vector2)target.position - (Vector2)transform.parent.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        _onStartSwing.Invoke();
+            transform.parent.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
 
-        _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
+        if (_config._isRanged)
+        {
+            Projectile projectile = Instantiate(_config._projectilePrefab);
+            projectile.transform.position = transform.position;
+            projectile.SetTarget(transform.parent.rotation, _config._damage, _acceptableTags);
 
-        _eulerZTargetAngle = _originalEulerZ + (_weaponSwingAmount / 2.0f) % 360.0f;
+            _attacking = false;
+        }
+        else
+        {
+            _trail.gameObject.SetActive(true);
+            _attacking = true;
+            _col.enabled = true;
 
-        float angle = _originalEulerZ - (_weaponSwingAmount / 2.0f) % 360.0f;
+            _onStartSwing.Invoke();
 
-        Vector3 eulers = transform.parent.localEulerAngles;
-        eulers.z = angle;
-        transform.parent.localEulerAngles = eulers;
+            _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
+
+            _eulerZTargetAngle = _originalEulerZ + (_weaponSwingAmount / 2.0f) % 360.0f;
+
+            float angle = _originalEulerZ - (_weaponSwingAmount / 2.0f) % 360.0f;
+
+            Vector3 eulers = transform.parent.localEulerAngles;
+            eulers.z = angle;
+            transform.parent.localEulerAngles = eulers;
+        }
     }
 
     public void EndSwing()
@@ -86,7 +109,7 @@ public class Weapon : MonoBehaviour
     public void EquipWeapon(WeaponConfig config)
     {
         _config = config;
-        _renderer.sprite = _config._horizontalSprite;
+        _renderer.sprite = _config._sprite;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -102,7 +125,7 @@ public class Weapon : MonoBehaviour
                 if (targetHealth)
                 {
                     targetHealth.TakeDamage(_config._damage);
-                    
+
                     _onHit.Invoke();
                 }
             }
