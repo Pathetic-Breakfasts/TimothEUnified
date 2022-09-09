@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 10
   _attackRange: 15
-  _attackSpeed: 1.5
+  _attackSpeed: 1.2
+  _heavyAttackDamageBoost: 2
+  _lightAttackSwingRate: 15
+  _heavyAttackSwingRate: 7.5
+  _weaponSwingDistance: 90
   _sprite: {fileID: 21300000, guid: 19c5be016bda1b14eb21bd7ec6b0d12c, type: 3}
   _isRanged: 1
   _projectilePrefab: {fileID: 799067171036328660, guid: e50afbd50724a684f82369c1d1eef22c, type: 3}

@@ -24,6 +24,9 @@ public class Weapon : MonoBehaviour
     float _originalEulerZ;
     float _eulerZTargetAngle;
     float _currentAttackSpeed;
+
+    float _timeSinceLastAttack = 0.0f;
+    float _attackCooldown;
     
     public bool Attacking { get => _attacking; }
     public WeaponConfig  GetWeaponConfig { get => _config; }
@@ -43,6 +46,11 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
+        if (!_attacking)
+        {
+            _timeSinceLastAttack += Time.deltaTime;
+        }
+
         //Swings a melee based weapon provided that we are attacking
         if (_attacking && !_config._isRanged)
         {
@@ -65,7 +73,9 @@ public class Weapon : MonoBehaviour
     public void StartSwing(Transform target, bool heavyAttack = false)
     {
         //Stops us attacking until we have already attacked
-        if (_attacking) return;
+        if (_attacking || _timeSinceLastAttack < _attackCooldown) return;
+
+        _timeSinceLastAttack = 0.0f;
 
         //Sets if we are heavy attacking or not (affects swing speed and damage)
         _heavyAttack = heavyAttack;
@@ -137,6 +147,7 @@ public class Weapon : MonoBehaviour
     {
         _config = config;
         _renderer.sprite = _config._sprite;
+        _attackCooldown = _config._attackSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
