@@ -39,8 +39,6 @@ public class Health : MonoBehaviour
     public virtual void OnDamage(float amount)
     {
         _onDamageAction.Invoke();
-
-        Debug.Log(gameObject.name + " Health: " + _currentHealth);
     }
 
     public virtual void OnDeath()

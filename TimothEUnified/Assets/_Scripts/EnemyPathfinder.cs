@@ -56,12 +56,9 @@ public class EnemyPathfinder : MonoBehaviour
         //Safety check
         if (_target == null) return;
 
-        Debug.Log("Updating path");
-
         //Checks that the seeker has finished calculating it's current path. Stops the risk of continually calculating a path
         if (_seeker.IsDone())
         {
-            Debug.Log("Finding new path");
             _seeker.StartPath(_rb.position, _target.position, OnPathComplete);
         }
     }
@@ -88,22 +85,24 @@ public class EnemyPathfinder : MonoBehaviour
 
             InteractDirection dir = CalculateDirection(_directionVector);
 
+            //Debug.Log("Travelling: " + dir);
+
             float zRot = 0.0f;
             switch (dir)
             {
                 case InteractDirection.None:
                     break;
                 case InteractDirection.Up:
-                    zRot = 300.0f;
-                    break;
-                case InteractDirection.Down:
                     zRot = 150.0f;
                     break;
+                case InteractDirection.Down:
+                    zRot = 300.0f;
+                    break;
                 case InteractDirection.Left:
-                    zRot = 370.0f;
+                    zRot = 225.0f;
                     break;
                 case InteractDirection.Right:
-                    zRot = 225.0f;
+                    zRot = 370.0f;
                     break;
             }
 
@@ -117,20 +116,20 @@ public class EnemyPathfinder : MonoBehaviour
         InteractDirection dir;
 
         //Gets the distance between the player and mouse 
-        float horizontalDistance = a.x;
-        float verticalDistance = a.y;
+        float horizontal = a.x;
+        float vertical = a.y;
 
         //Finds out if the distance in the x axis or the y axis is greatest
-        float xDistToZero = horizontalDistance < 0.0f ? Mathf.Abs(horizontalDistance) : horizontalDistance;
-        float yDistToZero = verticalDistance < 0.0f ? Mathf.Abs(verticalDistance) : verticalDistance;
+        float xDistToZero = horizontal < 0.0f ? Mathf.Abs(horizontal) : horizontal;
+        float yDistToZero = vertical < 0.0f ? Mathf.Abs(vertical) : vertical;
 
         if (xDistToZero > yDistToZero)
         {
-            dir = horizontalDistance > 0.0f ? InteractDirection.Left : InteractDirection.Right;
+            dir = horizontal < 0.0f ? InteractDirection.Left : InteractDirection.Right;
         }
         else
         {
-            dir = verticalDistance > 0.0f ? InteractDirection.Down : InteractDirection.Up;
+            dir = vertical < 0.0f ? InteractDirection.Down : InteractDirection.Up;
         }
 
         return dir;

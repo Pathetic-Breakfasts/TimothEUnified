@@ -37,44 +37,53 @@ public class Weapon : MonoBehaviour
         if (_attacking)
         {            
             Vector3 euler = transform.parent.localEulerAngles;
-            euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, 15.0f * Time.deltaTime);
+            euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, 15.0f * Time.deltaTime) % 360.0f;
             transform.parent.localEulerAngles = euler;
 
             float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
 
+            Debug.Log("Z Angle: " + euler.z);
+
             if(diffToTarget < 3.0f)
             {
+                Debug.Log("Swing Finished");
                 EndSwing();
-                _attacking = false;
             }
-
-        }
-        else
-        {
 
         }
     }
 
     public void StartSwing()
     {
+        if (_attacking) return;
+
         _trail.gameObject.SetActive(true);
         _attacking = true;
         _col.enabled = true;
 
 
-        _originalEulerZ = transform.parent.localEulerAngles.z;
+        _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
 
-        _eulerZTargetAngle = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ + _weaponSwingAmount, _weaponSwingAmount);
+        Debug.Log("Original Euler Z: " + _originalEulerZ);
 
-        _originalEulerZ = Mathf.LerpAngle(_originalEulerZ, _originalEulerZ - 60.0f, 60.0f);
+        _eulerZTargetAngle = _originalEulerZ + (_weaponSwingAmount / 2.0f) % 360.0f;
+
+        float angle = _originalEulerZ - (_weaponSwingAmount / 2.0f) % 360.0f;
+
+        Debug.Log("Original Euler Z after swing offset: " + angle);
+        Debug.Log("Target Angle: " + _eulerZTargetAngle);
 
         Vector3 eulers = transform.parent.localEulerAngles;
-        eulers.z = _originalEulerZ;
+        eulers.z = angle;
         transform.parent.localEulerAngles = eulers;
     }
 
     public void EndSwing()
     {
+        Vector3 eulers = transform.parent.localEulerAngles;
+        eulers.z = _originalEulerZ;
+        transform.parent.localEulerAngles = eulers;
+
         _trail.gameObject.SetActive(false);
         _attacking = false;
         _col.enabled = false;
