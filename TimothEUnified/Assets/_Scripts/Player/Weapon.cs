@@ -6,30 +6,28 @@ using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
-    TrailRenderer _trail;
-    SpriteRenderer _renderer;
-
-    public bool Attacking { get => _attacking; }
-    bool _attacking;
-
-    bool _heavyAttack;
-
+    [Header("Weapon")]
     [SerializeField] WeaponConfig _config;
-    public WeaponConfig  GetWeaponConfig { get => _config; }
-
     [SerializeField] string[] _acceptableTags;
-
-    Collider2D _col;
-
-    float _originalEulerZ;
-    float _eulerZTargetAngle;
-
-    float _currentAttackSpeed;
 
     [Header("Events")]
     [SerializeField] UnityEvent _onStartSwing;
     [SerializeField] UnityEvent _onEndSwing;
     [SerializeField] UnityEvent _onHit;
+    
+    TrailRenderer _trail;
+    SpriteRenderer _renderer;
+    Collider2D _col;
+    
+    bool _attacking;
+    bool _heavyAttack;
+    float _originalEulerZ;
+    float _eulerZTargetAngle;
+    float _currentAttackSpeed;
+    
+    public bool Attacking { get => _attacking; }
+    public WeaponConfig  GetWeaponConfig { get => _config; }
+
     private void Awake()
     {
         _trail = GetComponentInChildren<TrailRenderer>();
@@ -45,25 +43,35 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
+        //Swings a melee based weapon provided that we are attacking
         if (_attacking && !_config._isRanged)
         {
+            //Calculates the new rotation
             Vector3 euler = transform.parent.localEulerAngles;
             euler.z = Mathf.LerpAngle(euler.z, _eulerZTargetAngle, _currentAttackSpeed * Time.deltaTime) % 360.0f;
             transform.parent.localEulerAngles = euler;
 
+            //are we close enough to finishing a swing to say that we have completed an attack
             float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
-
             if (diffToTarget < 3.0f) EndSwing();
         }
     }
 
+    /// <summary>
+    /// Starts a weapon attack. Angles the weapon in the direction of the target (if passed in).
+    /// </summary>
+    /// <param name="target">The target the weapon should look to. If null is passed in the weapon will use the parent transform</param>
+    /// <param name="heavyAttack">Should this be a heavy attack. Defaulted to false</param>
     public void StartSwing(Transform target, bool heavyAttack = false)
     {
+        //Stops us attacking until we have already attacked
         if (_attacking) return;
 
+        //Sets if we are heavy attacking or not (affects swing speed and damage)
         _heavyAttack = heavyAttack;
         _currentAttackSpeed = heavyAttack ? _config._heavyAttackSwingRate : _config._lightAttackSwingRate;
 
+        //If we have a target passed in then update the weapons rotation to the appropriate angle
         if (target)
         {
             Vector2 dir = (Vector2)target.position - (Vector2)transform.parent.position;
@@ -72,6 +80,7 @@ public class Weapon : MonoBehaviour
             transform.parent.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
+        //If we are using a ranged weapon, then spawn a projectile
         if (_config._isRanged)
         {
             Projectile projectile = Instantiate(_config._projectilePrefab);
@@ -81,20 +90,26 @@ public class Weapon : MonoBehaviour
 
             _attacking = false;
         }
+        //We are using a melee weapon
         else
         {
+            //Activate our trail renderer and collider
             _trail.gameObject.SetActive(true);
-            _attacking = true;
             _col.enabled = true;
+            
+            _attacking = true;
 
+            //Invokes our start swing event. 
             _onStartSwing.Invoke();
 
+            //Gets our current euler angle
             _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
-
+            //Calculates our target euler angle
             _eulerZTargetAngle = _originalEulerZ + (_config._weaponSwingDistance / 2.0f) % 360.0f;
-
+            //Gets a offset euler angle for where the swing should start from
             float angle = _originalEulerZ - (_config._weaponSwingDistance / 2.0f) % 360.0f;
-
+            
+            //sets the weapons angle
             Vector3 eulers = transform.parent.localEulerAngles;
             eulers.z = angle;
             transform.parent.localEulerAngles = eulers;
@@ -103,15 +118,19 @@ public class Weapon : MonoBehaviour
 
     public void EndSwing()
     {
+        //Sets the weapon back to default angle
         Vector3 eulers = transform.parent.localEulerAngles;
         eulers.z = _originalEulerZ;
         transform.parent.localEulerAngles = eulers;
 
+        //Invokes our on end swing event
         _onEndSwing.Invoke();
 
+        //Disables our trail renderer and collider
         _trail.gameObject.SetActive(false);
-        _attacking = false;
         _col.enabled = false;
+
+        _attacking = false;
     }
 
     public void EquipWeapon(WeaponConfig config)
@@ -122,20 +141,27 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Stops us from causing damage while the weapon is not being swung/used
         if (!_attacking) return;
 
+        //Cycles through the acceptable tags on the weapon
         foreach (string s in _acceptableTags)
         {
+            //Checks if the colliding object is acceptable for us to hit
             if (collision.CompareTag(s))
             {
+                //Checks for a health component
                 Health targetHealth = collision.GetComponent<Health>();
 
                 if (targetHealth)
                 {
+                    //Calculates damage based on if this is a heavy attack or not
                     float damage = _heavyAttack ? _config._damage * _config._heavyAttackDamageBoost : _config._damage;
 
+                    //Deals damage
                     targetHealth.TakeDamage(damage);
 
+                    //Invokes the OnHit event, causes the camera shake for the player etc.
                     _onHit.Invoke();
                 }
             }

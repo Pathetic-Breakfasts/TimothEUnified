@@ -7,10 +7,7 @@ public class Projectile : MonoBehaviour
     [Header("Movement")]
     [Min(0.01f)][SerializeField] float _movementSpeed = 3.0f;
 
-
-
     string[] _acceptedTags;
-
 
     float _damage;
 
