@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
@@ -17,19 +18,20 @@ public class Weapon : MonoBehaviour
 
     Collider2D _col;
 
-    Cinemachine.CinemachineImpulseSource _impulseSource;
-
     float _originalEulerZ;
     float _eulerZTargetAngle;
     [SerializeField] float _weaponSwingAmount = 90.0f;
 
+    [Header("Events")]
+    [SerializeField] UnityEvent _onStartSwing;
+    [SerializeField] UnityEvent _onEndSwing;
+    [SerializeField] UnityEvent _onHit;
     private void Awake()
     {
         _trail = GetComponentInChildren<TrailRenderer>();
         _renderer = GetComponent<SpriteRenderer>();
         _trail.gameObject.SetActive(false);
         _col = GetComponent<Collider2D>();
-        _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void Update()
@@ -42,13 +44,7 @@ public class Weapon : MonoBehaviour
 
             float diffToTarget = Mathf.Abs(euler.z - _eulerZTargetAngle) % 360.0f;
 
-            //Debug.Log("Z Angle: " + euler.z);
-
-            if(diffToTarget < 3.0f)
-            {
-                Debug.Log("Swing Finished");
-                EndSwing();
-            }
+            if(diffToTarget < 3.0f) EndSwing();
 
         }
     }
@@ -61,6 +57,7 @@ public class Weapon : MonoBehaviour
         _attacking = true;
         _col.enabled = true;
 
+        _onStartSwing.Invoke();
 
         _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
 
@@ -78,6 +75,8 @@ public class Weapon : MonoBehaviour
         Vector3 eulers = transform.parent.localEulerAngles;
         eulers.z = _originalEulerZ;
         transform.parent.localEulerAngles = eulers;
+
+        _onEndSwing.Invoke();
 
         _trail.gameObject.SetActive(false);
         _attacking = false;
@@ -104,7 +103,7 @@ public class Weapon : MonoBehaviour
                 {
                     targetHealth.TakeDamage(_config._damage);
                     
-                    _impulseSource.GenerateImpulse();
+                    _onHit.Invoke();
                 }
             }
         }

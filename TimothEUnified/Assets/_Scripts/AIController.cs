@@ -50,7 +50,7 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO: Change this to check a pathfinding distance to the player instead of a euclidian distance
+        //TODO: Change this to check a pathfinding distance to the player instead of a euclidean distance
         float distanceToPlayer = Vector2.Distance(transform.position, _playerTrans.position);
         if (distanceToPlayer < 2.5f)
         {

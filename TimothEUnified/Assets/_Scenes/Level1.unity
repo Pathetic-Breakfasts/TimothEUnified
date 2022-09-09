@@ -184,6 +184,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cabbdb8998385241a4757a1afc730b8, type: 3}
+--- !u!114 &343295748 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6429131548312707322, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+  m_PrefabInstance: {fileID: 4913633714780046163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &371988873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,11 +1054,10 @@ GameObject:
   - component: {fileID: 967880955}
   - component: {fileID: 967880960}
   - component: {fileID: 967880962}
-  - component: {fileID: 967880961}
-  - component: {fileID: 967880963}
   - component: {fileID: 967880965}
   - component: {fileID: 967880964}
   - component: {fileID: 967880966}
+  - component: {fileID: 967880961}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -1143,7 +1153,6 @@ MonoBehaviour:
   _stoppingDistance: 0.9
   _moveSpeed: 4
   _nextWaypointTolerance: 0.5
-  _weaponAttachPoint: {fileID: 1687377280}
 --- !u!50 &967880959
 Rigidbody2D:
   serializedVersion: 4
@@ -1186,10 +1195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 967880953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c88480908d94a54fa8ddb4614d77f7a, type: 3}
+  m_Script: {fileID: 11500000, guid: 020f22c87211d454fb416309c6fe1ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponToSwing: {fileID: 0}
+  _weaponAttachPoint: {fileID: 1687377280}
 --- !u!114 &967880962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1215,20 +1224,6 @@ MonoBehaviour:
   _onHealAction:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &967880963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967880953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d1d04921425b614a8533a60908a6b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
-  _swordSpriteRenderer: {fileID: 775368157}
 --- !u!95 &967880964
 Animator:
   serializedVersion: 3
@@ -3277,7 +3272,6 @@ GameObject:
   - component: {fileID: 1375751944}
   - component: {fileID: 1375751943}
   - component: {fileID: 1375751942}
-  - component: {fileID: 1375751941}
   m_Layer: 8
   m_Name: Sword
   m_TagString: Untagged
@@ -3300,48 +3294,6 @@ Transform:
   m_Father: {fileID: 1687377280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!114 &1375751941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375751939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ImpulseDefinition:
-    m_ImpulseChannel: 1
-    m_RawSignal: {fileID: 11400000, guid: f0abd5b060e7a2f4b880a71c2bb0c8a5, type: 2}
-    m_AmplitudeGain: 1
-    m_FrequencyGain: 1
-    m_RepeatMode: 0
-    m_Randomize: 1
-    m_TimeEnvelope:
-      m_AttackShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_DecayShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_AttackTime: 0
-      m_SustainTime: 0.2
-      m_DecayTime: 0.7
-      m_ScaleWithImpact: 1
-      m_HoldForever: 0
-    m_ImpactRadius: 100
-    m_DirectionMode: 0
-    m_DissipationMode: 2
-    m_DissipationDistance: 1000
-    m_PropagationSpeed: 343
 --- !u!50 &1375751942
 Rigidbody2D:
   serializedVersion: 4
@@ -3406,6 +3358,39 @@ MonoBehaviour:
   - Defence Structure
   - Player
   _weaponSwingAmount: 90
+  _onStartSwing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 967880958}
+        m_TargetAssemblyTypeName: EnemyPathfinder, Assembly-CSharp
+        m_MethodName: set_IsStopped
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _onEndSwing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 967880958}
+        m_TargetAssemblyTypeName: EnemyPathfinder, Assembly-CSharp
+        m_MethodName: set_IsStopped
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &1375751945
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4641,7 +4626,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687377280}
   m_Layer: 9
-  m_Name: Anchor Point
+  m_Name: Weapon Anchor Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8933,6 +8918,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 343295748}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GenerateImpulse
+      objectReference: {fileID: 0}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Cinemachine.CinemachineImpulseSource, Cinemachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 329882884350340198, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _onHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 437043896958896251, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -9085,7 +9098,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7157550069486071377, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+    - {fileID: 3363905694144898754, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+    - {fileID: 694413718, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+    - {fileID: 694413720, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
 --- !u!114 &4913633714780046169 stripped
 MonoBehaviour:

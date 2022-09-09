@@ -103,6 +103,16 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
   _acceptableTags:
   - Enemy
+  _weaponSwingAmount: 90
+  _onStartSwing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onEndSwing:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1025497163323065421
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -483,8 +493,6 @@ GameObject:
   - component: {fileID: 8365147085474458258}
   - component: {fileID: 609090401565977042}
   - component: {fileID: 8839082918670875635}
-  - component: {fileID: 6013144420331729854}
-  - component: {fileID: 2200216533167192877}
   - component: {fileID: 8158106270323219337}
   m_Layer: 8
   m_Name: Player
@@ -644,7 +652,6 @@ MonoBehaviour:
   _tomatoesConfig: {fileID: 11400000, guid: 6fa32e830f6b65e49b119401210999a7, type: 2}
   _lettuceConfig: {fileID: 11400000, guid: 37fea1010b24c2c47ad02482c99326fa, type: 2}
   _weaponAttach: {fileID: 0}
-  _weaponSwingAmount: 90
   _axeConfig: {fileID: 11400000, guid: 155413327d97d1040ad8cd15e3e45f82, type: 2}
   _pickaxeConfig: {fileID: 11400000, guid: a55f9603b7f455f4ab545ff61b7303c4, type: 2}
   _hoeConfig: {fileID: 11400000, guid: d1c3a6353010929489720e33bc34df44, type: 2}
@@ -678,33 +685,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 155413327d97d1040ad8cd15e3e45f82, type: 2}
   _toolSpriteRenderer: {fileID: 8365147084948138428}
---- !u!114 &6013144420331729854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8365147085474458267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d1d04921425b614a8533a60908a6b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
-  _swordSpriteRenderer: {fileID: 8365147084948138428}
---- !u!114 &2200216533167192877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8365147085474458267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c88480908d94a54fa8ddb4614d77f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weaponToSwing: {fileID: 8365147084948138050}
 --- !u!114 &8158106270323219337
 MonoBehaviour:
   m_ObjectHideFlags: 0
