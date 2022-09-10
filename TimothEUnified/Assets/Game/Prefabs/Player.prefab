@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &13296378758702554
 Transform:
   m_ObjectHideFlags: 0
@@ -100,10 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1b6ff7dbb9eb440b5c081d5a4b63ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 8b5d2221f50b556499f820d6ef195847, type: 2}
+  _config: {fileID: 11400000, guid: 303f6fad0c8ab334baa4b9c5c360e38b, type: 2}
   _acceptableTags:
   - Enemy
-  _weaponSwingAmount: 90
   _onStartSwing:
     m_PersistentCalls:
       m_Calls: []
@@ -112,7 +111,19 @@ MonoBehaviour:
       m_Calls: []
   _onHit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7574665573391088917}
+        m_TargetAssemblyTypeName: Cinemachine.CinemachineImpulseSource, Cinemachine
+        m_MethodName: GenerateImpulse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!61 &1025497163323065421
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -249,7 +260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6604738622854282858
 Transform:
   m_ObjectHideFlags: 0
@@ -647,11 +658,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed6804d01673554eaf2c0e487aa8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerWeapon: {fileID: 0}
+  _playerWeapon: {fileID: 3798145941062185353}
   _carrotConfig: {fileID: 11400000, guid: ae65b19b96d16a349b19c1d4f6d498d0, type: 2}
   _tomatoesConfig: {fileID: 11400000, guid: 6fa32e830f6b65e49b119401210999a7, type: 2}
   _lettuceConfig: {fileID: 11400000, guid: 37fea1010b24c2c47ad02482c99326fa, type: 2}
-  _weaponAttach: {fileID: 0}
+  _weaponAttach: {fileID: 1248941031774717023}
   _axeConfig: {fileID: 11400000, guid: 155413327d97d1040ad8cd15e3e45f82, type: 2}
   _pickaxeConfig: {fileID: 11400000, guid: a55f9603b7f455f4ab545ff61b7303c4, type: 2}
   _hoeConfig: {fileID: 11400000, guid: d1c3a6353010929489720e33bc34df44, type: 2}
