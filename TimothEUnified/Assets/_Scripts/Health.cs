@@ -1,26 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
+using CustomAttributes;
 
 public class Health : MonoBehaviour
 {
     [Header("General Settings")]
-    [SerializeField] float _startingHealth = 50.0f;
-    [SerializeField] float _maxHealth = 100.0f;
+    [SerializeField] private float _startingHealth = 50.0f;
+    [SerializeField] private float _maxHealth = 100.0f;
+    [CustomAttributes.ReadOnly][SerializeField] float _currentHealth;
+
 
     [Header("Death Related Settings")]
-    [SerializeField] bool _immortal = false;
-    [SerializeField] bool _destroyOnDeath = false;
+    [SerializeField] private bool _immortal = false;
+    [SerializeField] private bool _destroyOnDeath = false;
 
     [Header("Events")]
-    [SerializeField] UnityEvent _onDeathAction;
-    [SerializeField] UnityEvent _onDamageAction;
-    [SerializeField] UnityEvent _onHealAction;
+    [SerializeField] private UnityEvent _onDeathAction;
+    [SerializeField] private UnityEvent _onDamageAction;
+    [SerializeField] private UnityEvent _onHealAction;
 
-
-    bool _dead = false;
-    float _currentHealth;
+    private bool _dead = false;
+    
 
     private void LateUpdate()
     {
