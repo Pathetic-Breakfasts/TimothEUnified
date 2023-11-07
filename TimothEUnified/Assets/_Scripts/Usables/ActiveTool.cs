@@ -47,38 +47,20 @@ public class ActiveTool : MonoBehaviour
         _usingTool = false;
         _animator.SetBool("UsingTool", false);
 
-        GameObject closestObj = null;
-        float closestDistance = 10000.0f;
-
         InteractionPoint ip = _interactPoints.GetInteractionPoint(_interactionDirection);
 
         //Current tool is a hoe. Checks for closest farmland in trigger
         if (_config._type == ToolType.Hoe)
         {
-            foreach (GameObject obj in ip.ObjectsInTrigger)
+            GameObject closestFarmland = GetClosestObjecInInteractionPointWithTag(ip, GameTagManager._farmableLandTag);
+            if (closestFarmland != null)
             {
-                if (!obj.CompareTag("Farmland")) continue;
-
-                Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
-
-                float dist = Vector2.Distance(rnPos, _mousePosAtClick);
-                if (dist < closestDistance)
+                FarmableLand farmableLand = closestFarmland.GetComponent<FarmableLand>();
+                if (farmableLand)
                 {
-                    closestObj = obj;
-                    closestDistance = dist;
-                }
-            }
-
-            if (closestObj != null)
-            {
-
-                FarmableLand fl = closestObj.GetComponent<FarmableLand>();
-
-                if (fl)
-                {
-                    if (!fl.IsOccupied)
+                    if (!farmableLand.IsOccupied && !farmableLand.IsTilled)
                     {
-                        fl.IsTilled = true;
+                        farmableLand.IsTilled = true;
                     }
                 }
             }
@@ -86,24 +68,10 @@ public class ActiveTool : MonoBehaviour
         //Current tool is not a hoe. Checks for resource nodes instead of farmland
         else
         {
-            foreach (GameObject obj in ip.ObjectsInTrigger)
+            GameObject closestResourceNode = GetClosestObjecInInteractionPointWithTag(ip, GameTagManager._resourceNodeTag);
+            if (closestResourceNode)
             {
-                if (!obj.CompareTag("ResourceNode")) continue;
-
-                Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
-
-                float dist = Vector2.Distance(rnPos, _mousePosAtClick);
-                if (dist < closestDistance)
-                {
-                    closestObj = obj;
-                    closestDistance = dist;
-                }
-            }
-
-            if (closestObj)
-            {
-                ResourceNode rn = closestObj.GetComponent<ResourceNode>();
-
+                ResourceNode rn = closestResourceNode.GetComponent<ResourceNode>();
                 if (rn)
                 {
                     if (rn.CanDestroy(_config))
@@ -115,6 +83,28 @@ public class ActiveTool : MonoBehaviour
         }
 
         _toolSpriteRenderer.gameObject.SetActive(false);
+    }
+
+    private GameObject GetClosestObjecInInteractionPointWithTag(InteractionPoint ip, string tag)
+    {
+        GameObject closestObj = null;
+        float closestDistance = 1000000.0f;
+
+        foreach (GameObject obj in ip.ObjectsInTrigger)
+        {
+            if (!obj.CompareTag(tag)) continue;
+
+            Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+
+            float dist = Vector2.Distance(rnPos, _mousePosAtClick);
+            if (dist < closestDistance)
+            {
+                closestObj = obj;
+                closestDistance = dist;
+            }
+        }
+
+        return closestObj;
     }
 
 }
