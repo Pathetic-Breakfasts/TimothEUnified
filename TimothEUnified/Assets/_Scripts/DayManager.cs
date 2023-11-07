@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using TMPro.EditorUtilities;
 
 public enum Days
 {
@@ -38,26 +39,30 @@ public enum TimeFormat
 public class DayManager : MonoBehaviour
 {
     [SerializeField] Seasons _currentSeason;
+    [SerializeField] TimeFormat _timeFormat = TimeFormat.Hour_12;
+
+    [SerializeField] private bool _isDay;
+
+    [SerializeField] private int _currentDay;
+    [SerializeField] private int _currentYear;
+    [SerializeField] private Days _currentDayOfWeek;
+    [SerializeField] private  int _currentWeekOfMonth;
+    [SerializeField] private float _secsPerMinute = 60;
+
+
+    [SerializeField] private TextMeshProUGUI _timeText;
+    [SerializeField] private TextMeshProUGUI _seasonText;
+
     public Seasons CurrentSeason { get => _currentSeason; }
-    public TimeFormat _timeFormat = TimeFormat.Hour_12;
+    public bool IsTimePaused { get => _bIsTimePaused; set => _bIsTimePaused = value; }
 
-    public bool _isDay;
+    private bool _bIsTimePaused = false;
 
-    public int _currentDay;
-    public  int _currentYear;
-    public  Days _currentDayOfWeek;
-    public  int _currentWeekOfMonth;
-
-    double _currentDayTimer = 0.0f;
+    double _currentSecondTimer = 0.0f;
     private bool _isAM = false;
-
-    public TextMeshProUGUI[] _timeText;
-    public TextMeshProUGUI[] _seasonText;
-    
     int _hours;
     int _minutes;
 
-    public float _secsPerMinute = 60;
     int _hoursPerDay = 24;
     int _minsPerHour = 60;
     int _monthsPerYear = 12;
@@ -68,10 +73,11 @@ public class DayManager : MonoBehaviour
     private SeasonPhase _currentSeasonPhase;
 
     float _lengthOfDay = 180.0f; //180 is temp
+
     private void Awake()
     {
         //Set Temp Date and Time
-        _hours              = 8;
+        _hours              = 6;
         _minutes            = 0;
         _currentSeason      = Seasons.Spring;
         _currentSeasonPhase = SeasonPhase.Early;
@@ -87,43 +93,57 @@ public class DayManager : MonoBehaviour
         SetTimeDateString();
     }
 
+    private void Start()
+    {
+        if(!_timeText)
+        {
+            Debug.LogError("DayManager " + gameObject.name + " is missing TimeText!");
+        }
+
+        if(!_seasonText)
+        {
+            Debug.LogError("DayManager " + gameObject.name + " is missing SeasonText");
+        }
+    }
+
     public void Update()
     {
-        
-        if(_currentDayTimer >= _secsPerMinute)
+        if(Debug.isDebugBuild)
+        {
+            DebugUpdate();
+        }
+
+        //Early-Out if time is paused
+        if(_bIsTimePaused)
+        {
+            return;
+        }
+
+        _currentSecondTimer += Time.deltaTime;
+        if (_currentSecondTimer >= _secsPerMinute)
         {
             _minutes++;
             if(_minutes >= _minsPerHour){
-                _minutes = 0;
-                _hours++;
-                if(_hours >= _hoursPerDay)
-                {
-                    _hours = 0;
-                    
-                    //if(_currentDayOfWeek == Days.Sunday)
-                    //{
-                    //    ProgressWeek();
-                        
-                    //}
-                    ProgressDay();
-                    
-                }
+                ProgressHour(1);
             }
             SetTimeDateString();
-            _currentDayTimer = 0;
-        }
-        else
-        {
-            _currentDayTimer += Time.deltaTime;
+            _currentSecondTimer = 0;
         }
 
-        if(_hours < 12)
+        _isAM = _hours < 12;
+    }
+
+    private void DebugUpdate()
+    {
+        if(Input.GetKeyDown(KeyCode.P)) 
         {
-            _isAM = true;
+            Debug.Log("Skipping Day");
+            ProgressDay();
         }
-        else
+        if(Input.GetKeyDown(KeyCode.L))
         {
-            _isAM = false;
+            Debug.Log("Skipping Hour");
+            ProgressHour(1);
         }
     }
 
@@ -143,24 +163,19 @@ public class DayManager : MonoBehaviour
         }
 
         //Crop Progression
-        FarmableLand[] fls = FindObjectsOfType<FarmableLand>();
-
-        foreach (FarmableLand fl in fls)
+        FarmableLand[] farmableLand = FindObjectsOfType<FarmableLand>();
+        foreach (FarmableLand farmland in farmableLand)
         {
-            if(fl.IsOccupied)
-            {
-                Crop c = fl.GetComponentInChildren<Crop>();
-                if (c)
-                {
-                    c.ProgressDay();
-                }
-            }
+            farmland.ProgressDay();
         }
+
+        _hours = 0;
+        _minutes = 0;
     }
 
     public void StartNight()
     {
-
+        _bIsTimePaused = true;
     }
 
     public void ProgressWeek()
@@ -183,7 +198,6 @@ public class DayManager : MonoBehaviour
         else if (_currentWeekOfMonth == 4)
         {
             ProgressSeason();
-            
         }
 
     }
@@ -195,30 +209,25 @@ public class DayManager : MonoBehaviour
         switch (_currentSeason)
         {
             case Seasons.Spring:
-                _currentSeason = Seasons.Summer;
                 _lengthOfDay = 600;
                 break;
             case Seasons.Summer:
-                _currentSeason = Seasons.Autumn;
                 _lengthOfDay = 540;
                 break;
             case Seasons.Autumn:
-                _currentSeason = Seasons.Winter;
                 _lengthOfDay = 480;
                 break;
             case Seasons.Winter:
-                _currentSeason = Seasons.Spring;
                 _lengthOfDay = 540;
                 break;
             default:
-                
                 break;
         }
     }
 
     public void SleepSkipTime()
     {
-
+        _hours++;
     }
 
 
@@ -227,96 +236,46 @@ public class DayManager : MonoBehaviour
         _currentYear++;
     }
 
+    private void ProgressHour(int numHours)
+    {
+        _minutes = 0;
+        _hours++;
+
+        if (_hours >= _hoursPerDay)
+        {
+            ProgressDay();
+        }
+    }
+
     void SetTimeDateString()
     {
         switch (_timeFormat)
         {
             case TimeFormat.Hour_12:
-                {
-                    int h;
-                    
-                    if(_hours >= 13)
-                    {
-                        h = _hours - 12;
-                        
-                    }
-                    else if (_hours == 0)
-                    {
-                        h = 12;
-                        
-                    }
-                    else
-                    {
-                        h = _hours;
-                    }
-                    _timeString = h + ":";
-
-                    if (_minutes <= 9)
-                    {
-                        _timeString += "0" + _minutes;
-                    }
-                    else
-                    {
-                        _timeString += _minutes;
-                    }
-                }
-
-                if (_isAM)
-                {
-                    _timeString += " AM";
-                }
-                else
-                {
-                    _timeString += " PM";
-                }
+            {
+                int sanitisedHours = (_hours % 12) + 1;
+                _timeString = sanitisedHours < 10 ? "0" + sanitisedHours + ":" : sanitisedHours + ":";
+                _timeString += _minutes < 10 ? "0" + _minutes.ToString() : _minutes.ToString();
+                _timeString += _isAM ? " AM" : "PM";
                 break;
-
+            }
             case TimeFormat.Hour_24:
-                {
-                    if (_hours <= 9)
-                    {
-                        _timeString = "0" + _hours + ":";
-                    }
-                    else
-                    {
-                        _timeString = _hours + ":";
-                    }
-
-                    if (_minutes <= 9)
-                    {
-                        _timeString += "0" + _minutes;
-                    }
-                    else
-                    {
-                        _timeString += _minutes;
-                    }
-
-
-                       
-                }
+            {
+                _timeString += _hours < 10 ? "0" + _hours.ToString() : _hours.ToString();
+                _timeString += _minutes < 10 ? "0" + _minutes.ToString() : _minutes.ToString();
                 break;
-
-            default:
-
-                break;
-
-                
+            }
         }
         _seasonString = _currentSeasonPhase.ToString() + " " + _currentSeason.ToString();
-        
 
-        for (int i = 0; i < _timeText.Length; i++)
+        if (_timeText)
         {
-            _timeText[i].text = _timeString;
+            _timeText.text = _timeString;
         }
-        
-        for (int i = 0; i < _seasonText.Length; i++)
+
+        if (_seasonText)
         {
-            _seasonText[i].text = _seasonString;
+            _seasonText.text = _seasonString;
         }
     }
-
-  
-
-
 }

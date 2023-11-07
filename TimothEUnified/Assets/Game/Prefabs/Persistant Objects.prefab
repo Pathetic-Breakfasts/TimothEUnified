@@ -184,11 +184,9 @@ MonoBehaviour:
   _currentYear: 0
   _currentDayOfWeek: 0
   _currentWeekOfMonth: 0
-  _timeText:
-  - {fileID: 7536866005440002147}
-  _seasonText:
-  - {fileID: 950036714811850729}
-  _secsPerMinute: 5
+  _secsPerMinute: 1
+  _timeText: {fileID: 7536866005440002147}
+  _seasonText: {fileID: 950036714811850729}
 --- !u!1 &6359487110297174893
 GameObject:
   m_ObjectHideFlags: 0

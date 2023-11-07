@@ -47,7 +47,7 @@ public class FarmableLand : MonoBehaviour
 
         if(_tilemap == null)
         {
-            Debug.LogWarning("Tilemap_Decoration was not found");
+            Debug.LogWarning("Tilemap_Farmland was not found");
         }
 
         IsTilled = false;
@@ -78,6 +78,17 @@ public class FarmableLand : MonoBehaviour
                 Destroy(_childCrop.gameObject);
                 _isOccupied = false;
                 _childCrop = null;
+            }
+        }
+    }
+
+    public void ProgressDay()
+    {
+        if(_isOccupied)
+        {
+            if (_childCrop)
+            {
+                _childCrop.ProgressDay();
             }
         }
     }
