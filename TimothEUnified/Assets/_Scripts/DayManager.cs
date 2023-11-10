@@ -49,7 +49,6 @@ public class DayManager : MonoBehaviour
     [SerializeField] private  int _currentWeekOfMonth;
     [SerializeField] private float _secsPerMinute = 60;
 
-
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private TextMeshProUGUI _seasonText;
 
@@ -171,11 +170,20 @@ public class DayManager : MonoBehaviour
 
         _hours = 0;
         _minutes = 0;
+
+        StartNight();
     }
 
     public void StartNight()
     {
-        _bIsTimePaused = true;
+        IsTimePaused = true;
+    }
+
+    public void EndNight()
+    {
+        IsTimePaused = false;
+
+        ProgressHour(2);
     }
 
     public void ProgressWeek()
@@ -225,9 +233,9 @@ public class DayManager : MonoBehaviour
         }
     }
 
-    public void SleepSkipTime()
+    public void SleepSkipTime(int desiredSleep)
     {
-        _hours++;
+        ProgressHour(desiredSleep);
     }
 
 

@@ -16,6 +16,8 @@ public class ToolConfig : ScriptableObject
     public ToolType _type;
     public float _toolPower = 50.0f;
 
+    public float _energyConsumption = 3.0f;
+
     public Sprite _horizontalSprite;
     public Sprite _verticalSprite;
 

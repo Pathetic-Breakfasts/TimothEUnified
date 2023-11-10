@@ -11,6 +11,8 @@ public class ActiveTool : MonoBehaviour
     public bool UsingTool { get => _usingTool; }
     bool _usingTool;
 
+    public float EnergyConsumption { get => _config._energyConsumption; }
+
     Animator _animator;
 
     InteractionPointManager _interactPoints;

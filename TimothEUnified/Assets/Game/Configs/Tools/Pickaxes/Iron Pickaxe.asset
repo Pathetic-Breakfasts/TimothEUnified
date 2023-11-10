@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d27db9db2ddf4e64881d8a8688bc643c, type: 3}
-  m_Name: IronPickaxe
+  m_Name: Iron Pickaxe
   m_EditorClassIdentifier: 
   _type: 1
   _toolPower: 50

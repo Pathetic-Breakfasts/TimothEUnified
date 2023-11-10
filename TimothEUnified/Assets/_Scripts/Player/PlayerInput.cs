@@ -36,9 +36,14 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] ToolConfig _hoeConfig;
     [SerializeField] LayerMask _farmableLand;
 
+    CharacterEnergy _characterEnergy;
+
     CropConfig _selectedConfig;
 
     bool _combatMode = false;
+
+    public Bed CurrentBed { get => _bed; set => _bed = value; }
+    Bed _bed;
 
     public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; }
 
@@ -56,6 +61,7 @@ public class PlayerInput : MonoBehaviour
         _mover = GetComponent<Mover>();
         _interactPoints = GetComponentInChildren<InteractionPointManager>();
         _dayManager = FindObjectOfType<DayManager>();
+        _characterEnergy = GetComponent<CharacterEnergy>();
     }
 
     // Start is called before the first frame update
@@ -136,6 +142,13 @@ public class PlayerInput : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.E) && _bed)
+        {
+            _bed.Sleep(1); //TODO: Spawn UI Prompt for specifying amount of sleep to get
+            //TODO: Add player energy per hour of sleep 
+            _characterEnergy.RegainEnergy(25.0f);
         }
 
         //TESTING CODE END
@@ -235,6 +248,11 @@ public class PlayerInput : MonoBehaviour
             _animator.SetFloat("CombatVertical", dir.y);
             _animator.SetFloat("LastHorizontal", dir.x);
             _animator.SetFloat("LastVertical", dir.y);
+
+            if (_characterEnergy.CanUseAmount(_activeTool.EnergyConsumption))
+            {
+                _characterEnergy.UseEnergy(_activeTool.EnergyConsumption);
+            }
         }
     }
 
