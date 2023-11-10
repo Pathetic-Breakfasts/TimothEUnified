@@ -190,6 +190,18 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
+        //TODO: Remove this hard codedness, also unlink input and character mover
+        if(_characterEnergy.GetEnergyRatio() < 0.25f)
+        {
+            //TODO: Display a UI Prompt for first time passing this
+            //Also add in a proper on energy changed event that invokes when energy is consumed (Saves: processing time and unlinks systems)
+            _mover.MovementSpeedRatio = 0.5f;
+        }
+        else
+        {
+            _mover.MovementSpeedRatio = 1.0f;
+        }
+
         _movement.x = Input.GetAxisRaw("Horizontal");
         _movement.y = Input.GetAxisRaw("Vertical");
 
@@ -234,7 +246,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (_activeTool.UsingTool || _playerWeapon.Attacking) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && _characterEnergy.CanUseAmount(_activeTool.EnergyConsumption))
         {
             _mousePosAtClick = Input.mousePosition;
             Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -249,10 +261,7 @@ public class PlayerInput : MonoBehaviour
             _animator.SetFloat("LastHorizontal", dir.x);
             _animator.SetFloat("LastVertical", dir.y);
 
-            if (_characterEnergy.CanUseAmount(_activeTool.EnergyConsumption))
-            {
-                _characterEnergy.UseEnergy(_activeTool.EnergyConsumption);
-            }
+            _characterEnergy.UseEnergy(_activeTool.EnergyConsumption);
         }
     }
 
