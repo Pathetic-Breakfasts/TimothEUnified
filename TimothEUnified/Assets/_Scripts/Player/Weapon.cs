@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
     float _timeSinceLastAttack = 0.0f;
     float _attackCooldown;
     
-    public bool Attacking { get => _attacking; }
+    public bool IsAttacking { get => _attacking; }
     public WeaponConfig  GetWeaponConfig { get => _config; }
 
     private void Awake()

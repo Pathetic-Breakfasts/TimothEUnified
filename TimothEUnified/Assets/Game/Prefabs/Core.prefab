@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 4913633714051029924}
   m_Layer: 0
   m_Name: Map Collider
-  m_TagString: Untagged
+  m_TagString: MapCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

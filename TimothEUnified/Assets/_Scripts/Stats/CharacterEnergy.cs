@@ -2,6 +2,7 @@ using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharacterEnergy : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class CharacterEnergy : MonoBehaviour
     [Min(0f)][SerializeField] float _StartingEnergy = 100.0f;
 
     float _currentEnergy;
+
+    public UnityEvent _onEnergyChanged;
 
 
     // Start is called before the first frame update
@@ -35,6 +38,8 @@ public class CharacterEnergy : MonoBehaviour
     public void UseEnergy(float amount)
     {
         _currentEnergy = Mathf.Clamp(_currentEnergy - amount, 0.0f, _StartingEnergy);
+
+        _onEnergyChanged.Invoke();
 
         UpdateUI();
     }

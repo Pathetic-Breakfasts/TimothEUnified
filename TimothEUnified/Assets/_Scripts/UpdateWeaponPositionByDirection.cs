@@ -18,7 +18,7 @@ public class UpdateWeaponPositionByDirection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_weapon.Attacking)
+        if (!_weapon.IsAttacking)
         {
             Vector3 eulers = _weaponAttachPoint.localEulerAngles;
 

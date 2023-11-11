@@ -171,6 +171,8 @@ public class DayManager : MonoBehaviour
         _hours = 0;
         _minutes = 0;
 
+        _bIsTimePaused = false;
+
         StartNight();
     }
 

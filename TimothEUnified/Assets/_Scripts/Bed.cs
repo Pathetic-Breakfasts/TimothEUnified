@@ -24,7 +24,7 @@ public class Bed : MonoBehaviour
     {
         if(collision.CompareTag(GameTagManager._playerTag))
         {
-            collision.gameObject.GetComponent<PlayerInput>().CurrentBed = this;
+            collision.gameObject.GetComponent<PlayerController>().CurrentBed = this;
         }
     }
 
@@ -32,7 +32,7 @@ public class Bed : MonoBehaviour
     {
         if(collision.CompareTag(GameTagManager._playerTag))
         {
-            collision.gameObject.GetComponent<PlayerInput>().CurrentBed = null;
+            collision.gameObject.GetComponent<PlayerController>().CurrentBed = null;
         }
     }
 

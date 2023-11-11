@@ -8,6 +8,8 @@ public class ActiveTool : MonoBehaviour
 
     [SerializeField] SpriteRenderer _toolSpriteRenderer;
 
+    [SerializeField] LayerMask _farmableLand;
+
     public bool UsingTool { get => _usingTool; }
     bool _usingTool;
 
@@ -54,15 +56,16 @@ public class ActiveTool : MonoBehaviour
         //Current tool is a hoe. Checks for closest farmland in trigger
         if (_config._type == ToolType.Hoe)
         {
-            GameObject closestFarmland = GetClosestObjecInInteractionPointWithTag(ip, GameTagManager._farmableLandTag);
-            if (closestFarmland != null)
+            //Instead of this, raycast from the mouse position and see if it was on a farm tile within range
+            if (Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
             {
-                FarmableLand farmableLand = closestFarmland.GetComponent<FarmableLand>();
-                if (farmableLand)
+                RaycastHit2D h = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _farmableLand);
+                if (h.collider != null)
                 {
-                    if (!farmableLand.IsOccupied && !farmableLand.IsTilled)
+                    FarmableLand fl = h.collider.GetComponent<FarmableLand>();
+                    if(fl != null && !fl.IsOccupied)
                     {
-                        farmableLand.IsTilled = true;
+                        fl.IsTilled = true;
                     }
                 }
             }
@@ -70,7 +73,7 @@ public class ActiveTool : MonoBehaviour
         //Current tool is not a hoe. Checks for resource nodes instead of farmland
         else
         {
-            GameObject closestResourceNode = GetClosestObjecInInteractionPointWithTag(ip, GameTagManager._resourceNodeTag);
+            GameObject closestResourceNode = GetClosestObjectInInteractionPointWithTag(ip, GameTagManager._resourceNodeTag);
             if (closestResourceNode)
             {
                 ResourceNode rn = closestResourceNode.GetComponent<ResourceNode>();
@@ -87,7 +90,7 @@ public class ActiveTool : MonoBehaviour
         _toolSpriteRenderer.gameObject.SetActive(false);
     }
 
-    private GameObject GetClosestObjecInInteractionPointWithTag(InteractionPoint ip, string tag)
+    private GameObject GetClosestObjectInInteractionPointWithTag(InteractionPoint ip, string tag)
     {
         GameObject closestObj = null;
         float closestDistance = 1000000.0f;
