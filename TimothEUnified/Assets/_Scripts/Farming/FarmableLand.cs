@@ -34,8 +34,8 @@ public class FarmableLand : MonoBehaviour
     void Start()
     {
         //Finds all tilemap objects in the scene
-        Tilemap[] tms = FindObjectsOfType<Tilemap>();
-        foreach(Tilemap tm in tms)
+        Tilemap[] tilemaps = FindObjectsOfType<Tilemap>();
+        foreach(Tilemap tm in tilemaps)
         {
             //Finds the correct tilemap 
             if(tm.gameObject.name == "Tilemap_Farmland")
@@ -45,7 +45,7 @@ public class FarmableLand : MonoBehaviour
             }
         }
 
-        if(_tilemap == null)
+        if(!_tilemap)
         {
             Debug.LogWarning("Tilemap_Farmland was not found");
         }
@@ -68,28 +68,22 @@ public class FarmableLand : MonoBehaviour
 
     public void Harvest()
     {
-        if (_childCrop)
+        if (_childCrop && _childCrop.ReadyToPick())
         {
-            if (_childCrop.ReadyToPick())
-            {
-                //TODO: Actually pickup the crop (requires inventory)
-                Debug.Log("Gained 1 " + _childCrop.Config.type);
+            //TODO: Actually pickup the crop (requires inventory)
+            Debug.Log("Gained 1 " + _childCrop.Config.type);
 
-                Destroy(_childCrop.gameObject);
-                _isOccupied = false;
-                _childCrop = null;
-            }
+            Destroy(_childCrop.gameObject);
+            _isOccupied = false;
+            _childCrop = null;
         }
     }
 
     public void ProgressDay()
     {
-        if(_isOccupied)
+        if(_isOccupied && _childCrop)
         {
-            if (_childCrop)
-            {
-                _childCrop.ProgressDay();
-            }
+            _childCrop.ProgressDay();
         }
     }
 

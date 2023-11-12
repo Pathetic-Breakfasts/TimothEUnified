@@ -64,7 +64,7 @@ public class ResourceNode : MonoBehaviour
 
         if (!returnVal)
         {
-            if(_source != null && _cantDestroyHitSfx != null)
+            if(_source && _cantDestroyHitSfx)
             {
                 _source.PlayOneShot(_cantDestroyHitSfx);
             }
@@ -83,7 +83,7 @@ public class ResourceNode : MonoBehaviour
 
         if (_health.CurrentHealth <= 0.0f)
         {
-            if(_source != null && _destroyedSfx != null)
+            if(_source && _destroyedSfx)
             {
                 _source.PlayOneShot(_destroyedSfx);
             }
@@ -92,7 +92,7 @@ public class ResourceNode : MonoBehaviour
         }
         else
         {
-            if(_source != null && _canDestroyHitSfx != null)
+            if(_source && _canDestroyHitSfx)
             {
                 _source.PlayOneShot(_canDestroyHitSfx);
                 _shakeAnim.Play();

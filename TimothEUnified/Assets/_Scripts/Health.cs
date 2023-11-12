@@ -66,7 +66,6 @@ public class Health : MonoBehaviour
         {
             Kill();
         }
-
     }
 
     public void Kill()

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ToolConfig _axeConfig;
     [SerializeField] ToolConfig _pickaxeConfig;
     [SerializeField] ToolConfig _hoeConfig;
+    CropConfig _selectedConfig;
 
     [SerializeField] Weapon _playerWeapon;
     ActiveTool _activeTool;
@@ -15,34 +16,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _weaponAttach;
 
     [SerializeField] LayerMask _interactableLayer;
-
-    CharacterEnergy _characterEnergy;
-
-
-    Mover _mover;
-
-    public Bed CurrentBed { get => _bed; set => _bed = value; }
-    Bed _bed;
-    DoorController _doorController;
-
     [SerializeField] CropConfig _carrotConfig;
     [SerializeField] CropConfig _tomatoesConfig;
     [SerializeField] CropConfig _lettuceConfig;
-    CropConfig _selectedConfig;
 
+    CharacterEnergy _characterEnergy;
+    Mover _mover;
     DayManager _dayManager;
-
+    DoorController _doorController;
     Animator _animator;
 
     Vector2 _movement;
     Vector2 _mousePosAtClick;
 
+    public Bed CurrentBed { get => _bed; set => _bed = value; }
+    Bed _bed;
+
     public bool IsHeavyAttack { get => _isHeavyAttack; set=>_isHeavyAttack = value; }
     bool _isHeavyAttack = false;
-
-    public InteractDirection InteractionDirection { get => _interactionDirection; set => _interactionDirection = value; }
-
-    InteractDirection _interactionDirection;
 
     public bool IsInCombatMode { get => _isInCombatMode; set 
         { 
@@ -59,9 +50,6 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _activeTool = GetComponent<ActiveTool>();
         _mover = GetComponent<Mover>();
-
-        
-
     }
 
     private void Start()
@@ -175,15 +163,13 @@ public class PlayerController : MonoBehaviour
 
         _mousePosAtClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector2 playerScreenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+        InteractDirection direction = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
+        Vector2 directionVec = GameUtilities.GetDirectionVector(direction);
 
-        _interactionDirection = GameUtilities.CalculateDirection(playerScreenPos, _mousePosAtClick);
-        Vector2 dir = GameUtilities.GetDirectionVector(_interactionDirection);
-
-        _animator.SetFloat("CombatHorizontal", dir.x);
-        _animator.SetFloat("CombatVertical", dir.y);
-        _animator.SetFloat("LastHorizontal", dir.x);
-        _animator.SetFloat("LastVertical", dir.y);
+        _animator.SetFloat("CombatHorizontal", directionVec.x);
+        _animator.SetFloat("CombatVertical", directionVec.y);
+        _animator.SetFloat("LastHorizontal", directionVec.x);
+        _animator.SetFloat("LastVertical", directionVec.y);
 
         if (_isInCombatMode)
         {
@@ -210,7 +196,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            _activeTool.UseTool(_interactionDirection, _mousePosAtClick);
+            _activeTool.UseTool(_mousePosAtClick);
             _characterEnergy.UseEnergy(_activeTool.EnergyConsumption);
         }
 

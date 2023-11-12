@@ -32,7 +32,7 @@ public class ActiveTool : MonoBehaviour
         _toolSpriteRenderer.gameObject.SetActive(false);
     }
 
-    public void UseTool(InteractDirection interactDirection, Vector2 mousePos)
+    public void UseTool(Vector2 mousePos)
     {
         _toolSpriteRenderer.gameObject.SetActive(true);
         _mousePosAtClick = mousePos;
@@ -48,12 +48,12 @@ public class ActiveTool : MonoBehaviour
         if(Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
         {
             RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
-            if (hit.collider != null)
+            if (hit.collider)
             {
                 if(_config._type == ToolType.Hoe)
                 {
                     FarmableLand farmableLand = hit.collider.GetComponent<FarmableLand>();
-                    if (farmableLand != null && !farmableLand.IsOccupied)
+                    if (farmableLand && !farmableLand.IsOccupied)
                     {
                         farmableLand.IsTilled = true;
                     }
