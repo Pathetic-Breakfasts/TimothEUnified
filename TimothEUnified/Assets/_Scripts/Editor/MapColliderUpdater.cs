@@ -12,7 +12,6 @@ public class MapColliderUpdater : Editor
     {
         base.OnInspectorGUI();
 
-
         PolygonCollider2D polygonCollider2D = (PolygonCollider2D)target;
         if (polygonCollider2D == null || !polygonCollider2D.gameObject.CompareTag(GameTagManager._mapColliderTag))
         {

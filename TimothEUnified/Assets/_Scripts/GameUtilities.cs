@@ -63,4 +63,26 @@ public class GameUtilities : MonoBehaviour
 
         return vec;
     }
+
+    private static GameObject GetClosestObjectInInteractionPointWithTag(InteractionPoint ip, string tag)
+    {
+        GameObject closestObj = null;
+        float closestDistance = 1000000.0f;
+
+        foreach (GameObject obj in ip.ObjectsInTrigger)
+        {
+            if (!obj.CompareTag(tag)) continue;
+
+            Vector2 rnPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+
+            float dist = Vector2.Distance(rnPos, ip.transform.position);
+            if (dist < closestDistance)
+            {
+                closestObj = obj;
+                closestDistance = dist;
+            }
+        }
+
+        return closestObj;
+    }
 }

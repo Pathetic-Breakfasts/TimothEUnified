@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class CharacterEnergy : MonoBehaviour
 {
-
     [Min(0f)][SerializeField] float _StartingEnergy = 100.0f;
 
     float _currentEnergy;

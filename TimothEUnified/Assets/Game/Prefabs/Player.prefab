@@ -547,7 +547,7 @@ MonoBehaviour:
   _hoeConfig: {fileID: 11400000, guid: d1c3a6353010929489720e33bc34df44, type: 2}
   _playerWeapon: {fileID: 3798145941062185353}
   _weaponAttach: {fileID: 8365147085001494865}
-  _farmableLand:
+  _interactableLayer:
     serializedVersion: 2
     m_Bits: 64
   _carrotConfig: {fileID: 11400000, guid: ae65b19b96d16a349b19c1d4f6d498d0, type: 2}
@@ -710,7 +710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 155413327d97d1040ad8cd15e3e45f82, type: 2}
   _toolSpriteRenderer: {fileID: 8365147084948138428}
-  _farmableLand:
+  _interactableLayer:
     serializedVersion: 2
     m_Bits: 64
 --- !u!114 &8158106270323219337

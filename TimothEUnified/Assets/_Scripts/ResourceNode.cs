@@ -13,7 +13,6 @@ public enum ResourceNodeType
 
 public class ResourceNode : MonoBehaviour
 {
-    [SerializeField] float _nodeMaxHealth = 100.0f;
     [SerializeField] ResourceNodeType _type;
 
     [SerializeField] int _amount = 1;
@@ -33,7 +32,7 @@ public class ResourceNode : MonoBehaviour
     [SerializeField] AudioClip _cantDestroyHitSfx;
     [SerializeField] AudioClip _destroyedSfx;
 
-    float _currentHealth;
+    Health _health;
 
     float _spriteSwapTarget;
 
@@ -47,16 +46,16 @@ public class ResourceNode : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         _source = GetComponent<AudioSource>();
         _shakeAnim = GetComponent<Animation>();
+        _health = GetComponent<Health>();
     }
 
     private void Start()
     {
-        _currentHealth = _nodeMaxHealth;
         _renderer.sprite = _sprites[0];
 
         int lengthOfSpritesArr = _sprites.Length;
 
-        _spriteSwapTarget = _nodeMaxHealth / lengthOfSpritesArr;
+        _spriteSwapTarget = _health.MaxHealth / lengthOfSpritesArr;
     }
 
     public bool CanDestroy(ToolConfig config)
@@ -74,19 +73,15 @@ public class ResourceNode : MonoBehaviour
         return returnVal;
     }
 
-    public void TakeHit(float damage)
+    public void ProcessHit()
     {
-        _currentHealth -= damage;
-
-
-
-        if(_currentHealth <= _nodeMaxHealth - (_spriteSwapTarget * (_currentSpriteIndex + 1)))
+        if(_health.CurrentHealth <= _health.MaxHealth - (_spriteSwapTarget * (_currentSpriteIndex + 1)))
         {
             _currentSpriteIndex = (_currentSpriteIndex + 1) % _sprites.Length;
             _renderer.sprite = _sprites[_currentSpriteIndex];
         }
 
-        if (_currentHealth <= 0.0f)
+        if (_health.CurrentHealth <= 0.0f)
         {
             if(_source != null && _destroyedSfx != null)
             {

@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 8017598463245319490}
   - component: {fileID: 8017598463245319481}
   - component: {fileID: 9183745381577332867}
-  m_Layer: 0
+  - component: {fileID: 2016048057804202535}
+  m_Layer: 6
   m_Name: Base Resource Node
   m_TagString: ResourceNode
   m_Icon: {fileID: 0}
@@ -126,7 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02169d99defbb2748a22806d02952e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeMaxHealth: 200
   _type: 0
   _amount: 1
   _minimumToolPower: 30
@@ -268,3 +268,41 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &2016048057804202535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017598463245319491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684e64d5bdd1e54c8ac1264252751ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealth: 200
+  _maxHealth: 200
+  _currentHealth: 0
+  _immortal: 0
+  _destroyOnDeath: 0
+  _onDeathAction:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDamageAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8017598463245319485}
+        m_TargetAssemblyTypeName: ResourceNode, Assembly-CSharp
+        m_MethodName: ProcessHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onHealAction:
+    m_PersistentCalls:
+      m_Calls: []

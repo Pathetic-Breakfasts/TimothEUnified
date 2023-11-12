@@ -8,7 +8,7 @@ using CustomAttributes;
 public class Health : MonoBehaviour
 {
     [Header("General Settings")]
-    [SerializeField] private float _startingHealth = 50.0f;
+    [SerializeField] private float _startingHealth = 100.0f;
     [SerializeField] private float _maxHealth = 100.0f;
     [CustomAttributes.ReadOnly][SerializeField] float _currentHealth;
 
@@ -24,6 +24,8 @@ public class Health : MonoBehaviour
 
     private bool _dead = false;
     
+    public float CurrentHealth { get => _currentHealth; }
+    public float MaxHealth { get => _maxHealth; }
 
     private void LateUpdate()
     {
@@ -58,13 +60,13 @@ public class Health : MonoBehaviour
     public void TakeDamage(float amount)
     {
         _currentHealth = Mathf.Clamp(_currentHealth - amount, 0.0f, _maxHealth);
+        OnDamage(amount);
 
         if(_currentHealth == 0.0f)
         {
             Kill();
         }
 
-        OnDamage(amount);
     }
 
     public void Kill()

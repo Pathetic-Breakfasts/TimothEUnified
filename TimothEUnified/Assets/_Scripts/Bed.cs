@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Bed : MonoBehaviour
 {
-
-
-
     public bool CanSleep { get => _bCanSleep; set => _bCanSleep = value; }
     bool _bCanSleep = false;
 

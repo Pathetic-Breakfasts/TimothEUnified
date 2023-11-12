@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Transform _weaponAttach;
 
-    [SerializeField] LayerMask _farmableLand;
+    [SerializeField] LayerMask _interactableLayer;
 
     CharacterEnergy _characterEnergy;
 
@@ -185,31 +185,31 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("LastHorizontal", dir.x);
         _animator.SetFloat("LastVertical", dir.y);
 
-        if (Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
-        {
-            RaycastHit2D h = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _farmableLand);
-            if (h.collider != null)
-            {
-                FarmableLand fl = h.collider.GetComponent<FarmableLand>();
-                if (fl.ReadyToPlant()) 
-                {
-                    fl.Plant(_selectedConfig);
-                    return;
-                }
-                else if (fl.ReadyToHarvest())
-                {
-                    fl.Harvest();
-                    return;
-                }
-            }
-        }
-
         if (_isInCombatMode)
         {
             _playerWeapon.StartSwing(null, _isHeavyAttack);
         }
         else
         {
+            if (Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
+                if (hit.collider != null)
+                {
+                    FarmableLand farmableLand = hit.collider.GetComponent<FarmableLand>();
+                    if (farmableLand && farmableLand.ReadyToPlant())
+                    {
+                        farmableLand.Plant(_selectedConfig);
+                        return;
+                    }
+                    else if (farmableLand && farmableLand.ReadyToHarvest())
+                    {
+                        farmableLand.Harvest();
+                        return;
+                    }
+                }
+            }
+
             _activeTool.UseTool(_interactionDirection, _mousePosAtClick);
             _characterEnergy.UseEnergy(_activeTool.EnergyConsumption);
         }
