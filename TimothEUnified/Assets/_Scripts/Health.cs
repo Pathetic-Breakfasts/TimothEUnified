@@ -27,6 +27,8 @@ public class Health : MonoBehaviour
     public float CurrentHealth { get => _currentHealth; }
     public float MaxHealth { get => _maxHealth; }
 
+    public float HealthRatio { get => _currentHealth / _maxHealth; }
+
     private void LateUpdate()
     {
         if(_dead && _destroyOnDeath)

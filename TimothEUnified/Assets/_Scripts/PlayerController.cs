@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     Mover _mover;
     DayManager _dayManager;
     Animator _animator;
+    Health _playerHealth;
 
     UIManager _uiManager;
 
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _activeTool = GetComponent<ActiveTool>();
         _mover = GetComponent<Mover>();
+        _playerHealth = GetComponent<Health>();
     }
 
     private void Start()
@@ -176,6 +178,13 @@ public class PlayerController : MonoBehaviour
         {
             _mover.MovementSpeedRatio = 1.0f;
         }
+
+        _uiManager?.SetEnergyBarFillRatio(_characterEnergy.GetEnergyRatio());
+    }
+
+    public void OnHealthChanged()
+    {
+        _uiManager?.SetHealthBarFillRatio(_playerHealth.HealthRatio);
     }
 
     public void UseEquipped()
