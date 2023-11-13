@@ -23,15 +23,18 @@ public class PlayerController : MonoBehaviour
     CharacterEnergy _characterEnergy;
     Mover _mover;
     DayManager _dayManager;
-    DoorController _doorController;
     Animator _animator;
+
+    UIManager _uiManager;
 
     Vector2 _movement;
     Vector2 _mousePosAtClick;
 
-    public Bed CurrentBed { get => _bed; set => _bed = value; }
+    public Bed CurrentBed { get => _bed; set { _bed = value; UpdatePrompts(); } }
     Bed _bed;
 
+    public DoorController NearbyDoor { get => _doorController; set { _doorController = value; UpdatePrompts(); } }
+    DoorController _doorController;
     public bool IsHeavyAttack { get => _isHeavyAttack; set=>_isHeavyAttack = value; }
     bool _isHeavyAttack = false;
 
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
         _selectedConfig = _carrotConfig;
 
         _dayManager = FindObjectOfType<DayManager>();
+        _uiManager = FindObjectOfType<UIManager>();
     }
 
     private void FixedUpdate()
@@ -137,6 +141,26 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("Vertical", movement.y);
         _animator.SetFloat("Speed", movement.sqrMagnitude);
         _movement = movement;
+    }
+
+    private void UpdatePrompts()
+    {
+        if (_bed)
+        {
+            _uiManager.SetInputPromptVisibility(true);
+            _uiManager.SetInputPromptText("Use Bed");
+            return;
+        }
+        
+        if(_doorController)
+        {
+            _uiManager.SetInputPromptVisibility(true);
+            _uiManager.SetInputPromptText("Use Door");
+            return;
+        }
+
+        _uiManager.SetInputPromptVisibility(false);
+
     }
 
     public void OnEnergyChanged()
