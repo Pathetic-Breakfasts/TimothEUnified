@@ -10,6 +10,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ToolConfig _hoeConfig;
     CropConfig _selectedConfig;
 
+    //TEMP ITEMS
+    [SerializeField] ItemConfig _itemConfig1;
+    [SerializeField] ItemConfig _itemConfig2;
+    [SerializeField] ItemConfig _itemConfig3;
+    [SerializeField] ItemConfig _itemConfig4;
+    [SerializeField] ItemConfig _itemConfig5;
+    [SerializeField] ItemConfig _itemConfig6;
+
     [SerializeField] Weapon _playerWeapon;
     ActiveTool _activeTool;
 
@@ -25,6 +33,8 @@ public class PlayerController : MonoBehaviour
     DayManager _dayManager;
     Animator _animator;
     Health _playerHealth;
+
+    InventoryStore _inventoryStore;
 
     UIManager _uiManager;
 
@@ -64,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
         _dayManager = FindObjectOfType<DayManager>();
         _uiManager = FindObjectOfType<UIManager>();
+        _inventoryStore = FindObjectOfType<InventoryStore>();
     }
 
     private void FixedUpdate()
@@ -74,6 +85,8 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat("LastHorizontal", _movement.x);
         _animator.SetFloat("LastVertical", _movement.y);
+
+
     }
 
     private void Update()
@@ -135,6 +148,21 @@ public class PlayerController : MonoBehaviour
         {
             _dayManager.ProgressDay();
         }
+
+        //INV TEST CODE
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (_inventoryStore != null)
+            {
+                _inventoryStore.AddItem(_itemConfig1, 1);
+                _inventoryStore.AddItem(_itemConfig2, 2);
+                _inventoryStore.AddItem(_itemConfig3, 3);
+                _inventoryStore.AddItem(_itemConfig4, 4);
+                _inventoryStore.AddItem(_itemConfig5, 5);
+                _inventoryStore.AddItem(_itemConfig6, 6);
+            }
+        }
+        //END OF INV TEST CODE
     }
 
     public void SetMovement(Vector2 movement)

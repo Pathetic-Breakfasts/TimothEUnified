@@ -12725,6 +12725,30 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _itemConfig1
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a9a819ec2733c149a9882d711f27677, type: 2}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _itemConfig2
+      value: 
+      objectReference: {fileID: 11400000, guid: fd3aec81870ec7940bef987d7e005952, type: 2}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _itemConfig3
+      value: 
+      objectReference: {fileID: 11400000, guid: c6d59345100823745a6defd36acf0374, type: 2}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _itemConfig4
+      value: 
+      objectReference: {fileID: 11400000, guid: ca4672fa382f4a1498e32b7cd9c27338, type: 2}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _itemConfig5
+      value: 
+      objectReference: {fileID: 11400000, guid: dbd44418da3df4342809229e85857f5c, type: 2}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _itemConfig6
+      value: 
+      objectReference: {fileID: 11400000, guid: c27567d31a577e642a0ac8b1baa3aa42, type: 2}
     m_RemovedComponents:
     - {fileID: 7157550069486071377, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
     - {fileID: 3363905694144898754, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
