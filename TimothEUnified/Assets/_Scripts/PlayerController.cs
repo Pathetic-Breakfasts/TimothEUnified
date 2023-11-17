@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
                 _inventoryStore.AddItem(_itemConfig3, 3);
                 _inventoryStore.AddItem(_itemConfig4, 4);
                 _inventoryStore.AddItem(_itemConfig5, 5);
-                _inventoryStore.AddItem(_itemConfig6, 6);
+                _inventoryStore.AddItem(_itemConfig6, 500);
             }
         }
         //END OF INV TEST CODE

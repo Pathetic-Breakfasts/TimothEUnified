@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -34,6 +33,7 @@ public class InventoryStore : MonoBehaviour
     {
         int index = FindItemIndex(config);
 
+        //We already have this item
         if(index != -1)
         {
             //Is Item Stackable
@@ -48,41 +48,36 @@ public class InventoryStore : MonoBehaviour
                     //Add the correct amount to the current stack
                     _inventory[index].quantity += quantity - remainder;
 
-                    //Find our next empty slot
-                    int newStack = FindFirstEmptyIndex(index + 1);
-                    if(newStack != -1)
+                    int nextIndex = FindItemIndex(config, index + 1);
+                    if(nextIndex != -1)
                     {
-                        //Put in the remainder quantity into that new slot
-                        _inventory[index].quantity = remainder;
-                        _inventory[index].config = config;
+                        if (_inventory[nextIndex].quantity + quantity > config.maxInStack)
+                        {
+                            remainder = (_inventory[nextIndex].quantity - quantity) - config.maxInStack;
+                            _inventory[nextIndex].quantity += quantity - remainder;
+
+                            quantity = remainder;
+                        }
+                        else
+                        {
+                            quantity = remainder;
+                            _inventory[nextIndex].quantity += quantity;
+                        }
+                        _onInventoryUpdate.Invoke();
+                        //return;
                     }
                 }
                 //Stacking these items will not exceed the limit
                 else
                 {
                     _inventory[index].quantity += quantity;
-                }
-                _onInventoryUpdate.Invoke();
-            }
-            //Not stackable
-            else
-            {
-                //Tries to find a empty inventory slot after this current item
-                int newStack = FindFirstEmptyIndex(index + 1);
-                if (newStack != -1)
-                {
-                    _inventory[newStack].config = config;
-                    _inventory[newStack].quantity = 1;
-                    if (quantity - 1 > 0)
-                    {
-                        AddItem(config, quantity - 1);
-                    }
+                    _onInventoryUpdate.Invoke();
+                    return;
                 }
             }
-
-            return;
         }
 
+        //We do not have this item and need to find a empty slot
         index = FindFirstEmptyIndex();
         if(index != -1)
         {
