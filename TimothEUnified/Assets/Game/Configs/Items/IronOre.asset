@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d5cf73c0c94ba4e97beee9f1464822, type: 3}
-  m_Name: Iron Ore
+  m_Script: {fileID: 11500000, guid: be8358f0fcfcb22418d7b5d788e02cc4, type: 3}
+  m_Name: IronOre
   m_EditorClassIdentifier: 
-  itemName: Iron Ore
-  description: Empty Description
+  itemID: f21a7213-9c56-4cd9-a2a2-6d9062799d4e
+  displayName: 
+  description: 
   icon: {fileID: 21300000, guid: ba7b5fce698833d44bb581aba8bbd2a5, type: 3}
-  isStackable: 1
-  maxInStack: 999
-  baseValue: 0
-  itemPrefab: {fileID: 0}
-  UUID: 
+  pickup: {fileID: 0}
+  stackable: 1
+  heldItem: {fileID: 0}
+  consumable: 0

@@ -19,6 +19,7 @@ namespace GameDevTV.Inventories
         // STATE
         InventorySlot[] slots;
 
+        [System.Serializable]
         public struct InventorySlot
         {
             public InventoryItem item;
@@ -65,8 +66,21 @@ namespace GameDevTV.Inventories
         /// <returns>Whether or not the item could be added.</returns>
         public bool AddToFirstEmptySlot(InventoryItem item, int number)
         {
-            int i = FindSlot(item);
+            if(number <= 0)
+            {
+                return false;
+            }
 
+            if (!item.IsStackable())
+            {
+                int emptySlot = FindEmptySlot();
+                slots[emptySlot].item = item;
+                slots[emptySlot].number = 1;
+                return AddToFirstEmptySlot(item, number - 1);
+            }
+
+
+            int i = FindSlot(item);
             if (i < 0)
             {
                 return false;
@@ -146,7 +160,7 @@ namespace GameDevTV.Inventories
                 return AddToFirstEmptySlot(item, number); ;
             }
 
-            var i = FindStack(item);
+            int i = FindStack(item);
             if (i >= 0)
             {
                 slot = i;

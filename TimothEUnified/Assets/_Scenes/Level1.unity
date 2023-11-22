@@ -12808,6 +12808,10 @@ PrefabInstance:
       propertyPath: _itemConfig6
       value: 
       objectReference: {fileID: 11400000, guid: c27567d31a577e642a0ac8b1baa3aa42, type: 2}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _startingLoadout
+      value: 
+      objectReference: {fileID: 11400000, guid: a4cd0249d08292346832276c25c55405, type: 2}
     m_RemovedComponents:
     - {fileID: 7157550069486071377, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
     - {fileID: 3363905694144898754, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}

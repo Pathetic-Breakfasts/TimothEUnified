@@ -145,11 +145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1847210799765944866, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -40
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1847210799765944866, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -40
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 1847210799765944866, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,6 +207,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7260453448564003565, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+    - target: {fileID: 7260453448564003565, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+    - target: {fileID: 7260453448564003565, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958634321023792893, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+      propertyPath: textContainer
+      value: 
+      objectReference: {fileID: 419900062359720331}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
 --- !u!224 &3044871503539116358 stripped
@@ -225,3 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493934aefc2d7c9469174527fc9bf167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &419900062359720331 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3904860633554055919, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
+  m_PrefabInstance: {fileID: 3738852935408870244}
+  m_PrefabAsset: {fileID: 0}

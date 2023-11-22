@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameDevTV.Inventories;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CropConfig _carrotConfig;
     [SerializeField] CropConfig _tomatoesConfig;
     [SerializeField] CropConfig _lettuceConfig;
+
+    [SerializeField] InventoryLoadout _startingLoadout;
+
+    GameDevTV.Inventories.Inventory _inventory;
 
     CharacterEnergy _characterEnergy;
     Mover _mover;
@@ -63,6 +68,7 @@ public class PlayerController : MonoBehaviour
         _activeTool = GetComponent<ActiveTool>();
         _mover = GetComponent<Mover>();
         _playerHealth = GetComponent<Health>();
+        _inventory = GetComponent<Inventory>();
     }
 
     private void Start()
@@ -72,6 +78,11 @@ public class PlayerController : MonoBehaviour
 
         _dayManager = FindObjectOfType<DayManager>();
         _uiManager = FindObjectOfType<UIManager>();
+
+        if(_startingLoadout)
+        {
+            _startingLoadout.SpawnItems(_inventory);
+        }
     }
 
     private void FixedUpdate()
