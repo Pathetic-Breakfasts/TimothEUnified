@@ -76,6 +76,7 @@ namespace GameDevTV.Inventories
                 int emptySlot = FindEmptySlot();
                 slots[emptySlot].item = item;
                 slots[emptySlot].number = 1;
+                inventoryUpdated?.Invoke();
                 return AddToFirstEmptySlot(item, number - 1);
             }
 

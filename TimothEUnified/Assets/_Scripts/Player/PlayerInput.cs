@@ -31,6 +31,15 @@ public class PlayerInput : MonoBehaviour
             _playerController.UseEquipped();
         }
 
+        if(Input.mouseScrollDelta.y > 0)
+        {
+            FindObjectOfType<HotbarManager>().ModifyIndex(1);
+        }
+        else if(Input.mouseScrollDelta.y < 0)
+        {
+            FindObjectOfType<HotbarManager>().ModifyIndex(-1);
+        }
+
         Vector2 movement;
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");

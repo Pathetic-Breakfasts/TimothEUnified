@@ -8,6 +8,8 @@ public class HotbarUI : MonoBehaviour, IItemHolder
 {
     [SerializeField] int index = 0;
 
+    [SerializeField] GameObject _selectedIconObject = null;
+
     InventoryItemIcon _slotUI;
     Inventory _inventory;
 
@@ -16,6 +18,11 @@ public class HotbarUI : MonoBehaviour, IItemHolder
         _slotUI = GetComponentInChildren<InventoryItemIcon>();
 
         _inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+
+        if (_selectedIconObject)
+        {
+            _selectedIconObject.SetActive(false);
+        }
     }
 
     public void Setup()
@@ -30,9 +37,14 @@ public class HotbarUI : MonoBehaviour, IItemHolder
         _slotUI.SetItem(_inventory.GetItemInSlot(index), _inventory.GetNumberInSlot(index));
     }
 
-    void SetSelected()
+    public void SetSelected()
     {
+        _selectedIconObject?.SetActive(true);
+    }
 
+    public void SetUnselected()
+    {
+        _selectedIconObject?.SetActive(false);
     }
 
     public InventoryItem GetItem()

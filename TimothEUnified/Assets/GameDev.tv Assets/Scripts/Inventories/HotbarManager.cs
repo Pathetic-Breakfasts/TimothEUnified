@@ -7,8 +7,9 @@ public class HotbarManager : MonoBehaviour
 {
     HotbarUI[] _hotbarSlots;
 
+    int _currentSlot = 0;
 
-    private void Start()
+    private void Awake()
     {
         _hotbarSlots = FindObjectsOfType<HotbarUI>();
 
@@ -21,6 +22,24 @@ public class HotbarManager : MonoBehaviour
         for(int i  = 0; i < _hotbarSlots.Length; i++)
         {
             _hotbarSlots[i].Setup();
+
+            if(i == _currentSlot)
+            {
+                _hotbarSlots[i].SetSelected();
+            }
+            else
+            {
+                _hotbarSlots[i].SetUnselected();
+            }
         }
     }
+
+    public void ModifyIndex(int num)
+    {
+        _hotbarSlots[_currentSlot].SetUnselected();
+        _currentSlot = (_currentSlot + num) % _hotbarSlots.Length;
+        if(_currentSlot < 0) _currentSlot = _hotbarSlots.Length - 1;
+        _hotbarSlots[_currentSlot].SetSelected();
+    }
+
 }
