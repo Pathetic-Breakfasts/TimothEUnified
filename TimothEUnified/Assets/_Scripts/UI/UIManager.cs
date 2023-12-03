@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        _promptController?.gameObject.SetActive(true);
         _promptController?.SetPromptVisibility(false);
     }
 

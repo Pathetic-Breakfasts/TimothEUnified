@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8358f0fcfcb22418d7b5d788e02cc4, type: 3}
+  m_Name: Seeds_Carrot
+  m_EditorClassIdentifier: 
+  itemID: 13c6a4f9-e63e-4b0b-b445-87ada540e0aa
+  displayName: 
+  description: 
+  icon: {fileID: 3255702263911208407, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
+  pickup: {fileID: 0}
+  stackable: 1
+  type: 3
+  toolConfig: {fileID: 0}
+  weaponConfig: {fileID: 0}
+  cropConfig: {fileID: 11400000, guid: ae65b19b96d16a349b19c1d4f6d498d0, type: 2}
+  consumable: 0

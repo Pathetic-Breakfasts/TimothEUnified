@@ -15,11 +15,25 @@ MonoBehaviour:
   items:
   - item: {fileID: 11400000, guid: ef95ac9817dc37b43ad6025077659379, type: 2}
     number: 100
+  - item: {fileID: 11400000, guid: bf79a473434306641bdd85a1476558d6, type: 2}
+    number: 1
   - item: {fileID: 11400000, guid: e4bc50283c0a3e44c8b6711b4a65d39d, type: 2}
     number: 120
   - item: {fileID: 11400000, guid: cadbd90fe26c87b4c82ea74959eca847, type: 2}
-    number: 3
+    number: 1
   - item: {fileID: 11400000, guid: 283c15c4105b63146849834f58a5f78a, type: 2}
     number: 2000
   - item: {fileID: 11400000, guid: 8b14fc9f707b70148ba18e907f803f0d, type: 2}
     number: 500
+  - item: {fileID: 11400000, guid: 5f7f263d30ac9ac4bbd75ceca3af9e34, type: 2}
+    number: 1
+  - item: {fileID: 11400000, guid: 76ebba0cfdcddeb4f815f646d6693155, type: 2}
+    number: 1
+  - item: {fileID: 11400000, guid: 6e14bce8ba1c1a245b31e866693ab3cf, type: 2}
+    number: 1
+  - item: {fileID: 11400000, guid: ea5d3ee65ad71f7489199001041f8f61, type: 2}
+    number: 15
+  - item: {fileID: 11400000, guid: 818b42bc598884c47b77d8114e70510a, type: 2}
+    number: 15
+  - item: {fileID: 11400000, guid: 1e74d08cd820dde46ac64e2c11d40686, type: 2}
+    number: 15

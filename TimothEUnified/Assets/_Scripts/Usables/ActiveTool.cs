@@ -13,6 +13,9 @@ public class ActiveTool : MonoBehaviour
     public bool UsingTool { get => _usingTool; }
     bool _usingTool;
 
+    public bool HasTool { get => _hasTool; }
+    bool _hasTool = false;
+
     public float EnergyConsumption { get => _config._energyConsumption; }
 
     Animator _animator;
@@ -28,12 +31,28 @@ public class ActiveTool : MonoBehaviour
     public void ChangeTool(ToolConfig newConfig)
     {
         _config = newConfig;
+
+        if(!_config)
+        {
+            _hasTool = false;
+            _usingTool = false;
+            return;
+        }
+
+        _hasTool = true;
         _toolSpriteRenderer.sprite = _config._horizontalSprite;
         _toolSpriteRenderer.gameObject.SetActive(false);
     }
 
+    
+
     public void UseTool(Vector2 mousePos)
     {
+        if (!_hasTool)
+        {
+            return;
+        }
+
         _toolSpriteRenderer.gameObject.SetActive(true);
         _mousePosAtClick = mousePos;
         _usingTool = true;

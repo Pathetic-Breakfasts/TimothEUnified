@@ -31,19 +31,18 @@ public class Weapon : MonoBehaviour
     public bool IsAttacking { get => _attacking; }
     public WeaponConfig  GetWeaponConfig { get => _config; }
 
+    public bool HasWeapon { get => _hasWeapon; }
+    bool _hasWeapon = false;
+
     private void Awake()
     {
         _trail = GetComponentInChildren<TrailRenderer>();
         _renderer = GetComponent<SpriteRenderer>();
         _trail.gameObject.SetActive(false);
         _col = GetComponent<Collider2D>();
-    }
 
-    private void Start()
-    {
-        EquipWeapon(_config);
+        SetWeaponActive(false);
     }
-
     private void Update()
     {
         if (!_attacking)
@@ -72,8 +71,9 @@ public class Weapon : MonoBehaviour
     /// <param name="heavyAttack">Should this be a heavy attack. Defaulted to false</param>
     public void StartSwing(Transform target, bool heavyAttack = false)
     {
+
         //Stops us attacking until we have already attacked
-        if (_attacking || _timeSinceLastAttack < _attackCooldown) return;
+        if (_attacking || _timeSinceLastAttack < _attackCooldown || !_hasWeapon) return;
 
         _timeSinceLastAttack = 0.0f;
 
@@ -146,8 +146,25 @@ public class Weapon : MonoBehaviour
     public void EquipWeapon(WeaponConfig config)
     {
         _config = config;
+
+        if(_config == null)
+        {
+            SetWeaponActive(false);
+            _hasWeapon = false;
+            return;
+        }
+
+        
+        _hasWeapon = true;
+        SetWeaponActive(true);
         _renderer.sprite = _config._sprite;
         _attackCooldown = _config._attackSpeed;
+    }
+
+    public void SetWeaponActive(bool active)
+    {
+        _renderer.enabled = active;
+        _trail.enabled  = active;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

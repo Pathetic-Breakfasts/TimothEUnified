@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be8358f0fcfcb22418d7b5d788e02cc4, type: 3}
-  m_Name: IronSword
+  m_Name: Tools_IronHoe
   m_EditorClassIdentifier: 
-  itemID: f21a7213-9c56-4cd9-a2a2-6d9062799d4e
+  itemID: 13f2d2e3-3ada-4c2f-b22c-45ea8df750eb
   displayName: 
   description: 
-  icon: {fileID: 5381698226662430329, guid: 782b3e0885c471a458a1b0cb57a38d83, type: 3}
+  icon: {fileID: -4341760069129859358, guid: 4fc670b2d1641384e8dfc5c5871c3def, type: 3}
   pickup: {fileID: 0}
   stackable: 0
-  heldItem: {fileID: 0}
+  type: 2
+  toolConfig: {fileID: 11400000, guid: d1c3a6353010929489720e33bc34df44, type: 2}
+  weaponConfig: {fileID: 0}
+  cropConfig: {fileID: 0}
   consumable: 0

@@ -2,22 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameDevTV.Inventories;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
-    //TEMP
-    [SerializeField] ToolConfig _axeConfig;
-    [SerializeField] ToolConfig _pickaxeConfig;
-    [SerializeField] ToolConfig _hoeConfig;
     CropConfig _selectedConfig;
-
-    //TEMP ITEMS
-    //[SerializeField] ItemConfig _itemConfig1;
-    //[SerializeField] ItemConfig _itemConfig2;
-    //[SerializeField] ItemConfig _itemConfig3;
-    //[SerializeField] ItemConfig _itemConfig4;
-    //[SerializeField] ItemConfig _itemConfig5;
-    //[SerializeField] ItemConfig _itemConfig6;
 
     [SerializeField] Weapon _playerWeapon;
     ActiveTool _activeTool;
@@ -25,9 +14,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _weaponAttach;
 
     [SerializeField] LayerMask _interactableLayer;
-    [SerializeField] CropConfig _carrotConfig;
-    [SerializeField] CropConfig _tomatoesConfig;
-    [SerializeField] CropConfig _lettuceConfig;
 
     [SerializeField] InventoryLoadout _startingLoadout;
 
@@ -41,8 +27,12 @@ public class PlayerController : MonoBehaviour
 
     UIManager _uiManager;
 
+    [SerializeField] GameObject _heldItemGO;
+
     Vector2 _movement;
     Vector2 _mousePosAtClick;
+
+    InventoryItem _currentItem;
 
     public Bed CurrentBed { get => _bed; set { _bed = value; UpdatePrompts(); } }
     Bed _bed;
@@ -51,15 +41,6 @@ public class PlayerController : MonoBehaviour
     DoorController _doorController;
     public bool IsHeavyAttack { get => _isHeavyAttack; set=>_isHeavyAttack = value; }
     bool _isHeavyAttack = false;
-
-    public bool IsInCombatMode { get => _isInCombatMode; set 
-        { 
-            _isInCombatMode = value;
-            _weaponAttach.GetChild(0).gameObject.SetActive(_isInCombatMode);
-            _animator.SetBool("InCombatMode", _isInCombatMode);
-        } 
-    }
-    bool _isInCombatMode = false;
 
     private void Awake()
     {
@@ -73,8 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        _activeTool.ChangeTool(_hoeConfig);
-        _selectedConfig = _carrotConfig;
+        _activeTool.ChangeTool(null);
 
         _dayManager = FindObjectOfType<DayManager>();
         _uiManager = FindObjectOfType<UIManager>();
@@ -93,8 +73,6 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat("LastHorizontal", _movement.x);
         _animator.SetFloat("LastVertical", _movement.y);
-
-
     }
 
     private void Update()
@@ -125,52 +103,10 @@ public class PlayerController : MonoBehaviour
 
     private void DebugUpdate()
     {
-        //TESTING CODE START
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _activeTool.ChangeTool(_axeConfig);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _activeTool.ChangeTool(_pickaxeConfig);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            _activeTool.ChangeTool(_hoeConfig);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            _selectedConfig = _carrotConfig;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            _selectedConfig = _tomatoesConfig;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            _selectedConfig = _lettuceConfig;
-        }
-
         if (Input.GetKeyDown(KeyCode.K))
         {
             _dayManager.ProgressDay();
         }
-
-        //INV TEST CODE
-        //if (Input.GetKeyDown(KeyCode.I))
-        //{
-        //    if (_inventoryStore != null)
-        //    {
-        //        _inventoryStore.AddItem(_itemConfig1, 1);
-        //        _inventoryStore.AddItem(_itemConfig2, 2);
-        //        _inventoryStore.AddItem(_itemConfig3, 3);
-        //        _inventoryStore.AddItem(_itemConfig4, 4);
-        //        _inventoryStore.AddItem(_itemConfig5, 5);
-        //        _inventoryStore.AddItem(_itemConfig6, 500);
-        //    }
-        //}
-        //END OF INV TEST CODE
     }
 
     public void SetMovement(Vector2 movement)
@@ -199,6 +135,50 @@ public class PlayerController : MonoBehaviour
 
         _uiManager.SetInputPromptVisibility(false);
 
+    }
+
+    public void EquipItem(InventoryItem item)
+    {
+        _currentItem = item;
+        if (!item)
+        {
+            return;
+        }
+
+        _heldItemGO.SetActive(false);
+        _activeTool.ChangeTool(null);
+        _playerWeapon.EquipWeapon(null);
+        _selectedConfig = null;
+        _animator.SetBool("InCombatMode", false);
+
+        switch (item.GetItemType())
+        {
+            case ItemType.HOLDABLE:
+                _heldItemGO.SetActive(true);
+                _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.GetIcon();
+
+                break;
+            case ItemType.SEED:
+                _selectedConfig = item.cropConfig;
+                _heldItemGO.SetActive(true);
+                _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.GetIcon();
+
+                break;
+            case ItemType.WEAPON:
+                _playerWeapon.EquipWeapon(item.weaponConfig);
+
+                break;
+            case ItemType.TOOL:
+                _activeTool.ChangeTool(item.toolConfig);
+
+                break;
+            case ItemType.ARMOR:
+
+                break;
+            default:
+                Debug.LogWarning("Non-Supported Item type passed into EquipItem");
+                break;
+        }
     }
 
     public void OnEnergyChanged()
@@ -240,7 +220,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("LastHorizontal", directionVec.x);
         _animator.SetFloat("LastVertical", directionVec.y);
 
-        if (_isInCombatMode)
+        if (_currentItem.type == ItemType.WEAPON)
         {
             _playerWeapon.StartSwing(null, _isHeavyAttack);
         }
@@ -264,9 +244,11 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-
-            _activeTool.UseTool(_mousePosAtClick);
-            _characterEnergy.UseEnergy(_activeTool.EnergyConsumption);
+            if (_activeTool.HasTool)
+            {
+                _activeTool.UseTool(_mousePosAtClick);
+                _characterEnergy.UseEnergy(_activeTool.EnergyConsumption);
+            }
         }
 
     }

@@ -4,6 +4,17 @@ using UnityEngine;
 
 namespace GameDevTV.Inventories
 {
+    [System.Serializable]
+    public enum ItemType
+    {
+        HOLDABLE,
+        WEAPON,
+        TOOL,
+        SEED,
+        ARMOR
+    }
+
+
     /// <summary>
     /// A ScriptableObject that represents any item that can be put in an
     /// inventory.
@@ -27,8 +38,12 @@ namespace GameDevTV.Inventories
         [SerializeField] Pickup pickup = null;
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
         [SerializeField] bool stackable = false;
-        [Tooltip("The item that spawns when the player has this item selected in the hotbar. If left null the player will hold the icon.")]
-        [SerializeField] GameObject heldItem = null;
+
+        [SerializeField] public ItemType type;
+
+        [SerializeField] public ToolConfig toolConfig;
+        [SerializeField] public WeaponConfig weaponConfig;
+        [SerializeField] public CropConfig cropConfig;
 
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
@@ -78,6 +93,11 @@ namespace GameDevTV.Inventories
             pickup.transform.position = position;
             pickup.Setup(this, number);
             return pickup;
+        }
+
+        public ItemType GetItemType()
+        {
+            return type;
         }
 
         public Sprite GetIcon()
