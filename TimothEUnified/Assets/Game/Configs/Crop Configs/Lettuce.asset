@@ -21,3 +21,4 @@ MonoBehaviour:
   daysToGrow: 6
   incorrectSeasonPentalty: 1
   idealSeasonToGrow: 0
+  _grownCropItem: {fileID: 11400000, guid: bad9f8bdab90d1c448af3d28ec2f7d38, type: 2}

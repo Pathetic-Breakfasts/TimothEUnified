@@ -1,3 +1,4 @@
+using GameDevTV.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,4 +36,5 @@ public class CropConfig : ScriptableObject
 
     public Seasons idealSeasonToGrow;
 
+    public InventoryItem _grownCropItem;
 }

@@ -70,7 +70,7 @@ namespace GameDevTV.Inventories
             var droppedItemsList = new DropRecord[droppedItems.Count];
             for (int i = 0; i < droppedItemsList.Length; i++)
             {
-                droppedItemsList[i].itemID = droppedItems[i].GetItem().GetItemID();
+                droppedItemsList[i].itemID = droppedItems[i].GetItem().itemID;
                 droppedItemsList[i].position = new SerializableVector3(droppedItems[i].transform.position);
                 droppedItemsList[i].number = droppedItems[i].GetNumber();
             }

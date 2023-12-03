@@ -32,7 +32,7 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 6e14bce8ba1c1a245b31e866693ab3cf, type: 2}
     number: 1
   - item: {fileID: 11400000, guid: ea5d3ee65ad71f7489199001041f8f61, type: 2}
-    number: 15
+    number: 5
   - item: {fileID: 11400000, guid: 818b42bc598884c47b77d8114e70510a, type: 2}
     number: 15
   - item: {fileID: 11400000, guid: 1e74d08cd820dde46ac64e2c11d40686, type: 2}

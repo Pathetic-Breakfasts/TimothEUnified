@@ -75,6 +75,8 @@ public class Weapon : MonoBehaviour
         //Stops us attacking until we have already attacked
         if (_attacking || _timeSinceLastAttack < _attackCooldown || !_hasWeapon) return;
 
+        _renderer.enabled = true;
+
         _timeSinceLastAttack = 0.0f;
 
         //Sets if we are heavy attacking or not (affects swing speed and damage)
@@ -141,6 +143,9 @@ public class Weapon : MonoBehaviour
         _col.enabled = false;
 
         _attacking = false;
+
+        _renderer.enabled = false;
+
     }
 
     public void EquipWeapon(WeaponConfig config)
@@ -163,7 +168,7 @@ public class Weapon : MonoBehaviour
 
     public void SetWeaponActive(bool active)
     {
-        _renderer.enabled = active;
+        //_renderer.enabled = active;
         _trail.enabled  = active;
     }
 

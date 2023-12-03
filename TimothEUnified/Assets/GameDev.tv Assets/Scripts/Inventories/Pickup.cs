@@ -15,12 +15,16 @@ namespace GameDevTV.Inventories
         // CACHED REFERENCE
         Inventory inventory;
 
+        SpriteRenderer _spriteRenderer;
+
+
         // LIFECYCLE METHODS
 
         private void Awake()
         {
             var player = GameObject.FindGameObjectWithTag("Player");
             inventory = player.GetComponent<Inventory>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         // PUBLIC
@@ -33,11 +37,16 @@ namespace GameDevTV.Inventories
         public void Setup(InventoryItem item, int number)
         {
             this.item = item;
-            if (!item.IsStackable())
+            if (!item.isStackable)
             {
                 number = 1;
             }
             this.number = number;
+
+            if(_spriteRenderer)
+            {
+                _spriteRenderer.sprite = item.icon;
+            }
         }
 
         public InventoryItem GetItem()

@@ -66,12 +66,12 @@ namespace GameDevTV.Inventories
         /// <returns>Whether or not the item could be added.</returns>
         public bool AddToFirstEmptySlot(InventoryItem item, int number)
         {
-            if(number <= 0)
+            if(number <= 0 || !item)
             {
                 return false;
             }
 
-            if (!item.IsStackable())
+            if (!item.isStackable)
             {
                 int emptySlot = FindEmptySlot();
                 slots[emptySlot].item = item;
@@ -99,11 +99,11 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Is there an instance of the item in the inventory?
         /// </summary>
-        public bool HasItem(InventoryItem item)
+        public bool HasItem(InventoryItem item, int quantity)
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                if (object.ReferenceEquals(slots[i].item, item))
+                if (object.ReferenceEquals(slots[i].item, item) && slots[i].number >= quantity)
                 {
                     return true;
                 }
@@ -117,6 +117,22 @@ namespace GameDevTV.Inventories
         public InventoryItem GetItemInSlot(int slot)
         {
             return slots[slot].item;
+        }
+
+        public bool RemoveItem(InventoryItem item, int quantity)
+        {
+            int index = FindItem(item);
+
+            if(index != -1)
+            {
+                if(HasItem(item, quantity))
+                {
+                    RemoveFromSlot(index, quantity);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -219,11 +235,23 @@ namespace GameDevTV.Inventories
         /// <returns>-1 if no stack exists or if the item is not stackable.</returns>
         private int FindStack(InventoryItem item)
         {
-            if (!item.IsStackable())
+            if (!item.isStackable)
             {
                 return -1;
             }
 
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (object.ReferenceEquals(slots[i].item, item))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private int FindItem(InventoryItem item)
+        {
             for (int i = 0; i < slots.Length; i++)
             {
                 if (object.ReferenceEquals(slots[i].item, item))
@@ -248,7 +276,7 @@ namespace GameDevTV.Inventories
             {
                 if (slots[i].item != null)
                 {
-                    slotStrings[i].itemID = slots[i].item.GetItemID();
+                    slotStrings[i].itemID = slots[i].item.itemID;
                     slotStrings[i].number = slots[i].number;
                 }
             }

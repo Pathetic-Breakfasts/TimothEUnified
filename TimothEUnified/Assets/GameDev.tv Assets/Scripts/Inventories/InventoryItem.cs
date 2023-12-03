@@ -23,23 +23,24 @@ namespace GameDevTV.Inventories
     /// In practice, you are likely to use a subclass such as `ActionItem` or
     /// `EquipableItem`.
     /// </remarks>
+    /// [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.InventorySystem/Inventory Item"))]
     public abstract class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
     {
         // CONFIG DATA
         [Tooltip("Auto-generated UUID for saving/loading. Clear this field if you want to generate a new one.")]
-        [SerializeField] string itemID = null;
+        [SerializeField] public string itemID = null;
         [Tooltip("Item name to be displayed in UI.")]
-        [SerializeField] string displayName = null;
+        [SerializeField] public string displayName = null;
         [Tooltip("Item description to be displayed in UI.")]
-        [SerializeField][TextArea] string description = null;
+        [SerializeField][TextArea] public string description = null;
         [Tooltip("The UI icon to represent this item in the inventory.")]
-        [SerializeField] Sprite icon = null;
+        [SerializeField] public Sprite icon = null;
         [Tooltip("The prefab that should be spawned when this item is dropped.")]
-        [SerializeField] Pickup pickup = null;
+        [SerializeField] public Pickup pickup = null;
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
-        [SerializeField] bool stackable = false;
+        [SerializeField] public bool isStackable = false;
 
-        [SerializeField] public ItemType type;
+        [SerializeField] public ItemType itemType;
 
         [SerializeField] public ToolConfig toolConfig;
         [SerializeField] public WeaponConfig weaponConfig;
@@ -93,36 +94,6 @@ namespace GameDevTV.Inventories
             pickup.transform.position = position;
             pickup.Setup(this, number);
             return pickup;
-        }
-
-        public ItemType GetItemType()
-        {
-            return type;
-        }
-
-        public Sprite GetIcon()
-        {
-            return icon;
-        }
-
-        public string GetItemID()
-        {
-            return itemID;
-        }
-
-        public bool IsStackable()
-        {
-            return stackable;
-        }
-        
-        public string GetDisplayName()
-        {
-            return displayName;
-        }
-
-        public string GetDescription()
-        {
-            return description;
         }
 
         // PRIVATE

@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject _heldItemGO;
 
     Vector2 _movement;
+    Vector2 _lastMovment;
     Vector2 _mousePosAtClick;
 
     InventoryItem _currentItem;
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
     public DoorController NearbyDoor { get => _doorController; set { _doorController = value; UpdatePrompts(); } }
     DoorController _doorController;
-    public bool IsHeavyAttack { get => _isHeavyAttack; set=>_isHeavyAttack = value; }
+    public bool IsHeavyAttack { get => _isHeavyAttack; set => _isHeavyAttack = value; }
     bool _isHeavyAttack = false;
 
     private void Awake()
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
         _dayManager = FindObjectOfType<DayManager>();
         _uiManager = FindObjectOfType<UIManager>();
 
-        if(_startingLoadout)
+        if (_startingLoadout)
         {
             _startingLoadout.SpawnItems(_inventory);
         }
@@ -73,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat("LastHorizontal", _movement.x);
         _animator.SetFloat("LastVertical", _movement.y);
+        _lastMovment = _movement;
     }
 
     private void Update()
@@ -80,23 +82,59 @@ public class PlayerController : MonoBehaviour
         if (Debug.isDebugBuild)
         {
             DebugUpdate();
-        }  
+        }
 
 
-        if(_activeTool.UsingTool || _playerWeapon.IsAttacking)
+        if (_activeTool.UsingTool || _playerWeapon.IsAttacking)
         {
             _movement = Vector2.zero;
             _animator.SetFloat("Speed", 0.0f);
         }
 
-        if(!_playerWeapon.IsAttacking) 
+        if (!_playerWeapon.IsAttacking && _playerWeapon.HasWeapon)
         {
-            Vector2 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Vector2 dir = mPos - (Vector2)transform.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            //InteractDirection direction = GameUtilities.CalculateDirection(transform.position, _mousePosAtClick);
+            //Vector2 directionVec = GameUtilities.GetDirectionVector(direction);
 
-            _weaponAttach.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Vector2 dir = mousePos - (Vector2)transform.position;
+
+            //switch (direction)
+            //{
+            //    case InteractDirection.None:
+            //        Debug.Log("No Movement");
+            //        break;
+            //    case InteractDirection.Up:
+            //        if(_lastMovment.y > 0.0f)
+            //        {
+            //            Debug.Log("Can Attack Up");
+            //        }
+            //        break;
+            //    case InteractDirection.Down:
+            //        if(_lastMovment.y < 0.0f)
+            //        {
+            //            Debug.Log("Can Attack Down");
+            //        }
+            //        break;
+            //    case InteractDirection.Left:
+            //        if(_lastMovment.x < 0.0f)
+            //        {
+            //            Debug.Log("Can Attack Left");
+            //        }
+            //        break;
+            //    case InteractDirection.Right:
+            //        if(_lastMovment.x > 0.0f)
+            //        {
+            //            Debug.Log("Can Attack Right");
+            //        }
+            //        break;
+            //}
+            //Debug.Log("rotation eulers: " + rotation.eulerAngles);
+
+            //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            //Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            //_weaponAttach.eulerAngles = rotation.eulerAngles;
         }
 
     }
@@ -125,8 +163,8 @@ public class PlayerController : MonoBehaviour
             _uiManager.SetInputPromptText("Use Bed");
             return;
         }
-        
-        if(_doorController)
+
+        if (_doorController)
         {
             _uiManager.SetInputPromptVisibility(true);
             _uiManager.SetInputPromptText("Use Door");
@@ -140,28 +178,31 @@ public class PlayerController : MonoBehaviour
     public void EquipItem(InventoryItem item)
     {
         _currentItem = item;
-        if (!item)
-        {
-            return;
-        }
 
+        //Reset state for changing item
         _heldItemGO.SetActive(false);
         _activeTool.ChangeTool(null);
         _playerWeapon.EquipWeapon(null);
         _selectedConfig = null;
         _animator.SetBool("InCombatMode", false);
 
-        switch (item.GetItemType())
+        if (!item)
+        {
+            return;
+        }
+
+        //Handle state based off our item type
+        switch (item.itemType)
         {
             case ItemType.HOLDABLE:
                 _heldItemGO.SetActive(true);
-                _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.GetIcon();
+                _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.icon;
 
                 break;
             case ItemType.SEED:
                 _selectedConfig = item.cropConfig;
                 _heldItemGO.SetActive(true);
-                _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.GetIcon();
+                _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.icon;
 
                 break;
             case ItemType.WEAPON:
@@ -203,9 +244,67 @@ public class PlayerController : MonoBehaviour
         _uiManager?.SetHealthBarFillRatio(_playerHealth.HealthRatio);
     }
 
+    public void InteractPressed()
+    {
+        //Order of priority for Interactions
+        //Doors
+        //Chest
+        //NPCs
+        //Harvestable Plant
+        //Use Tool/Weapon
+
+        //Doors
+        if (_doorController)
+        {
+            //TODO: Use door enter logic
+
+            return;
+        }
+
+        //Farmland
+        if (Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
+            if (hit.collider != null)
+            {
+                FarmableLand farmableLand = hit.collider.GetComponent<FarmableLand>();
+                if (farmableLand)
+                {
+                    if (farmableLand.ReadyToHarvest())
+                    {
+                        farmableLand.Harvest();
+                        return;
+                    }
+                    else if (farmableLand.ReadyToPlant())
+                    {
+                        if (_selectedConfig && _currentItem)
+                        {
+                            farmableLand.Plant(_selectedConfig);
+                            _inventory.RemoveItem(_currentItem, 1);
+
+                            if (!_inventory.HasItem(_currentItem, 1))
+                            {
+                                EquipItem(null);
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        //Tools/Weapons
+        UseEquipped();
+    }
+
+    public void InspectPressed()
+    {
+
+    }
+
     public void UseEquipped()
     {
-        if(_playerWeapon.IsAttacking || _activeTool.UsingTool)
+        if (_playerWeapon.IsAttacking || _activeTool.UsingTool || !_currentItem)
         {
             return;
         }
@@ -220,30 +319,19 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("LastHorizontal", directionVec.x);
         _animator.SetFloat("LastVertical", directionVec.y);
 
-        if (_currentItem.type == ItemType.WEAPON)
+        if (_playerWeapon.HasWeapon)
+        {
+            float angle = Mathf.Atan2(directionVec.y, directionVec.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            _weaponAttach.eulerAngles = rotation.eulerAngles;
+        }
+
+        if (_currentItem.itemType == ItemType.WEAPON)
         {
             _playerWeapon.StartSwing(null, _isHeavyAttack);
         }
-        else
+        else if(_currentItem.itemType == ItemType.TOOL)
         {
-            if (Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
-            {
-                RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
-                if (hit.collider != null)
-                {
-                    FarmableLand farmableLand = hit.collider.GetComponent<FarmableLand>();
-                    if (farmableLand && farmableLand.ReadyToPlant())
-                    {
-                        farmableLand.Plant(_selectedConfig);
-                        return;
-                    }
-                    else if (farmableLand && farmableLand.ReadyToHarvest())
-                    {
-                        farmableLand.Harvest();
-                        return;
-                    }
-                }
-            }
             if (_activeTool.HasTool)
             {
                 _activeTool.UseTool(_mousePosAtClick);
@@ -262,7 +350,7 @@ public class PlayerController : MonoBehaviour
             _bed.Sleep(1);
             _characterEnergy.RegainEnergy(25.0f);
         }
-        else if(_doorController)
+        else if (_doorController)
         {
 
         }

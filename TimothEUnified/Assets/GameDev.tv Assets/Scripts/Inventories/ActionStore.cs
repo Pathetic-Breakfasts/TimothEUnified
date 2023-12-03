@@ -168,7 +168,7 @@ namespace GameDevTV.Inventories
             foreach (var pair in dockedItems)
             {
                 var record = new DockedItemRecord();
-                record.itemID = pair.Value.item.GetItemID();
+                record.itemID = pair.Value.item.itemID;
                 record.number = pair.Value.number;
                 state[pair.Key] = record;
             }

@@ -1794,6 +1794,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 897c3a3e3be1c504ea608608f90a45ab, type: 3}
+--- !u!4 &900479894 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2410378391059634608, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+  m_PrefabInstance: {fileID: 4913633714780046163}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &967880953
 GameObject:
   m_ObjectHideFlags: 0
@@ -12658,6 +12663,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -5.7
       objectReference: {fileID: 0}
+    - target: {fileID: 4913633713854478202, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4913633713854478203, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -12775,13 +12784,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c27567d31a577e642a0ac8b1baa3aa42, type: 2}
     - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _weaponAttach
+      value: 
+      objectReference: {fileID: 900479894}
+    - target: {fileID: 8748662558754685385, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: _startingLoadout
       value: 
       objectReference: {fileID: 11400000, guid: a4cd0249d08292346832276c25c55405, type: 2}
-    m_RemovedComponents:
-    - {fileID: 7157550069486071377, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
-    - {fileID: 3363905694144898754, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
-    - {fileID: 694413718, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
-    - {fileID: 694413720, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
-    - {fileID: 694413719, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}

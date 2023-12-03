@@ -79,7 +79,7 @@ namespace GameDevTV.Inventories
             var equippedItemsForSerialization = new Dictionary<EquipLocation, string>();
             foreach (var pair in equippedItems)
             {
-                equippedItemsForSerialization[pair.Key] = pair.Value.GetItemID();
+                equippedItemsForSerialization[pair.Key] = pair.Value.itemID;
             }
             return equippedItemsForSerialization;
         }

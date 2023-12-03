@@ -23,7 +23,11 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            _playerController.UseEquipped();
+            _playerController.InteractPressed();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            _playerController.InspectPressed();
         }
 
         if(Input.mouseScrollDelta.y > 0)
