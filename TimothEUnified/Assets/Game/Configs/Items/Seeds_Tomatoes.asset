@@ -17,9 +17,18 @@ MonoBehaviour:
   description: 
   icon: {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   pickup: {fileID: 0}
-  stackable: 1
-  type: 3
+  isStackable: 1
+  itemType: 3
   toolConfig: {fileID: 0}
   weaponConfig: {fileID: 0}
-  cropConfig: {fileID: 11400000, guid: 6fa32e830f6b65e49b119401210999a7, type: 2}
+  type: 3
+  growthSpriteArray:
+  - {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
+  - {fileID: 3824498671837561107, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
+  - {fileID: -6474780379893477836, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
+  - {fileID: -966772353475456211, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
+  daysToGrow: 4
+  incorrectSeasonPentalty: 0.2
+  idealSeasonToGrow: 0
+  _grownCropItem: {fileID: 11400000, guid: d3d89a9f7b3d6d34d8c4186bb3d0a2ae, type: 2}
   consumable: 0

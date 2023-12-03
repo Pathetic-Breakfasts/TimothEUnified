@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
+using GameDevTV.Inventories;
 
 public class Weapon : MonoBehaviour
 {
     [Header("Weapon")]
-    [SerializeField] WeaponConfig _config;
+    [SerializeField] InventoryItem _config;
     [SerializeField] string[] _acceptableTags;
 
     [Header("Events")]
@@ -29,7 +30,7 @@ public class Weapon : MonoBehaviour
     float _attackCooldown;
     
     public bool IsAttacking { get => _attacking; }
-    public WeaponConfig  GetWeaponConfig { get => _config; }
+    public InventoryItem  GetWeaponConfig { get => _config; }
 
     public bool HasWeapon { get => _hasWeapon; }
     bool _hasWeapon = false;
@@ -148,7 +149,7 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public void EquipWeapon(WeaponConfig config)
+    public void EquipWeapon(InventoryItem config)
     {
         _config = config;
 

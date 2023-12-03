@@ -17,9 +17,27 @@ MonoBehaviour:
   description: 
   icon: {fileID: -4341760069129859358, guid: 4fc670b2d1641384e8dfc5c5871c3def, type: 3}
   pickup: {fileID: 0}
-  stackable: 0
+  isStackable: 0
+  itemType: 2
   type: 2
-  toolConfig: {fileID: 11400000, guid: d1c3a6353010929489720e33bc34df44, type: 2}
-  weaponConfig: {fileID: 0}
-  cropConfig: {fileID: 0}
+  growthSpriteArray: []
+  daysToGrow: 0
+  incorrectSeasonPentalty: 0.2
+  idealSeasonToGrow: 0
+  _grownCropItem: {fileID: 0}
+  _damage: 10
+  _attackRange: 1.5
+  _attackSpeed: 1.5
+  _heavyAttackDamageBoost: 2
+  _lightAttackSwingRate: 15
+  _heavyAttackSwingRate: 7.5
+  _weaponSwingDistance: 90
+  _sprite: {fileID: 0}
+  _isRanged: 0
+  _projectilePrefab: {fileID: 0}
+  _type: 0
+  _toolPower: 50
+  _energyConsumption: 3
+  _horizontalSprite: {fileID: -4341760069129859358, guid: 4fc670b2d1641384e8dfc5c5871c3def, type: 3}
+  _verticalSprite: {fileID: 8042863427149715223, guid: 4fc670b2d1641384e8dfc5c5871c3def, type: 3}
   consumable: 0

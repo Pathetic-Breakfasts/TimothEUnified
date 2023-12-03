@@ -6,8 +6,6 @@ using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
-    CropConfig _selectedConfig;
-
     [SerializeField] Weapon _playerWeapon;
     ActiveTool _activeTool;
 
@@ -183,7 +181,6 @@ public class PlayerController : MonoBehaviour
         _heldItemGO.SetActive(false);
         _activeTool.ChangeTool(null);
         _playerWeapon.EquipWeapon(null);
-        _selectedConfig = null;
         _animator.SetBool("InCombatMode", false);
 
         if (!item)
@@ -200,17 +197,16 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case ItemType.SEED:
-                _selectedConfig = item.cropConfig;
                 _heldItemGO.SetActive(true);
                 _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.icon;
 
                 break;
             case ItemType.WEAPON:
-                _playerWeapon.EquipWeapon(item.weaponConfig);
+                _playerWeapon.EquipWeapon(item);
 
                 break;
             case ItemType.TOOL:
-                _activeTool.ChangeTool(item.toolConfig);
+                _activeTool.ChangeTool(item);
 
                 break;
             case ItemType.ARMOR:
@@ -277,9 +273,9 @@ public class PlayerController : MonoBehaviour
                     }
                     else if (farmableLand.ReadyToPlant())
                     {
-                        if (_selectedConfig && _currentItem)
+                        if (_currentItem && _currentItem.itemType == ItemType.SEED)
                         {
-                            farmableLand.Plant(_selectedConfig);
+                            farmableLand.Plant(_currentItem);
                             _inventory.RemoveItem(_currentItem, 1);
 
                             if (!_inventory.HasItem(_currentItem, 1))

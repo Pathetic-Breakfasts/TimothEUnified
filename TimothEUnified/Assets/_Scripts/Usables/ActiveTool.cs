@@ -1,10 +1,11 @@
+using GameDevTV.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ActiveTool : MonoBehaviour
 {
-    [SerializeField] ToolConfig _config;
+    [SerializeField] InventoryItem _config;
 
     [SerializeField] SpriteRenderer _toolSpriteRenderer;
 
@@ -28,7 +29,7 @@ public class ActiveTool : MonoBehaviour
         ChangeTool(_config);
     }
 
-    public void ChangeTool(ToolConfig newConfig)
+    public void ChangeTool(InventoryItem newConfig)
     {
         _config = newConfig;
 

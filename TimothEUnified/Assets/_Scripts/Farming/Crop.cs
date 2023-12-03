@@ -1,12 +1,13 @@
+using GameDevTV.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Crop : MonoBehaviour
 {
-    private CropConfig _config;
+    private InventoryItem _config;
 
-    public CropConfig Config { get => _config; }
+    public InventoryItem Config { get => _config; }
 
     private int _daysSincePlanted = 0;
 
@@ -51,7 +52,7 @@ public class Crop : MonoBehaviour
         return _readyToPick;
     }
 
-    public void Plant(CropConfig config)
+    public void Plant(InventoryItem config)
     {
         _config = config;
 

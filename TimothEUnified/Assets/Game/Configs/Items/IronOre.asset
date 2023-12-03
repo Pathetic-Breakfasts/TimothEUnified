@@ -17,6 +17,14 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: ba7b5fce698833d44bb581aba8bbd2a5, type: 3}
   pickup: {fileID: 0}
-  stackable: 1
-  heldItem: {fileID: 0}
+  isStackable: 1
+  itemType: 0
+  toolConfig: {fileID: 0}
+  weaponConfig: {fileID: 0}
+  type: 0
+  growthSpriteArray: []
+  daysToGrow: 0
+  incorrectSeasonPentalty: 0.2
+  idealSeasonToGrow: 0
+  _grownCropItem: {fileID: 0}
   consumable: 0

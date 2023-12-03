@@ -54,7 +54,7 @@ public class FarmableLand : MonoBehaviour
         IsTilled = false;
     }
 
-    public void Plant(CropConfig desiredCrop)
+    public void Plant(InventoryItem desiredCrop)
     {
         if (ReadyToPlant())
         {

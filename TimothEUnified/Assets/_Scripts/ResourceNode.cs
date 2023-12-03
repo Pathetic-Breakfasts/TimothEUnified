@@ -1,3 +1,4 @@
+using GameDevTV.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,7 +59,7 @@ public class ResourceNode : MonoBehaviour
         _spriteSwapTarget = _health.MaxHealth / lengthOfSpritesArr;
     }
 
-    public bool CanDestroy(ToolConfig config)
+    public bool CanDestroy(InventoryItem config)
     {
         bool returnVal = (config._type == _typeToDestroy && config._toolPower >= _minimumToolPower);
 

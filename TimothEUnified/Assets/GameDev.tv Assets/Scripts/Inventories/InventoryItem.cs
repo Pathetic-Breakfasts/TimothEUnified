@@ -13,6 +13,24 @@ namespace GameDevTV.Inventories
         SEED,
         ARMOR
     }
+    public enum CropType
+    {
+        Carrot,
+        Potatoes,
+        Beetroots,
+        Oat,
+        Wheat,
+        Tomatoes,
+        Lettuce,
+        Cabbage
+    }
+
+    public enum ToolType
+    {
+        Hoe,
+        Pickaxe,
+        Axe
+    }
 
 
     /// <summary>
@@ -42,12 +60,59 @@ namespace GameDevTV.Inventories
 
         [SerializeField] public ItemType itemType;
 
-        [SerializeField] public ToolConfig toolConfig;
-        [SerializeField] public WeaponConfig weaponConfig;
-        [SerializeField] public CropConfig cropConfig;
+        //[SerializeField] public ToolConfig toolConfig;
+        //[SerializeField] public WeaponConfig weaponConfig;
+        //[SerializeField] public CropConfig cropConfig;
 
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
+
+        //Begining Of Crop Config
+        public CropType type;
+
+        public Sprite[] growthSpriteArray;
+
+        public int daysToGrow;
+        [Range(0.0f, 1.0f)] public float incorrectSeasonPentalty = 0.2f;
+
+        public Seasons idealSeasonToGrow;
+
+        public InventoryItem _grownCropItem;
+        //End of Crop Config
+
+
+        //Begining of Weapon Config
+        [Header("General Settings")]
+        public float _damage = 10.0f;
+        public float _attackRange = 1.5f;
+        public float _attackSpeed = 1.5f;
+        public float _heavyAttackDamageBoost = 2.0f;
+        public float _lightAttackSwingRate = 15.0f;
+        public float _heavyAttackSwingRate = 7.5f;
+        public float _weaponSwingDistance = 90.0f;
+
+        [Header("Graphics Settings")]
+        public Sprite _sprite;
+
+        [Header("Ranged Weapon Settings")]
+        public bool _isRanged = false;
+        public Projectile _projectilePrefab;
+        //End of Weapon Config
+
+
+        //Beginning of Tool Config
+        public ToolType _type;
+        public float _toolPower = 50.0f;
+
+        public float _energyConsumption = 3.0f;
+
+        public Sprite _horizontalSprite;
+        public Sprite _verticalSprite;
+        //End of Tool Config
+
+
+
+
 
         // PUBLIC
 
