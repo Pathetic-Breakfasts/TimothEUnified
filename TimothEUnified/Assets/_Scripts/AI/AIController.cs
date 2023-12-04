@@ -75,7 +75,7 @@ public class AIController : MonoBehaviour
         {
             float distance = Vector2.Distance(transform.position, target.position);
 
-            if (distance < _aiWeapon.GetWeaponConfig._attackRange)
+            if (distance < _aiWeapon.GetWeaponConfig.attackRange)
             {
                 _aiWeapon.StartSwing(target);
             }

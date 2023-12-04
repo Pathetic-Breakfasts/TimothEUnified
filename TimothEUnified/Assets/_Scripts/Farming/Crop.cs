@@ -57,7 +57,7 @@ public class Crop : MonoBehaviour
         _config = config;
 
         //Calculates the amount of time it will take to grow the plant based on if we are in the correct season or not
-        float timeToGrow = (_dm.CurrentSeason == _config.idealSeasonToGrow) ? (float)_config.daysToGrow : (float)_config.daysToGrow * (1.0f + _config.incorrectSeasonPentalty);
+        float timeToGrow = (_dm.CurrentSeason == _config.correctSeason) ? (float)_config.daysToGrow : 100.0f; //TODO: Make plants die in wrong season
 
         _timeToGrowCrop = (int)timeToGrow;
 

@@ -52,7 +52,7 @@ public class Weapon : MonoBehaviour
         }
 
         //Swings a melee based weapon provided that we are attacking
-        if (_attacking && !_config._isRanged)
+        if (_attacking && !_config.isRanged)
         {
             //Calculates the new rotation
             Vector3 euler = transform.parent.localEulerAngles;
@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
 
         //Sets if we are heavy attacking or not (affects swing speed and damage)
         _heavyAttack = heavyAttack;
-        _currentAttackSpeed = heavyAttack ? _config._heavyAttackSwingRate : _config._lightAttackSwingRate;
+        _currentAttackSpeed = heavyAttack ? _config.heavyAttackSwingRate : _config.lightAttackSwingRate;
 
         //If we have a target passed in then update the weapons rotation to the appropriate angle
         if (target)
@@ -94,12 +94,12 @@ public class Weapon : MonoBehaviour
         }
 
         //If we are using a ranged weapon, then spawn a projectile
-        if (_config._isRanged)
+        if (_config.isRanged)
         {
-            Projectile projectile = Instantiate(_config._projectilePrefab);
+            Projectile projectile = Instantiate(_config.projectilePrefab);
             projectile.transform.position = transform.position;
 
-            projectile.SetTarget(transform.parent.rotation, _config._damage, _acceptableTags);
+            projectile.SetTarget(transform.parent.rotation, _config.damage, _acceptableTags);
 
             _attacking = false;
         }
@@ -118,9 +118,9 @@ public class Weapon : MonoBehaviour
             //Gets our current euler angle
             _originalEulerZ = transform.parent.localEulerAngles.z % 360.0f;
             //Calculates our target euler angle
-            _eulerZTargetAngle = _originalEulerZ + (_config._weaponSwingDistance / 2.0f) % 360.0f;
+            _eulerZTargetAngle = _originalEulerZ + (_config.weaponSwingDistance / 2.0f) % 360.0f;
             //Gets a offset euler angle for where the swing should start from
-            float angle = _originalEulerZ - (_config._weaponSwingDistance / 2.0f) % 360.0f;
+            float angle = _originalEulerZ - (_config.weaponSwingDistance / 2.0f) % 360.0f;
             
             //sets the weapons angle
             Vector3 eulers = transform.parent.localEulerAngles;
@@ -163,8 +163,8 @@ public class Weapon : MonoBehaviour
         
         _hasWeapon = true;
         SetWeaponActive(true);
-        _renderer.sprite = _config._sprite;
-        _attackCooldown = _config._attackSpeed;
+        _renderer.sprite = _config.weaponSprite;
+        _attackCooldown = _config.attackSpeed;
     }
 
     public void SetWeaponActive(bool active)
@@ -190,7 +190,7 @@ public class Weapon : MonoBehaviour
                 if (targetHealth)
                 {
                     //Calculates damage based on if this is a heavy attack or not
-                    float damage = _heavyAttack ? _config._damage * _config._heavyAttackDamageBoost : _config._damage;
+                    float damage = _heavyAttack ? _config.damage * _config.heavyAttackDamageBoost : _config.damage;
 
                     //Deals damage
                     targetHealth.TakeDamage(damage);

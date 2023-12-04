@@ -41,16 +41,16 @@ namespace GameDevTV.Inventories
     /// In practice, you are likely to use a subclass such as `ActionItem` or
     /// `EquipableItem`.
     /// </remarks>
-    /// [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.InventorySystem/Inventory Item"))]
-    public abstract class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
+    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.InventorySystem/Inventory Item"))]
+    public class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
     {
         // CONFIG DATA
         [Tooltip("Auto-generated UUID for saving/loading. Clear this field if you want to generate a new one.")]
         [SerializeField] public string itemID = null;
         [Tooltip("Item name to be displayed in UI.")]
-        [SerializeField] public string displayName = null;
+        [SerializeField] public string displayName = "";
         [Tooltip("Item description to be displayed in UI.")]
-        [SerializeField][TextArea] public string description = null;
+        [SerializeField][TextArea] public string description = "";
         [Tooltip("The UI icon to represent this item in the inventory.")]
         [SerializeField] public Sprite icon = null;
         [Tooltip("The prefab that should be spawned when this item is dropped.")]
@@ -60,54 +60,59 @@ namespace GameDevTV.Inventories
 
         [SerializeField] public ItemType itemType;
 
-        //[SerializeField] public ToolConfig toolConfig;
-        //[SerializeField] public WeaponConfig weaponConfig;
-        //[SerializeField] public CropConfig cropConfig;
-
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
 
         //Begining Of Crop Config
-        public CropType type;
-
+        [Header("Seed Settings")]
+        [Tooltip("Sprites Used for Growing the Crop Throughout it's lifetime.")]
         public Sprite[] growthSpriteArray;
-
+        [Tooltip("The amount of in-game days required for the seed to grow into a harvestable")]
         public int daysToGrow;
-        [Range(0.0f, 1.0f)] public float incorrectSeasonPentalty = 0.2f;
-
-        public Seasons idealSeasonToGrow;
-
-        public InventoryItem _grownCropItem;
+        [Tooltip("The correct season for the crop to grow in")]
+        public Seasons correctSeason;
+        [Tooltip("The crop the player will be given upon harvesting")]
+        public InventoryItem grownCropItem;
         //End of Crop Config
 
 
         //Begining of Weapon Config
-        [Header("General Settings")]
-        public float _damage = 10.0f;
-        public float _attackRange = 1.5f;
-        public float _attackSpeed = 1.5f;
-        public float _heavyAttackDamageBoost = 2.0f;
-        public float _lightAttackSwingRate = 15.0f;
-        public float _heavyAttackSwingRate = 7.5f;
-        public float _weaponSwingDistance = 90.0f;
-
-        [Header("Graphics Settings")]
-        public Sprite _sprite;
-
+        [Header("Weapon Settings")]
+        [Tooltip("The amount of damage this weapon will do")]
+        [Min(0.01f)]public float damage = 10.0f;
+        [Tooltip("The attack range of this weapon (USed by AI)")]
+        [Min(0.01f)]public float attackRange = 1.5f;
+        [Tooltip("The amount of time between attacks")]
+        [Min(0.01f)]public float attackSpeed = 0.8f;
+        [Tooltip("The damage bonus when the player performs a heavy attack")]
+        [Min(0.01f)]public float heavyAttackDamageBoost = 2.0f;
+        [Tooltip("How fast the weapon will swing during a light attack")]
+        [Min(0.01f)]public float lightAttackSwingRate = 15.0f;
+        [Tooltip("How fast the weapon will swing during a heavy attack")]
+        [Min(0.01f)]public float heavyAttackSwingRate = 7.5f;
+        [Tooltip("How large (In Degrees) the swing of the weapon is. Performs half of this on each side of the player")]
+        [Min(0.01f)]public float weaponSwingDistance = 90.0f;
+        public Sprite weaponSprite;
         [Header("Ranged Weapon Settings")]
-        public bool _isRanged = false;
-        public Projectile _projectilePrefab;
+        [Tooltip("Is this a ranged weapon? I.e. a bow")]
+        public bool isRanged = false;
+        [Tooltip("The projectile launched by this weapon")]
+        public Projectile projectilePrefab;
         //End of Weapon Config
 
 
         //Beginning of Tool Config
-        public ToolType _type;
-        public float _toolPower = 50.0f;
-
-        public float _energyConsumption = 3.0f;
-
-        public Sprite _horizontalSprite;
-        public Sprite _verticalSprite;
+        [Header("Tool Settings")]
+        [Tooltip("The type of tool this is")]
+        public ToolType toolType;
+        [Tooltip("Used to determine how much each hit with the tool will damage the resource node")]
+        [Min(0.01f)]public float toolPower = 50.0f;
+        [Tooltip("How much energy using this item will take from the player")]
+        [Min(0.01f)]public float energyConsumption = 3.0f;
+        [Tooltip("The sprite used when the tool is being swung sideways")]
+        public Sprite horizontalToolSprite;
+        [Tooltip("The sprite used when the tool is being swung vertically")]
+        public Sprite verticalToolSprite;
         //End of Tool Config
 
 

@@ -17,7 +17,7 @@ public class ActiveTool : MonoBehaviour
     public bool HasTool { get => _hasTool; }
     bool _hasTool = false;
 
-    public float EnergyConsumption { get => _config._energyConsumption; }
+    public float EnergyConsumption { get => _config.energyConsumption; }
 
     Animator _animator;
 
@@ -41,7 +41,7 @@ public class ActiveTool : MonoBehaviour
         }
 
         _hasTool = true;
-        _toolSpriteRenderer.sprite = _config._horizontalSprite;
+        _toolSpriteRenderer.sprite = _config.horizontalToolSprite;
         _toolSpriteRenderer.gameObject.SetActive(false);
     }
 
@@ -70,7 +70,7 @@ public class ActiveTool : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
             if (hit.collider)
             {
-                if(_config._type == ToolType.Hoe)
+                if(_config.toolType == ToolType.Hoe)
                 {
                     FarmableLand farmableLand = hit.collider.GetComponent<FarmableLand>();
                     if (farmableLand && !farmableLand.IsOccupied)
@@ -84,7 +84,7 @@ public class ActiveTool : MonoBehaviour
                     if (resourceNode && resourceNode.CanDestroy(_config))
                     {
                         Health health = resourceNode.GetComponent<Health>();
-                        health?.TakeDamage(_config._toolPower);
+                        health?.TakeDamage(_config.toolPower);
                     }
                 }
             }

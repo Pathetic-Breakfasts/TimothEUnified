@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc047c233344664c9996be4c36379e2, type: 3}
+  m_Name: Item_Wood
+  m_EditorClassIdentifier: 
+  itemID: 24a4992f-23b7-46ab-b066-897ab7ff2452
+  displayName: 
+  description: 
+  icon: {fileID: 0}
+  pickup: {fileID: 0}
+  isStackable: 0
+  itemType: 0
+  growthSpriteArray: []
+  daysToGrow: 0
+  correctSeason: 0
+  _grownCropItem: {fileID: 0}
+  _damage: 10
+  _attackRange: 1.5
+  _attackSpeed: 1.5
+  _heavyAttackDamageBoost: 2
+  _lightAttackSwingRate: 15
+  _heavyAttackSwingRate: 7.5
+  _weaponSwingDistance: 90
+  _sprite: {fileID: 0}
+  _isRanged: 0
+  _projectilePrefab: {fileID: 0}
+  _type: 0
+  _toolPower: 50
+  _energyConsumption: 3
+  _horizontalSprite: {fileID: 0}
+  _verticalSprite: {fileID: 0}

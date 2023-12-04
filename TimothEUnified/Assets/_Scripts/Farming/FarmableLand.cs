@@ -71,10 +71,7 @@ public class FarmableLand : MonoBehaviour
     {
         if (_childCrop && _childCrop.ReadyToPick())
         {
-            //TODO: Actually pickup the crop (requires inventory)
-            Debug.Log("Gained 1 " + _childCrop.Config.type);
-            Inventory.GetPlayerInventory().AddToFirstEmptySlot(_childCrop.Config._grownCropItem, 1);
-
+            Inventory.GetPlayerInventory().AddToFirstEmptySlot(_childCrop.Config.grownCropItem, 1);
             Destroy(_childCrop.gameObject);
             _isOccupied = false;
             _childCrop = null;

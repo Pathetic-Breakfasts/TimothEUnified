@@ -61,7 +61,7 @@ public class ResourceNode : MonoBehaviour
 
     public bool CanDestroy(InventoryItem config)
     {
-        bool returnVal = (config._type == _typeToDestroy && config._toolPower >= _minimumToolPower);
+        bool returnVal = (config.toolType == _typeToDestroy && config.toolPower >= _minimumToolPower);
 
         if (!returnVal)
         {
