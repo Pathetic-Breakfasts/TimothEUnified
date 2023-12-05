@@ -40,8 +40,8 @@ public class HotbarManager : MonoBehaviour
 
     public void ModifyIndex(int num)
     {
-        Debug.Log("Current Slot: " + _currentSlot);
-        Debug.Log("Num: " + num);
+        //Debug.Log("Current Slot: " + _currentSlot);
+        //Debug.Log("Num: " + num);
         _hotbarSlots[_currentSlot].SetUnselected();
         _currentSlot = (_currentSlot + num) % _hotbarSlots.Length;
         if(_currentSlot < 0) _currentSlot = _hotbarSlots.Length - 1;

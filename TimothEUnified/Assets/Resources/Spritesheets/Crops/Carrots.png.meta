@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: -1918997289943445503
     second: Carrots_3
+  - first:
+      213: 8212292616677389478
+    second: Carrots_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -218,6 +221,27 @@ TextureImporter:
       bones: []
       spriteID: 100dbffc12a5e55e0800000000000000
       internalID: -1918997289943445503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Carrots_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a47e90df9ce7f170800000000000000
+      internalID: 8212292616677389478
       vertices: []
       indices: 
       edges: []

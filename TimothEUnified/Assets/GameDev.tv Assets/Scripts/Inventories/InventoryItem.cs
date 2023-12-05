@@ -68,7 +68,7 @@ namespace GameDevTV.Inventories
         [Tooltip("Sprites Used for Growing the Crop Throughout it's lifetime.")]
         public Sprite[] growthSpriteArray;
         [Tooltip("The amount of in-game days required for the seed to grow into a harvestable")]
-        public int daysToGrow;
+        [Min(1.0f)]public int daysToGrow;
         [Tooltip("The correct season for the crop to grow in")]
         public Seasons correctSeason;
         [Tooltip("The crop the player will be given upon harvesting")]

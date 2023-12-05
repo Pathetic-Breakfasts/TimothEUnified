@@ -1,6 +1,9 @@
 using GameDevTV.Inventories;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Resources;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -93,6 +96,8 @@ public class InventoryItemEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        InventoryItem item = (InventoryItem)target;
+
         so.Update();
 
         EditorGUILayout.PropertyField(propItemName);
@@ -101,6 +106,8 @@ public class InventoryItemEditor : Editor
         EditorGUILayout.PropertyField(propItemIcon);
         EditorGUILayout.PropertyField(propItemPickup);
         EditorGUILayout.PropertyField(propItemIsStackable);
+
+        EditorGUILayout.Separator();
 
         ItemType itemType = (ItemType)propItemType.enumValueIndex;
         switch (itemType)
@@ -139,6 +146,26 @@ public class InventoryItemEditor : Editor
                 EditorGUILayout.PropertyField(propSeedCorrectSeason);
                 EditorGUILayout.PropertyField(propSeedGrownCropItem);
 
+                if(GUILayout.Button("Autofill Seed Growth Sprites/Icons"))
+                {
+                    //Find all sprites matching our item name
+                    string itemName = propItemName.stringValue;
+                    propSeedSpriteArray.ClearArray();
+
+                    string[] spriteAssetsGUIDs = AssetDatabase.FindAssets(itemName + " t:texture2d", null);
+                    for (int i = 0; i < spriteAssetsGUIDs.Length; i++)
+                    {
+                        string assetPath = ExtractResourcePath(AssetDatabase.GUIDToAssetPath(spriteAssetsGUIDs[i]));
+                        List<Sprite> sprites = Resources.LoadAll<Sprite>(assetPath).ToList();
+                        if (sprites != null && sprites.Count > 0)
+                        {
+                            sprites.RemoveAt(sprites.Count - 1);
+                            item.growthSpriteArray = sprites.ToArray();
+                            item.icon = sprites.ToArray()[0];
+                        }
+                    }
+                }
+
                 break;
             case ItemType.ARMOR:
                 break;
@@ -147,4 +174,32 @@ public class InventoryItemEditor : Editor
         so.ApplyModifiedProperties();
     }
 
+    /// <summary>
+    /// Extracts the resource path from a complete asset file path. E.g. "Assets/Textures/Resources/Sprites/Crops" to "Sprites/Crops"
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    private string ExtractResourcePath(string path)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            Debug.LogError("Path was null or empty");
+            return null;
+        }
+
+        const string resourceStr = "Resources/";
+        int index = path.IndexOf(resourceStr);
+        if (index != -1)
+        {
+            path = path.Substring(index + resourceStr.Length);
+        }
+
+        index = path.IndexOf('.');
+        if (index != -1)
+        {
+            path = path.Substring(0, index);
+        }
+
+        return path;
+    }
 }
