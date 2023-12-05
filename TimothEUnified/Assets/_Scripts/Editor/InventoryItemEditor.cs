@@ -166,6 +166,31 @@ public class InventoryItemEditor : Editor
                     }
                 }
 
+                if(GUILayout.Button("Autofill Crop Item"))
+                {
+                    string itemName = "Crop_" + propItemName.stringValue;
+                    Debug.Log(itemName);
+
+                    string[] itemNameGUIDs = AssetDatabase.FindAssets(itemName, null);
+                    if(itemNameGUIDs != null && itemNameGUIDs.Length > 0)
+                    {
+                        string assetPath = ExtractResourcePath(AssetDatabase.GUIDToAssetPath(itemNameGUIDs[0]));
+                        InventoryItem it = Resources.Load<InventoryItem>(assetPath);
+                        if (it != null)
+                        {
+                            item.grownCropItem = it;
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Could not load item");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Crop Item with name not found: " + itemName);
+                    }
+                }
+
                 break;
             case ItemType.ARMOR:
                 break;
