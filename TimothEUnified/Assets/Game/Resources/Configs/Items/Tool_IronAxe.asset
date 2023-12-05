@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dc047c233344664c9996be4c36379e2, type: 3}
-  m_Name: Seed_Carrot
+  m_Name: Tool_IronAxe
   m_EditorClassIdentifier: 
-  itemID: 5b9be040-a2db-42ad-9b5c-0c66f93d505f
-  displayName: Carrot
+  itemID: 24a4992f-23b7-46ab-b066-897ab7ff2452
+  displayName: Iron Axe
   description: 
-  icon: {fileID: 3255702263911208407, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
+  icon: {fileID: 5127326418951840272, guid: 63d3af640d0e79048a57648e46810a05, type: 3}
   pickup: {fileID: 0}
   isStackable: 0
-  itemType: 3
+  itemType: 2
   growthSpriteArray:
   - {fileID: 3255702263911208407, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
   - {fileID: -9135177321954078996, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
@@ -26,10 +26,10 @@ MonoBehaviour:
   - {fileID: -1918997289943445503, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
   daysToGrow: 0
   correctSeason: 0
-  grownCropItem: {fileID: 11400000, guid: 8306658edcf35b249984cd29da0b1c24, type: 2}
+  grownCropItem: {fileID: 0}
   damage: 10
   attackRange: 1.5
-  attackSpeed: 0.8
+  attackSpeed: 1.5
   heavyAttackDamageBoost: 2
   lightAttackSwingRate: 15
   heavyAttackSwingRate: 7.5
@@ -37,8 +37,8 @@ MonoBehaviour:
   weaponSprite: {fileID: 0}
   isRanged: 0
   projectilePrefab: {fileID: 0}
-  toolType: 0
+  toolType: 2
   toolPower: 50
   energyConsumption: 3
-  horizontalToolSprite: {fileID: 0}
-  verticalToolSprite: {fileID: 0}
+  horizontalToolSprite: {fileID: 5127326418951840272, guid: 63d3af640d0e79048a57648e46810a05, type: 3}
+  verticalToolSprite: {fileID: -2450834262562999488, guid: 63d3af640d0e79048a57648e46810a05, type: 3}

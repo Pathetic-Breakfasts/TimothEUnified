@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dc047c233344664c9996be4c36379e2, type: 3}
-  m_Name: Seed_Carrot
+  m_Name: Item_IronIngot
   m_EditorClassIdentifier: 
-  itemID: 5b9be040-a2db-42ad-9b5c-0c66f93d505f
-  displayName: Carrot
+  itemID: 24a4992f-23b7-46ab-b066-897ab7ff2452
+  displayName: Iron Ingot
   description: 
-  icon: {fileID: 3255702263911208407, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
+  icon: {fileID: 21300000, guid: 5235a25b5d45efb40949230c2b40ab62, type: 3}
   pickup: {fileID: 0}
   isStackable: 0
-  itemType: 3
+  itemType: 0
   growthSpriteArray:
   - {fileID: 3255702263911208407, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
   - {fileID: -9135177321954078996, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
@@ -26,10 +26,10 @@ MonoBehaviour:
   - {fileID: -1918997289943445503, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
   daysToGrow: 0
   correctSeason: 0
-  grownCropItem: {fileID: 11400000, guid: 8306658edcf35b249984cd29da0b1c24, type: 2}
+  grownCropItem: {fileID: 0}
   damage: 10
   attackRange: 1.5
-  attackSpeed: 0.8
+  attackSpeed: 1.5
   heavyAttackDamageBoost: 2
   lightAttackSwingRate: 15
   heavyAttackSwingRate: 7.5

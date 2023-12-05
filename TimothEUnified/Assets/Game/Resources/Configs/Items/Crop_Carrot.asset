@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crop_Carrot
   m_EditorClassIdentifier: 
   itemID: 5f05018a-3dca-4f58-9201-44b72a284d01
-  displayName: 
+  displayName: Carrot
   description: 
   icon: {fileID: 0}
   pickup: {fileID: 0}

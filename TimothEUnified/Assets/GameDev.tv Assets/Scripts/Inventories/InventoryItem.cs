@@ -41,7 +41,7 @@ namespace GameDevTV.Inventories
     /// In practice, you are likely to use a subclass such as `ActionItem` or
     /// `EquipableItem`.
     /// </remarks>
-    [CreateAssetMenu(menuName = ("GameDevTV/GameDevTV.UI.InventorySystem/Inventory Item"))]
+    [CreateAssetMenu(menuName = ("Inventory/Inventory Item"))]
     public class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
     {
         // CONFIG DATA
@@ -56,7 +56,7 @@ namespace GameDevTV.Inventories
         [Tooltip("The prefab that should be spawned when this item is dropped.")]
         [SerializeField] public Pickup pickup = null;
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
-        [SerializeField] public bool isStackable = false;
+        [SerializeField] public bool isStackable = true;
 
         [SerializeField] public ItemType itemType;
 

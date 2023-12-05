@@ -9,22 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be8358f0fcfcb22418d7b5d788e02cc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 7dc047c233344664c9996be4c36379e2, type: 3}
   m_Name: Crop_Lettuce
   m_EditorClassIdentifier: 
-  itemID: 04e6bbbe-ce5f-48b2-8278-356e8f1713fb
+  itemID: c3ecb2f0-d77b-455f-9ad1-f9120a026c76
   displayName: Lettuce
   description: 
-  icon: {fileID: 1574771824586098789, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}
+  icon: {fileID: 0}
   pickup: {fileID: 0}
-  isStackable: 1
+  isStackable: 0
   itemType: 0
-  toolConfig: {fileID: 0}
-  weaponConfig: {fileID: 0}
-  type: 0
   growthSpriteArray: []
   daysToGrow: 0
-  incorrectSeasonPentalty: 0.2
-  idealSeasonToGrow: 0
-  _grownCropItem: {fileID: 0}
-  consumable: 0
+  correctSeason: 0
+  grownCropItem: {fileID: 0}
+  damage: 10
+  attackRange: 1.5
+  attackSpeed: 0.8
+  heavyAttackDamageBoost: 2
+  lightAttackSwingRate: 15
+  heavyAttackSwingRate: 7.5
+  weaponSwingDistance: 90
+  weaponSprite: {fileID: 0}
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  toolType: 0
+  toolPower: 50
+  energyConsumption: 3
+  horizontalToolSprite: {fileID: 0}
+  verticalToolSprite: {fileID: 0}

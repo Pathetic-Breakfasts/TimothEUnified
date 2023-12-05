@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(InventoryItem))]
 public class InventoryItemEditor : Editor
 {
@@ -169,8 +170,6 @@ public class InventoryItemEditor : Editor
                 if(GUILayout.Button("Autofill Crop Item"))
                 {
                     string itemName = "Crop_" + propItemName.stringValue;
-                    Debug.Log(itemName);
-
                     string[] itemNameGUIDs = AssetDatabase.FindAssets(itemName, null);
                     if(itemNameGUIDs != null && itemNameGUIDs.Length > 0)
                     {

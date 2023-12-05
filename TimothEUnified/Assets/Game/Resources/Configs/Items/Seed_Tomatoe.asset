@@ -9,26 +9,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be8358f0fcfcb22418d7b5d788e02cc4, type: 3}
-  m_Name: Seeds_Tomatoes
+  m_Script: {fileID: 11500000, guid: 7dc047c233344664c9996be4c36379e2, type: 3}
+  m_Name: Seed_Tomatoe
   m_EditorClassIdentifier: 
-  itemID: 13c6a4f9-e63e-4b0b-b445-87ada540e0aa
-  displayName: 
+  itemID: c3ecb2f0-d77b-455f-9ad1-f9120a026c76
+  displayName: Tomatoe
   description: 
   icon: {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   pickup: {fileID: 0}
-  isStackable: 1
+  isStackable: 0
   itemType: 3
-  toolConfig: {fileID: 0}
-  weaponConfig: {fileID: 0}
-  type: 3
   growthSpriteArray:
   - {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   - {fileID: 3824498671837561107, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   - {fileID: -6474780379893477836, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
-  - {fileID: -966772353475456211, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
-  daysToGrow: 4
-  incorrectSeasonPentalty: 0.2
-  idealSeasonToGrow: 0
-  _grownCropItem: {fileID: 11400000, guid: d3d89a9f7b3d6d34d8c4186bb3d0a2ae, type: 2}
-  consumable: 0
+  daysToGrow: 0
+  correctSeason: 0
+  grownCropItem: {fileID: 11400000, guid: 11e4e000cb1dcdd4789b4431f769b12d, type: 2}
+  damage: 10
+  attackRange: 1.5
+  attackSpeed: 0.8
+  heavyAttackDamageBoost: 2
+  lightAttackSwingRate: 15
+  heavyAttackSwingRate: 7.5
+  weaponSwingDistance: 90
+  weaponSprite: {fileID: 0}
+  isRanged: 0
+  projectilePrefab: {fileID: 0}
+  toolType: 0
+  toolPower: 50
+  energyConsumption: 3
+  horizontalToolSprite: {fileID: 0}
+  verticalToolSprite: {fileID: 0}
