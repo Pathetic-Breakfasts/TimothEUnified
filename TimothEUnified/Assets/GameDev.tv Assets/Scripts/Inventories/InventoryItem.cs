@@ -95,7 +95,7 @@ namespace GameDevTV.Inventories
         [Tooltip("Is this a ranged weapon? I.e. a bow")]
         public bool isRanged = false;
         [Tooltip("The projectile launched by this weapon")]
-        public Projectile projectilePrefab;
+        public ProjectileConfig projectileConfig;
         //End of Weapon Config
 
 

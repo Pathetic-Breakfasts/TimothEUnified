@@ -96,10 +96,18 @@ public class Weapon : MonoBehaviour
         //If we are using a ranged weapon, then spawn a projectile
         if (_config.isRanged)
         {
-            Projectile projectile = Instantiate(_config.projectilePrefab);
-            projectile.transform.position = transform.position;
+            if(_config.projectileConfig == null)
+            {
+                Debug.LogError(_config.name + " has no projectile config");
+                return;
+            }
 
-            projectile.SetTarget(transform.parent.rotation, _config.damage, _acceptableTags);
+            GameObject projectileObject = Instantiate(Resources.Load("Projectile")) as GameObject;
+            projectileObject.transform.position = transform.position;
+
+            Projectile projectile = projectileObject.GetComponent<Projectile>();
+            projectile.SetConfig(_config.projectileConfig);
+            projectile.SetDirection(transform.parent.rotation, _config.damage, _acceptableTags);
 
             _attacking = false;
         }

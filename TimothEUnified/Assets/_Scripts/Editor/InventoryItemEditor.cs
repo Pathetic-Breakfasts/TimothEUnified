@@ -77,7 +77,7 @@ public class InventoryItemEditor : Editor
         propWeaponSwingDistance = so.FindProperty("weaponSwingDistance");
         propWeaponSprite = so.FindProperty("weaponSprite");
         propWeaponIsRanged = so.FindProperty("isRanged");
-        propWeaponProjectilePrefab = so.FindProperty("projectilePrefab");
+        propWeaponProjectilePrefab = so.FindProperty("projectileConfig");
 
         //Tool Item
         propToolType = so.FindProperty("toolType");

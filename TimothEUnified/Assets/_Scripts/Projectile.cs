@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [Header("Movement")]
-    [Min(0.01f)][SerializeField] float _movementSpeed = 3.0f;
+    float _movementSpeed = 3.0f;
 
     string[] _acceptedTags;
 
@@ -16,7 +15,14 @@ public class Projectile : MonoBehaviour
         transform.position += transform.right * Time.deltaTime * _movementSpeed;
     }
 
-    public void SetTarget(Quaternion rotation, float damage, string[] acceptedTags)
+    public void SetConfig(ProjectileConfig config)
+    {
+        _movementSpeed = config.movementSpeed;
+        GetComponent<SpriteRenderer>().sprite = config.projectileSprite;
+        GetComponent<DestroyAfterSeconds>().SetLifetime(config.lifetime);
+    }
+
+    public void SetDirection(Quaternion rotation, float damage, string[] acceptedTags)
     {
         transform.rotation = rotation;
         _acceptedTags = acceptedTags;

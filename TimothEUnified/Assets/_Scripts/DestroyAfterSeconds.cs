@@ -8,6 +8,10 @@ public class DestroyAfterSeconds : MonoBehaviour
     [Min(0f)][SerializeField] float _lifetime = 10.0f;
     float _timer;
 
+    public void SetLifetime(float duration)
+    {
+        _lifetime = duration;
+    }
 
     // Start is called before the first frame update
     void Start()
