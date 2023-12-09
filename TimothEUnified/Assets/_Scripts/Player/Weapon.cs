@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     TrailRenderer _trail;
     SpriteRenderer _renderer;
     Collider2D _col;
-    
+
     bool _attacking;
     bool _heavyAttack;
     float _originalEulerZ;
@@ -28,12 +28,21 @@ public class Weapon : MonoBehaviour
 
     float _timeSinceLastAttack = 0.0f;
     float _attackCooldown;
+
+    public bool IsRanged { get => _hasWeapon && _config.isRanged; }
     
     public bool IsAttacking { get => _attacking; }
     public InventoryItem  GetWeaponConfig { get => _config; }
 
     public bool HasWeapon { get => _hasWeapon; }
     bool _hasWeapon = false;
+
+    Vector3 _aimPosition;
+
+    public void SetAimPosition(Vector3 position)
+    {
+        _aimPosition = position;
+    }
 
     private void Awake()
     {
@@ -49,6 +58,16 @@ public class Weapon : MonoBehaviour
         if (!_attacking)
         {
             _timeSinceLastAttack += Time.deltaTime;
+        }
+
+        if (_hasWeapon && _config.isRanged)
+        {
+            Vector3 euler = transform.parent.eulerAngles;
+            Vector2 aimToWeaponDir = (_aimPosition - transform.parent.position).normalized;
+            
+            float ang = Mathf.Atan2(aimToWeaponDir.y, aimToWeaponDir.x) * Mathf.Rad2Deg;
+            euler.z = ang;
+            transform.parent.eulerAngles = euler;
         }
 
         //Swings a melee based weapon provided that we are attacking
@@ -107,7 +126,9 @@ public class Weapon : MonoBehaviour
 
             Projectile projectile = projectileObject.GetComponent<Projectile>();
             projectile.SetConfig(_config.projectileConfig);
-            projectile.SetDirection(transform.parent.rotation, _config.damage, _acceptableTags);
+            
+            Quaternion aimRot = Quaternion.Euler(transform.parent.localEulerAngles.x, transform.parent.localEulerAngles.y, transform.parent.localEulerAngles.z);
+            projectile.SetDirection(aimRot, _config.damage, _acceptableTags);
 
             _attacking = false;
         }
@@ -154,7 +175,6 @@ public class Weapon : MonoBehaviour
         _attacking = false;
 
         _renderer.enabled = false;
-
     }
 
     public void EquipWeapon(InventoryItem config)
@@ -168,7 +188,6 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        
         _hasWeapon = true;
         SetWeaponActive(true);
         _renderer.sprite = _config.weaponSprite;

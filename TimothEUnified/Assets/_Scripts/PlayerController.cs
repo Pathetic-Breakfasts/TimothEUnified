@@ -30,8 +30,12 @@ public class PlayerController : MonoBehaviour
     Vector2 _movement;
     Vector2 _lastMovment;
     Vector2 _mousePosAtClick;
+    Vector2 _mousePos;
 
     InventoryItem _currentItem;
+
+    InteractDirection _toolUseDirection;
+    public InteractDirection ToolUseDirection;
 
     public Bed CurrentBed { get => _bed; set { _bed = value; UpdatePrompts(); } }
     Bed _bed;
@@ -82,6 +86,7 @@ public class PlayerController : MonoBehaviour
             DebugUpdate();
         }
 
+        _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (_activeTool.UsingTool || _playerWeapon.IsAttacking)
         {
@@ -89,50 +94,9 @@ public class PlayerController : MonoBehaviour
             _animator.SetFloat("Speed", 0.0f);
         }
 
-        if (!_playerWeapon.IsAttacking && _playerWeapon.HasWeapon)
+        if (!_playerWeapon.IsAttacking && _playerWeapon.HasWeapon && _playerWeapon.IsRanged)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            //InteractDirection direction = GameUtilities.CalculateDirection(transform.position, _mousePosAtClick);
-            //Vector2 directionVec = GameUtilities.GetDirectionVector(direction);
-
-            Vector2 dir = mousePos - (Vector2)transform.position;
-
-            //switch (direction)
-            //{
-            //    case InteractDirection.None:
-            //        Debug.Log("No Movement");
-            //        break;
-            //    case InteractDirection.Up:
-            //        if(_lastMovment.y > 0.0f)
-            //        {
-            //            Debug.Log("Can Attack Up");
-            //        }
-            //        break;
-            //    case InteractDirection.Down:
-            //        if(_lastMovment.y < 0.0f)
-            //        {
-            //            Debug.Log("Can Attack Down");
-            //        }
-            //        break;
-            //    case InteractDirection.Left:
-            //        if(_lastMovment.x < 0.0f)
-            //        {
-            //            Debug.Log("Can Attack Left");
-            //        }
-            //        break;
-            //    case InteractDirection.Right:
-            //        if(_lastMovment.x > 0.0f)
-            //        {
-            //            Debug.Log("Can Attack Right");
-            //        }
-            //        break;
-            //}
-            //Debug.Log("rotation eulers: " + rotation.eulerAngles);
-
-            //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            //Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            //_weaponAttach.eulerAngles = rotation.eulerAngles;
+            _playerWeapon.SetAimPosition(_mousePos);
         }
 
     }
@@ -307,19 +271,21 @@ public class PlayerController : MonoBehaviour
 
         _mousePosAtClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        InteractDirection direction = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
-        Vector2 directionVec = GameUtilities.GetDirectionVector(direction);
+        _toolUseDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
+        Vector2 directionVec = GameUtilities.GetDirectionVector(_toolUseDirection);
 
         _animator.SetFloat("CombatHorizontal", directionVec.x);
         _animator.SetFloat("CombatVertical", directionVec.y);
         _animator.SetFloat("LastHorizontal", directionVec.x);
         _animator.SetFloat("LastVertical", directionVec.y);
 
-        if (_playerWeapon.HasWeapon)
+        if (_playerWeapon.HasWeapon && !_playerWeapon.IsRanged)
         {
             float angle = Mathf.Atan2(directionVec.y, directionVec.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             _weaponAttach.eulerAngles = rotation.eulerAngles;
+            _playerWeapon.SetCurrentDirection(_toolUseDirection);
+            
         }
 
         if (_currentItem.itemType == ItemType.WEAPON)
