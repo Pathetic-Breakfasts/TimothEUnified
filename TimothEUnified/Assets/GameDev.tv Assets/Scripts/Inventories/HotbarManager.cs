@@ -36,6 +36,8 @@ public class HotbarManager : MonoBehaviour
                 _hotbarSlots[i].SetUnselected();
             }
         }
+
+        UpdateHeld();
     }
 
     public void ModifyIndex(int num)

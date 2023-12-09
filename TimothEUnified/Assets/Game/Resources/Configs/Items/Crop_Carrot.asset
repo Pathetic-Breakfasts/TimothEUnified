@@ -15,9 +15,9 @@ MonoBehaviour:
   itemID: 5f05018a-3dca-4f58-9201-44b72a284d01
   displayName: Carrot
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 8212292616677389478, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
   pickup: {fileID: 0}
-  isStackable: 0
+  isStackable: 1
   itemType: 0
   growthSpriteArray: []
   daysToGrow: 0

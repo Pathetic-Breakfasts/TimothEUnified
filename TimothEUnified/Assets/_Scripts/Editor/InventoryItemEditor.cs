@@ -20,7 +20,6 @@ public class InventoryItemEditor : Editor
     SerializedProperty propItemDescription;
     SerializedProperty propItemType;
     SerializedProperty propItemIcon;
-    SerializedProperty propItemPickup;
     SerializedProperty propItemIsStackable;
 
     //Seed Item
@@ -59,7 +58,6 @@ public class InventoryItemEditor : Editor
         propItemDescription = so.FindProperty("description");
         propItemType = so.FindProperty("itemType");
         propItemIcon = so.FindProperty("icon");
-        propItemPickup = so.FindProperty("pickup");
         propItemIsStackable = so.FindProperty("isStackable");
 
 
@@ -105,7 +103,6 @@ public class InventoryItemEditor : Editor
         EditorGUILayout.PropertyField(propItemDescription);
         EditorGUILayout.PropertyField(propItemType);
         EditorGUILayout.PropertyField(propItemIcon);
-        EditorGUILayout.PropertyField(propItemPickup);
         EditorGUILayout.PropertyField(propItemIsStackable);
 
         EditorGUILayout.Separator();

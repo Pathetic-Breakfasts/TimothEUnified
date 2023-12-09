@@ -27,7 +27,6 @@ public class HotbarUI : MonoBehaviour, IItemHolder
 
     public void Setup()
     {
-        Debug.Log("Setting Hotbar");
         if(!_inventory)
         {
             Debug.LogError("No Inventory!");

@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 4229853584741285709}
   - component: {fileID: 3145516813850362073}
   - component: {fileID: 7642381741054367828}
+  - component: {fileID: 6119448571974704265}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -635,9 +636,6 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 64
-  _carrotConfig: {fileID: 11400000, guid: ae65b19b96d16a349b19c1d4f6d498d0, type: 2}
-  _tomatoesConfig: {fileID: 11400000, guid: 6fa32e830f6b65e49b119401210999a7, type: 2}
-  _lettuceConfig: {fileID: 11400000, guid: 37fea1010b24c2c47ad02482c99326fa, type: 2}
   _startingLoadout: {fileID: 0}
   _heldItemGO: {fileID: 3829674606356305016}
 --- !u!212 &8365147085474458260
@@ -795,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b4f783e850063428bccae8c5d292d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 155413327d97d1040ad8cd15e3e45f82, type: 2}
+  _config: {fileID: 0}
   _toolSpriteRenderer: {fileID: 8365147084948138428}
   _interactableLayer:
     serializedVersion: 2
@@ -913,6 +911,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ac6bffac107be1469f9b5673ad70acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6119448571974704265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365147085474458267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c756a4f32f0d945bb0d60bb0f29ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8365147086381552741

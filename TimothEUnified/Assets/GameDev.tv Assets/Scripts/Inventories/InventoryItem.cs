@@ -53,8 +53,6 @@ namespace GameDevTV.Inventories
         [SerializeField][TextArea] public string description = "";
         [Tooltip("The UI icon to represent this item in the inventory.")]
         [SerializeField] public Sprite icon = null;
-        [Tooltip("The prefab that should be spawned when this item is dropped.")]
-        [SerializeField] public Pickup pickup = null;
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
         [SerializeField] public bool isStackable = true;
 
@@ -83,7 +81,7 @@ namespace GameDevTV.Inventories
         [Tooltip("The attack range of this weapon (USed by AI)")]
         [Min(0.01f)]public float attackRange = 1.5f;
         [Tooltip("The amount of time between attacks")]
-        [Min(0.01f)]public float attackSpeed = 0.8f;
+        [Min(0.01f)]public float attackSpeed = 0.2f;
         [Tooltip("The damage bonus when the player performs a heavy attack")]
         [Min(0.01f)]public float heavyAttackDamageBoost = 2.0f;
         [Tooltip("How fast the weapon will swing during a light attack")]
@@ -160,9 +158,19 @@ namespace GameDevTV.Inventories
         /// <returns>Reference to the pickup object spawned.</returns>
         public Pickup SpawnPickup(Vector3 position, int number)
         {
-            var pickup = Instantiate(this.pickup);
-            pickup.transform.position = position;
-            pickup.Setup(this, number);
+            GameObject pickupObject = Instantiate(Resources.Load("Pickup")) as GameObject;
+            pickupObject.transform.position = position;
+
+            Pickup pickup = pickupObject.GetComponent<Pickup>();
+            if (pickup)
+            {
+                pickup.Setup(this, number);
+            }
+            else
+            {
+                Debug.LogError("No Pickup Component Found");
+            }
+
             return pickup;
         }
 

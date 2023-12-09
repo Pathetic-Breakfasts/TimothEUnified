@@ -280,7 +280,8 @@ PrefabInstance:
       propertyPath: textContainer
       value: 
       objectReference: {fileID: 7733178770581317294}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3751131475959667774, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1973af7fc3e1d2b428983f58906580be, type: 3}
 --- !u!224 &4954948598335958627 stripped
 RectTransform:

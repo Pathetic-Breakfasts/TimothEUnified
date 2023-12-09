@@ -15,9 +15,9 @@ MonoBehaviour:
   itemID: c3ecb2f0-d77b-455f-9ad1-f9120a026c76
   displayName: Tomatoe
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: -966772353475456211, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   pickup: {fileID: 0}
-  isStackable: 0
+  isStackable: 1
   itemType: 0
   growthSpriteArray: []
   daysToGrow: 0

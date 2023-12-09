@@ -17,7 +17,7 @@ MonoBehaviour:
   description: 
   icon: {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   pickup: {fileID: 0}
-  isStackable: 0
+  isStackable: 1
   itemType: 3
   growthSpriteArray:
   - {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}

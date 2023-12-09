@@ -16,7 +16,6 @@ MonoBehaviour:
   displayName: Wood
   description: 
   icon: {fileID: 5381698226662430329, guid: 782b3e0885c471a458a1b0cb57a38d83, type: 3}
-  pickup: {fileID: 0}
   isStackable: 0
   itemType: 1
   growthSpriteArray:
@@ -29,7 +28,7 @@ MonoBehaviour:
   grownCropItem: {fileID: 0}
   damage: 10
   attackRange: 1.5
-  attackSpeed: 1.5
+  attackSpeed: 0.2
   heavyAttackDamageBoost: 2
   lightAttackSwingRate: 15
   heavyAttackSwingRate: 7.5

@@ -45,7 +45,11 @@ namespace GameDevTV.Inventories
         /// <returns>The location the drop should be spawned.</returns>
         protected virtual Vector3 GetDropLocation()
         {
-            return transform.position;
+            //return transform.position;
+            Vector3 basePosition = transform.position;
+            Vector3 cirlcePos = Random.onUnitSphere;
+            cirlcePos.z = basePosition.z;
+            return basePosition + (cirlcePos * 2.5f);
         }
 
         // PRIVATE

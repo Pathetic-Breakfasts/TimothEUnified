@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GameDevTV.UI.Inventories;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -94,6 +95,10 @@ namespace GameDevTV.Core.UI.Dragging
             var destinationContainer = destination as IDragContainer<T>;
             var sourceContainer = source as IDragContainer<T>;
 
+            Debug.Log("Dest Cont: " + destinationContainer);
+            Debug.Log("Dest: " + destination);
+            Debug.Log("Source Cont: " + sourceContainer);
+
             // Swap won't be possible
             if (destinationContainer == null || sourceContainer == null ||
                 destinationContainer.GetItem() == null ||
@@ -102,6 +107,12 @@ namespace GameDevTV.Core.UI.Dragging
                 AttemptSimpleTransfer(destination);
                 return;
             }
+
+            //var destinationDropTarget = destination as InventoryDropTarget;
+            //if (destinationDropTarget != null)
+            //{
+            //    destinationDropTarget.AddItems(sourceContainer.GetItem(), sourceContainer.GetNumber());
+            //}
 
             AttemptSwap(destinationContainer, sourceContainer);
         }
@@ -171,10 +182,10 @@ namespace GameDevTV.Core.UI.Dragging
             {
                 source.RemoveItems(toTransfer);
                 destination.AddItems(draggingItem, toTransfer);
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         private int CalculateTakeBack(T removedItem, int removedNumber, IDragContainer<T> removeSource, IDragContainer<T> destination)

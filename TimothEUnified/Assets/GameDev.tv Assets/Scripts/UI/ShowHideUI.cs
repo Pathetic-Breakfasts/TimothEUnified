@@ -8,11 +8,12 @@ namespace GameDevTV.UI
     {
         [SerializeField] KeyCode toggleKey = KeyCode.Escape;
         [SerializeField] GameObject uiContainer = null;
+        [SerializeField] bool _visibleOnStart = false;
 
         // Start is called before the first frame update
         void Start()
         {
-            uiContainer.SetActive(false);
+            uiContainer.SetActive(_visibleOnStart);
         }
 
         // Update is called once per frame

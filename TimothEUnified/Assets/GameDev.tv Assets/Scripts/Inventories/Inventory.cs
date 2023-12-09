@@ -58,6 +58,14 @@ namespace GameDevTV.Inventories
             return slots.Length;
         }
 
+        public void ForceUpdate()
+        {
+            if (inventoryUpdated != null)
+            {
+                inventoryUpdated.Invoke();
+            }
+        }
+
         /// <summary>
         /// Attempt to add the items to the first available slot.
         /// </summary>
@@ -77,6 +85,12 @@ namespace GameDevTV.Inventories
                 slots[emptySlot].item = item;
                 slots[emptySlot].number = 1;
                 inventoryUpdated?.Invoke();
+
+                if(number - 1 == 0)
+                {
+                    return true;
+                }
+
                 return AddToFirstEmptySlot(item, number - 1);
             }
 

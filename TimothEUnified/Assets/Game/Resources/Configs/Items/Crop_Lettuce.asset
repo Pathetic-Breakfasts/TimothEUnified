@@ -15,9 +15,9 @@ MonoBehaviour:
   itemID: c3ecb2f0-d77b-455f-9ad1-f9120a026c76
   displayName: Lettuce
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 1574771824586098789, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}
   pickup: {fileID: 0}
-  isStackable: 0
+  isStackable: 1
   itemType: 0
   growthSpriteArray: []
   daysToGrow: 0

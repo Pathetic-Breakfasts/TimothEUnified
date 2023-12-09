@@ -43,8 +43,19 @@ namespace GameDevTV.Inventories
 
         private void SpawnPickup()
         {
-            var spawnedPickup = item.SpawnPickup(transform.position, number);
-            spawnedPickup.transform.SetParent(transform);
+            GameObject pickupObject = Instantiate(Resources.Load("Pickup")) as GameObject;
+            pickupObject.transform.position = transform.position;
+            pickupObject.transform.SetParent(transform);
+
+            Pickup pickup = pickupObject.GetComponent<Pickup>();
+            if(pickup)
+            {
+                pickup.Setup(item, number);
+            }
+            else
+            {
+                Debug.LogError("No Pickup Component Found");
+            }
         }
 
         private void DestroyPickup()

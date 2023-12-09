@@ -13,7 +13,7 @@ namespace GameDevTV.Inventories
         int number = 1;
 
         // CACHED REFERENCE
-        Inventory inventory;
+        Inventory _inventory;
 
         SpriteRenderer _spriteRenderer;
 
@@ -22,8 +22,7 @@ namespace GameDevTV.Inventories
 
         private void Awake()
         {
-            var player = GameObject.FindGameObjectWithTag("Player");
-            inventory = player.GetComponent<Inventory>();
+            _inventory = Inventory.GetPlayerInventory();
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
@@ -61,7 +60,7 @@ namespace GameDevTV.Inventories
 
         public void PickupItem()
         {
-            bool foundSlot = inventory.AddToFirstEmptySlot(item, number);
+            bool foundSlot = _inventory.AddToFirstEmptySlot(item, number);
             if (foundSlot)
             {
                 Destroy(gameObject);
@@ -70,7 +69,18 @@ namespace GameDevTV.Inventories
 
         public bool CanBePickedUp()
         {
-            return inventory.HasSpaceFor(item);
+            return _inventory.HasSpaceFor(item);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag(GameTagManager._playerTag))
+            {
+                if (CanBePickedUp())
+                {
+                    PickupItem();
+                }
+            }
         }
     }
 }
