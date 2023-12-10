@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
     Vector2 _mousePosAtClick;
     Vector2 _mousePos;
 
+    Vector3 _lastValidDir;
+    bool _bIsInValidAimingDir = false;
+
     InventoryItem _currentItem;
 
-    InteractDirection _toolUseDirection;
-    public InteractDirection ToolUseDirection;
+    InteractDirection _lookDirection;
+    public InteractDirection LookDirection { get => _lookDirection; }
 
     public Bed CurrentBed { get => _bed; set { _bed = value; UpdatePrompts(); } }
     Bed _bed;
@@ -74,6 +77,11 @@ public class PlayerController : MonoBehaviour
 
         _mover.Move(_movement);
 
+        Vector3 adjustedPos = transform.position + new Vector3(_movement.x, _movement.y);
+        _lookDirection = GameUtilities.CalculateDirection(transform.position, adjustedPos);
+
+        _lastValidDir = GameUtilities.GetDirectionVector(_lookDirection);
+
         _animator.SetFloat("LastHorizontal", _movement.x);
         _animator.SetFloat("LastVertical", _movement.y);
         _lastMovment = _movement;
@@ -94,9 +102,28 @@ public class PlayerController : MonoBehaviour
             _animator.SetFloat("Speed", 0.0f);
         }
 
+        //Only set our aim position when using a ranged weapon within a -45/+45 degree angle of the direction we are facing
         if (!_playerWeapon.IsAttacking && _playerWeapon.HasWeapon && _playerWeapon.IsRanged)
         {
-            _playerWeapon.SetAimPosition(_mousePos);
+            Vector3 adjustedPos = _mousePos;
+            Vector3 dirVec = GameUtilities.GetDirectionVector(_lookDirection);
+            Vector3 dir = (adjustedPos - transform.position).normalized;
+
+            //Inside our bounds
+            if(Vector3.Dot(dirVec, dir) > 0.5f)
+            {
+                _playerWeapon.SetAimPosition(adjustedPos);
+                _lastValidDir = dir;
+                _bIsInValidAimingDir = true;
+            }
+            //Outside our aiming bounds
+            else
+            {
+                Vector3 bp = transform.position;
+                bp += _lastValidDir * 5.0f;
+                _playerWeapon.SetAimPosition(bp);
+                _bIsInValidAimingDir = false;
+            }
         }
 
     }
@@ -271,29 +298,48 @@ public class PlayerController : MonoBehaviour
 
         _mousePosAtClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        _toolUseDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
-        Vector2 directionVec = GameUtilities.GetDirectionVector(_toolUseDirection);
-
-        _animator.SetFloat("CombatHorizontal", directionVec.x);
-        _animator.SetFloat("CombatVertical", directionVec.y);
-        _animator.SetFloat("LastHorizontal", directionVec.x);
-        _animator.SetFloat("LastVertical", directionVec.y);
+        Vector2 directionVec = GameUtilities.GetDirectionVector(_lookDirection);
 
         if (_playerWeapon.HasWeapon && !_playerWeapon.IsRanged)
         {
             float angle = Mathf.Atan2(directionVec.y, directionVec.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             _weaponAttach.eulerAngles = rotation.eulerAngles;
-            _playerWeapon.SetCurrentDirection(_toolUseDirection);
-            
         }
 
         if (_currentItem.itemType == ItemType.WEAPON)
         {
-            _playerWeapon.StartSwing(null, _isHeavyAttack);
+            //Swords can always swing
+            if (!_playerWeapon.IsRanged)
+            {
+                _lookDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
+                _animator.SetFloat("CombatHorizontal", directionVec.x);
+                _animator.SetFloat("CombatVertical", directionVec.y);
+                _animator.SetFloat("LastHorizontal", directionVec.x);
+                _animator.SetFloat("LastVertical", directionVec.y);
+                _playerWeapon.StartSwing(null, _isHeavyAttack);
+            }
+
+            //Bows can only swing when in the acceptable aim direction
+            if(_playerWeapon.IsRanged && _bIsInValidAimingDir)
+            {
+                _lookDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
+                _animator.SetFloat("CombatHorizontal", directionVec.x);
+                _animator.SetFloat("CombatVertical", directionVec.y);
+                _animator.SetFloat("LastHorizontal", directionVec.x);
+                _animator.SetFloat("LastVertical", directionVec.y);
+                _playerWeapon.StartSwing(null, _isHeavyAttack);
+            }
+
         }
         else if(_currentItem.itemType == ItemType.TOOL)
         {
+            _lookDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
+            _animator.SetFloat("CombatHorizontal", directionVec.x);
+            _animator.SetFloat("CombatVertical", directionVec.y);
+            _animator.SetFloat("LastHorizontal", directionVec.x);
+            _animator.SetFloat("LastVertical", directionVec.y);
+
             if (_activeTool.HasTool)
             {
                 _activeTool.UseTool(_mousePosAtClick);

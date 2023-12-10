@@ -184,10 +184,15 @@ public class Weapon : MonoBehaviour
         if(_config == null)
         {
             SetWeaponActive(false);
+            _renderer.enabled = false;
             _hasWeapon = false;
             return;
         }
 
+        if (_config.isRanged)
+        {
+            _renderer.enabled = true;
+        }
         _hasWeapon = true;
         SetWeaponActive(true);
         _renderer.sprite = _config.weaponSprite;
