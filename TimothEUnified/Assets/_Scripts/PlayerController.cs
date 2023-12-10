@@ -15,9 +15,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] InventoryLoadout _startingLoadout;
 
-    GameDevTV.Inventories.Inventory _inventory;
+    [SerializeField] GameObject _heldItemGO;
 
     CharacterEnergy _characterEnergy;
+    Inventory _inventory;
     Mover _mover;
     DayManager _dayManager;
     Animator _animator;
@@ -25,10 +26,8 @@ public class PlayerController : MonoBehaviour
 
     UIManager _uiManager;
 
-    [SerializeField] GameObject _heldItemGO;
 
     Vector2 _movement;
-    Vector2 _lastMovment;
     Vector2 _mousePosAtClick;
     Vector2 _mousePos;
 
@@ -84,7 +83,6 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat("LastHorizontal", _movement.x);
         _animator.SetFloat("LastVertical", _movement.y);
-        _lastMovment = _movement;
     }
 
     private void Update()
@@ -172,7 +170,6 @@ public class PlayerController : MonoBehaviour
         _heldItemGO.SetActive(false);
         _activeTool.ChangeTool(null);
         _playerWeapon.EquipWeapon(null);
-        _animator.SetBool("InCombatMode", false);
 
         if (!item)
         {
@@ -298,43 +295,37 @@ public class PlayerController : MonoBehaviour
 
         _mousePosAtClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        _lookDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
         Vector2 directionVec = GameUtilities.GetDirectionVector(_lookDirection);
-
-        if (_playerWeapon.HasWeapon && !_playerWeapon.IsRanged)
-        {
-            float angle = Mathf.Atan2(directionVec.y, directionVec.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            _weaponAttach.eulerAngles = rotation.eulerAngles;
-        }
 
         if (_currentItem.itemType == ItemType.WEAPON)
         {
             //Swords can always swing
             if (!_playerWeapon.IsRanged)
             {
-                _lookDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
+                float angle = Mathf.Atan2(directionVec.y, directionVec.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                _weaponAttach.eulerAngles = rotation.eulerAngles;
+
                 _animator.SetFloat("CombatHorizontal", directionVec.x);
                 _animator.SetFloat("CombatVertical", directionVec.y);
                 _animator.SetFloat("LastHorizontal", directionVec.x);
                 _animator.SetFloat("LastVertical", directionVec.y);
                 _playerWeapon.StartSwing(null, _isHeavyAttack);
             }
-
-            //Bows can only swing when in the acceptable aim direction
-            if(_playerWeapon.IsRanged && _bIsInValidAimingDir)
+            //Bows can only rotate/aim when in the acceptable aim direction
+            else if(_playerWeapon.IsRanged && _bIsInValidAimingDir)
             {
-                _lookDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
                 _animator.SetFloat("CombatHorizontal", directionVec.x);
                 _animator.SetFloat("CombatVertical", directionVec.y);
                 _animator.SetFloat("LastHorizontal", directionVec.x);
                 _animator.SetFloat("LastVertical", directionVec.y);
-                _playerWeapon.StartSwing(null, _isHeavyAttack);
+                _playerWeapon.StartSwing(null, false);
             }
 
         }
         else if(_currentItem.itemType == ItemType.TOOL)
         {
-            _lookDirection = GameUtilities.CalculateDirection(gameObject.transform.position, _mousePosAtClick);
             _animator.SetFloat("CombatHorizontal", directionVec.x);
             _animator.SetFloat("CombatVertical", directionVec.y);
             _animator.SetFloat("LastHorizontal", directionVec.x);

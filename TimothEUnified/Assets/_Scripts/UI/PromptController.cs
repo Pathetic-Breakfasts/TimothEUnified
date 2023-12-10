@@ -12,11 +12,6 @@ public class PromptController : MonoBehaviour
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    private void Start()
-    {
-        _canvasGroup = GetComponent<CanvasGroup>();
-    }
-
     public void SetPromptVisibility(bool promptVisibility)
     {
         if(!_canvasGroup)

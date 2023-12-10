@@ -108,12 +108,6 @@ namespace GameDevTV.Core.UI.Dragging
                 return;
             }
 
-            //var destinationDropTarget = destination as InventoryDropTarget;
-            //if (destinationDropTarget != null)
-            //{
-            //    destinationDropTarget.AddItems(sourceContainer.GetItem(), sourceContainer.GetNumber());
-            //}
-
             AttemptSwap(destinationContainer, sourceContainer);
         }
 

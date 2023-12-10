@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ActiveTool : MonoBehaviour
 {
-    [SerializeField] InventoryItem _config;
-
     [SerializeField] SpriteRenderer _toolSpriteRenderer;
 
     [SerializeField] LayerMask _interactableLayer;
@@ -20,8 +18,9 @@ public class ActiveTool : MonoBehaviour
     public float EnergyConsumption { get => _config.energyConsumption; }
 
     Animator _animator;
+    InventoryItem _config;
 
-    Vector2 _mousePosAtClick;
+    Vector2 _targetPositon;
 
     private void Awake()
     {
@@ -47,7 +46,7 @@ public class ActiveTool : MonoBehaviour
 
     
 
-    public void UseTool(Vector2 mousePos)
+    public void UseTool(Vector2 targetPos)
     {
         if (!_hasTool)
         {
@@ -55,7 +54,7 @@ public class ActiveTool : MonoBehaviour
         }
 
         _toolSpriteRenderer.gameObject.SetActive(true);
-        _mousePosAtClick = mousePos;
+        _targetPositon = targetPos;
         _usingTool = true;
         _animator.SetBool("UsingTool", true);
     }
@@ -65,9 +64,9 @@ public class ActiveTool : MonoBehaviour
         _usingTool = false;
         _animator.SetBool("UsingTool", false);
 
-        if(Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
+        if(Vector2.Distance(_targetPositon, transform.position) < 1.75f)
         {
-            RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
+            RaycastHit2D hit = Physics2D.Raycast(_targetPositon, Vector2.zero, 10.0f, _interactableLayer);
             if (hit.collider)
             {
                 if(_config.toolType == ToolType.Hoe)

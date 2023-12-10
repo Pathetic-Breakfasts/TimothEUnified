@@ -13,7 +13,7 @@ namespace GameDevTV.UI.Inventories
     /// Must be placed on the root canvas where items can be dragged. Will be
     /// called if dropped over empty space. 
     /// </summary>
-    public class InventoryDropTarget : MonoBehaviour, IDragDestination<InventoryItem>, IDragContainer<InventoryItem>
+    public class InventoryDropTarget : MonoBehaviour, IDragDestination<InventoryItem>
     {
         public void AddItems(InventoryItem item, int number)
         {
@@ -22,24 +22,9 @@ namespace GameDevTV.UI.Inventories
             Inventory.GetPlayerInventory().ForceUpdate();
         }
 
-        public InventoryItem GetItem()
-        {
-            return null;
-        }
-
-        public int GetNumber()
-        {
-            return 0;
-        }
-
         public int MaxAcceptable(InventoryItem item)
         {
             return int.MaxValue;
-        }
-
-        public void RemoveItems(int number)
-        {
-            return;
         }
     }
 }

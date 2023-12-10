@@ -1,6 +1,7 @@
 using GameDevTV.Inventories;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 
 public class Crop : MonoBehaviour
@@ -13,6 +14,7 @@ public class Crop : MonoBehaviour
 
     SpriteRenderer _sp;
 
+    public bool ReadyToPick { get => _readyToPick; }
     bool _readyToPick = false;
 
     int _timeToGrowCrop;
@@ -22,16 +24,15 @@ public class Crop : MonoBehaviour
     private void Awake()
     {
         _dm = FindObjectOfType<DayManager>();
+        _sp = GetComponent<SpriteRenderer>();
     }
 
     public void ProgressDay()
     {
         _daysSincePlanted++;
 
-        Debug.Log("Crop has been planted for: " + _daysSincePlanted + " days");
-
-        int noOfSprites = _config.growthSpriteArray.Length; //4
-        int spriteDivider = _timeToGrowCrop / noOfSprites; //3
+        int noOfSprites = _config.growthSpriteArray.Length;
+        int spriteDivider = _timeToGrowCrop / noOfSprites;
 
         int spriteElement = (_daysSincePlanted / spriteDivider);
         if(spriteElement >= noOfSprites)
@@ -47,11 +48,6 @@ public class Crop : MonoBehaviour
         }
     }
 
-    public bool ReadyToPick()
-    {
-        return _readyToPick;
-    }
-
     public void Plant(InventoryItem config)
     {
         _config = config;
@@ -59,9 +55,12 @@ public class Crop : MonoBehaviour
         //Calculates the amount of time it will take to grow the plant based on if we are in the correct season or not
         float timeToGrow = (_dm.CurrentSeason == _config.correctSeason) ? (float)_config.daysToGrow : 100.0f; //TODO: Make plants die in wrong season
 
-        _timeToGrowCrop = (int)timeToGrow;
+        if(timeToGrow <= 0)
+        {
+            Debug.LogError("Plant:" + config.displayName + " days to grow set incorrectly");
+        }
 
-        _sp = GetComponent<SpriteRenderer>();
+        _timeToGrowCrop = (int)timeToGrow;
         _sp.sprite = _config.growthSpriteArray[0];
     }
 }

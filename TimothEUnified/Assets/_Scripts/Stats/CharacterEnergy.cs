@@ -37,21 +37,11 @@ public class CharacterEnergy : MonoBehaviour
     public void UseEnergy(float amount)
     {
         _currentEnergy = Mathf.Clamp(_currentEnergy - amount, 0.0f, _StartingEnergy);
-
         _onEnergyChanged.Invoke();
-
-        UpdateUI();
     }
 
     public void RegainEnergy(float amount)
     {
         UseEnergy(-amount);
-    }
-
-    private void UpdateUI()
-    {
-        //TODO: Setup energy bar
-
-        Debug.Log("Current Energy: " + _currentEnergy);
     }
 }

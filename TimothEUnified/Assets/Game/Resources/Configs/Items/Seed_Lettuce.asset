@@ -16,14 +16,13 @@ MonoBehaviour:
   displayName: Lettuce
   description: 
   icon: {fileID: -7523970955242101793, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}
-  pickup: {fileID: 0}
   isStackable: 1
   itemType: 3
   growthSpriteArray:
   - {fileID: -7523970955242101793, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}
   - {fileID: 4535925395531633388, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}
   - {fileID: -2956972527834942131, guid: 6ae5a03b9ab68fb45aa6cbecbab4ae0a, type: 3}
-  daysToGrow: 0
+  daysToGrow: 1
   correctSeason: 0
   grownCropItem: {fileID: 11400000, guid: b515090d50a5c454c9e248d6961a4656, type: 2}
   damage: 10
@@ -35,7 +34,7 @@ MonoBehaviour:
   weaponSwingDistance: 90
   weaponSprite: {fileID: 0}
   isRanged: 0
-  projectilePrefab: {fileID: 0}
+  projectileConfig: {fileID: 0}
   toolType: 0
   toolPower: 50
   energyConsumption: 3

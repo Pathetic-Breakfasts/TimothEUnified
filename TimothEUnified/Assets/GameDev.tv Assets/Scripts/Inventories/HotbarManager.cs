@@ -8,8 +8,10 @@ using UnityEngine.Assertions;
 public class HotbarManager : MonoBehaviour
 {
     HotbarUI[] _hotbarSlots;
+    PlayerController _playerController;
 
     int _currentSlot = 0;
+
 
     private void Awake()
     {
@@ -17,6 +19,7 @@ public class HotbarManager : MonoBehaviour
         hotbarSlots.Reverse();
         _hotbarSlots = hotbarSlots.ToArray();
         
+        _playerController = FindObjectOfType<PlayerController>();
         Inventory playerInventory = Inventory.GetPlayerInventory();
         playerInventory.inventoryUpdated += UpdateHotbar;
     }
@@ -42,8 +45,6 @@ public class HotbarManager : MonoBehaviour
 
     public void ModifyIndex(int num)
     {
-        //Debug.Log("Current Slot: " + _currentSlot);
-        //Debug.Log("Num: " + num);
         _hotbarSlots[_currentSlot].SetUnselected();
         _currentSlot = (_currentSlot + num) % _hotbarSlots.Length;
         if(_currentSlot < 0) _currentSlot = _hotbarSlots.Length - 1;
@@ -56,6 +57,7 @@ public class HotbarManager : MonoBehaviour
         if(index < 0 || index >= _hotbarSlots.Length)
         {
             Debug.LogError("HotbarManager::SetIndex Index: " + index + " is out of bounds");
+            return;
         }
 
         _hotbarSlots[_currentSlot].SetUnselected();
@@ -66,7 +68,7 @@ public class HotbarManager : MonoBehaviour
 
     private void UpdateHeld()
     {
-        FindObjectOfType<PlayerController>().EquipItem(_hotbarSlots[_currentSlot].GetItem());
+        _playerController.EquipItem(_hotbarSlots[_currentSlot].GetItem());
     }
 
 }

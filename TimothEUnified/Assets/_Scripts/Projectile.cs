@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    float _movementSpeed = 3.0f;
 
     string[] _acceptedTags;
 
+    float _movementSpeed = 1.0f;
     float _damage;
 
     void Update()
@@ -38,15 +38,13 @@ public class Projectile : MonoBehaviour
             if (col.CompareTag(s))
             {
                 Health targetHealth = col.gameObject.GetComponent<Health>();
-
                 if (targetHealth)
                 {
                     targetHealth.TakeDamage(_damage);
                 }
 
                 _shouldBeDestroyed = true;
-
-                continue;
+                break;
             }
         }
 

@@ -74,6 +74,7 @@ public class ResourceNode : MonoBehaviour
         return returnVal;
     }
 
+    //Called via OnDamage from the Health Component
     public void ProcessHit()
     {
         if(_health.CurrentHealth <= _health.MaxHealth - (_spriteSwapTarget * (_currentSpriteIndex + 1)))

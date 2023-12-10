@@ -70,7 +70,7 @@ public class FarmableLand : MonoBehaviour
 
     public void Harvest()
     {
-        if (_childCrop && _childCrop.ReadyToPick())
+        if (_childCrop && _childCrop.ReadyToPick)
         {
             Inventory.GetPlayerInventory().AddToFirstEmptySlot(_childCrop.Config.grownCropItem, 1);
             Destroy(_childCrop.gameObject);
@@ -95,6 +95,6 @@ public class FarmableLand : MonoBehaviour
     public bool ReadyToHarvest()
     {
         //Makes sure we have a child crop and if it is ready to harvest
-        return (_childCrop && _childCrop.ReadyToPick());
+        return (_childCrop && _childCrop.ReadyToPick);
     }
 }

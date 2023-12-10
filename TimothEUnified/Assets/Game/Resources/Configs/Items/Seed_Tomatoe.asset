@@ -16,14 +16,13 @@ MonoBehaviour:
   displayName: Tomatoe
   description: 
   icon: {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
-  pickup: {fileID: 0}
   isStackable: 1
   itemType: 3
   growthSpriteArray:
   - {fileID: 2656804779241303787, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   - {fileID: 3824498671837561107, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
   - {fileID: -6474780379893477836, guid: 36f0b2d468c10934092e87208dabae89, type: 3}
-  daysToGrow: 0
+  daysToGrow: 1
   correctSeason: 0
   grownCropItem: {fileID: 11400000, guid: 11e4e000cb1dcdd4789b4431f769b12d, type: 2}
   damage: 10
@@ -35,7 +34,7 @@ MonoBehaviour:
   weaponSwingDistance: 90
   weaponSprite: {fileID: 0}
   isRanged: 0
-  projectilePrefab: {fileID: 0}
+  projectileConfig: {fileID: 0}
   toolType: 0
   toolPower: 50
   energyConsumption: 3

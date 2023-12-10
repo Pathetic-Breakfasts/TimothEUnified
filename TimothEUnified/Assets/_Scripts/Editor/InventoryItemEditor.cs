@@ -87,11 +87,6 @@ public class InventoryItemEditor : Editor
         propToolVerticalSprite = so.FindProperty("verticalToolSprite");
     }
 
-    private void OnDisable()
-    {
-        
-    }
-
 
     public override void OnInspectorGUI()
     {

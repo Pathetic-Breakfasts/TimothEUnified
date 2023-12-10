@@ -8,7 +8,6 @@ using GameDevTV.Inventories;
 public class Weapon : MonoBehaviour
 {
     [Header("Weapon")]
-    [SerializeField] InventoryItem _config;
     [SerializeField] string[] _acceptableTags;
 
     [Header("Events")]
@@ -20,8 +19,11 @@ public class Weapon : MonoBehaviour
     SpriteRenderer _renderer;
     Collider2D _col;
 
+    InventoryItem _config;
+
     bool _attacking;
     bool _heavyAttack;
+
     float _originalEulerZ;
     float _eulerZTargetAngle;
     float _currentAttackSpeed;
