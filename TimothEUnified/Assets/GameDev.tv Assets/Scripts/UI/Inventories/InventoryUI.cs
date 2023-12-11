@@ -15,14 +15,28 @@ namespace GameDevTV.UI.Inventories
         [SerializeField] InventorySlotUI InventoryItemPrefab = null;
 
         // CACHE
-        Inventory playerInventory;
+        public Inventory DisplayedInventory { get => _inventoryToDisplay; set
+            {
+                //Unsubscribe the current inventory from the redraw
+                if (_inventoryToDisplay)
+                {
+                    _inventoryToDisplay.inventoryUpdated -= Redraw;
+                }
+
+                //Sets our new inventory to display and ensures it isn't subscibed to this Redraw already
+                _inventoryToDisplay = value;
+                _inventoryToDisplay.inventoryUpdated -= Redraw;
+                _inventoryToDisplay.inventoryUpdated += Redraw;
+            }
+        }
+        Inventory _inventoryToDisplay;
 
         // LIFECYCLE METHODS
 
         private void Awake() 
         {
-            playerInventory = Inventory.GetPlayerInventory();
-            playerInventory.inventoryUpdated += Redraw;
+            //_inventoryToDisplay = Inventory.GetPlayerInventory();
+            //_inventoryToDisplay.inventoryUpdated += Redraw;
         }
 
         private void Start()
@@ -32,17 +46,17 @@ namespace GameDevTV.UI.Inventories
 
         // PRIVATE
 
-        private void Redraw()
+        public void Redraw()
         {
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
             }
 
-            for (int i = 0; i < playerInventory.GetSize(); i++)
+            for (int i = 0; i < _inventoryToDisplay.GetSize(); i++)
             {
                 var itemUI = Instantiate(InventoryItemPrefab, transform);
-                itemUI.Setup(playerInventory, i);
+                itemUI.Setup(_inventoryToDisplay, i);
             }
         }
     }

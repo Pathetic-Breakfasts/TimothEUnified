@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameDevTV.Inventories;
 using Unity.VisualScripting;
+using GameDevTV.UI.Inventories;
 
 public class PlayerController : MonoBehaviour
 {
@@ -44,6 +45,9 @@ public class PlayerController : MonoBehaviour
 
     public DoorController NearbyDoor { get => _doorController; set { _doorController = value; UpdatePrompts(); } }
     DoorController _doorController;
+
+    public Chest NearbyChest { get => _nearbyChest; set { _nearbyChest = value; UpdatePrompts(); } }
+    Chest _nearbyChest;
     public bool IsHeavyAttack { get => _isHeavyAttack; set => _isHeavyAttack = value; }
     bool _isHeavyAttack = false;
 
@@ -63,6 +67,22 @@ public class PlayerController : MonoBehaviour
 
         _dayManager = FindObjectOfType<DayManager>();
         _uiManager = FindObjectOfType<UIManager>();
+
+        _uiManager.PlayerInventoryUI.DisplayedInventory = _inventory;
+
+        //GameObject inventoryUIGo = GameObject.Find("PlayerInventoryUI");
+        //if(inventoryUIGo != null)
+        //{
+        //    InventoryUI ui = inventoryUIGo.GetComponent<InventoryUI>();
+        //    if (ui)
+        //    {
+        //        ui.DisplayedInventory = _inventory;
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.LogError("No Inventory UI GO found!");
+        //}
 
         if (_startingLoadout)
         {
@@ -352,6 +372,12 @@ public class PlayerController : MonoBehaviour
         else if (_doorController)
         {
 
+        }
+        else if(_nearbyChest)
+        {
+            _uiManager.ChestInventoryUI.DisplayedInventory = _nearbyChest.ChestInventory;
+            _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
+            _uiManager.ToggleChestUI();
         }
     }
 }
