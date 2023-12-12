@@ -22,7 +22,7 @@ public class AIController : MonoBehaviour
     {
         _aiWeapon = GetComponentInChildren<Weapon>();
         _pathfinder = GetComponent<EnemyPathfinder>();
-        _playerTrans = FindObjectOfType<PlayerInput>().transform;
+        _playerTrans = FindObjectOfType<PlayerController>().transform;
         _objectsToRemove = new List<GameObject>();
     }
 

@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
 
     [SerializeField] GameObject _chestInventoryScreen;
+    [SerializeField] GameObject _inventoryScreen;
 
     private void Start()
     {
@@ -29,10 +30,16 @@ public class UIManager : MonoBehaviour
         _promptController?.SetPromptVisibility(false);
     }
 
-    public void ToggleChestUI()
+    public void SetChestUIVisibility(bool val)
     {
         _chestInventoryUI.Redraw();
-        _chestInventoryScreen.SetActive(!_chestInventoryScreen.activeSelf);
+        _chestInventoryScreen.SetActive(val);
+    }
+
+    public void SetInventoryUIVisibilty(bool val)
+    {
+        _playerInventoryUI.Redraw();
+        _inventoryScreen.SetActive(val);
     }
 
     public void SetInputPromptVisibility(bool visible)

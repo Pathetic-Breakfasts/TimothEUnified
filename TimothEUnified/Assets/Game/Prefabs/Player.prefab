@@ -183,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1b6ff7dbb9eb440b5c081d5a4b63ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 303f6fad0c8ab334baa4b9c5c360e38b, type: 2}
   _acceptableTags:
   - Enemy
   _onStartSwing:
@@ -585,7 +584,7 @@ GameObject:
   - component: {fileID: 8365147085474458262}
   - component: {fileID: 8365147085474458256}
   - component: {fileID: 8365147085474458257}
-  - component: {fileID: 8365147085474458258}
+  - component: {fileID: 2236792949449712998}
   - component: {fileID: 609090401565977042}
   - component: {fileID: 8839082918670875635}
   - component: {fileID: 8158106270323219337}
@@ -756,7 +755,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8365147085474458258
+--- !u!114 &2236792949449712998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -765,9 +764,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8365147085474458267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eed6804d01673554eaf2c0e487aa8182, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d6e61d3972a4e44c9d7ed6af487e146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enableLogging: 0
 --- !u!114 &609090401565977042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,7 +793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b4f783e850063428bccae8c5d292d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 0}
   _toolSpriteRenderer: {fileID: 8365147084948138428}
   _interactableLayer:
     serializedVersion: 2

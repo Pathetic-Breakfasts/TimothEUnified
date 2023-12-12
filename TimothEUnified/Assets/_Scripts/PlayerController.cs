@@ -25,6 +25,12 @@ public class PlayerController : MonoBehaviour
     Animator _animator;
     Health _playerHealth;
 
+    InputLayerManager _inputLayerManager;
+
+    ChestInputLayer _chestInputLayer;
+    InventoryInputLayer _inventoryInputLayer;
+
+    public UIManager GameUIManager { get => _uiManager; }
     UIManager _uiManager;
 
 
@@ -59,6 +65,13 @@ public class PlayerController : MonoBehaviour
         _mover = GetComponent<Mover>();
         _playerHealth = GetComponent<Health>();
         _inventory = GetComponent<Inventory>();
+        _inputLayerManager = GetComponent<InputLayerManager>();
+
+        _inventoryInputLayer = new InventoryInputLayer();
+        _inventoryInputLayer.Initialize();
+
+        _chestInputLayer = new ChestInputLayer();
+        _chestInputLayer.Initialize();
     }
 
     private void Start()
@@ -69,20 +82,6 @@ public class PlayerController : MonoBehaviour
         _uiManager = FindObjectOfType<UIManager>();
 
         _uiManager.PlayerInventoryUI.DisplayedInventory = _inventory;
-
-        //GameObject inventoryUIGo = GameObject.Find("PlayerInventoryUI");
-        //if(inventoryUIGo != null)
-        //{
-        //    InventoryUI ui = inventoryUIGo.GetComponent<InventoryUI>();
-        //    if (ui)
-        //    {
-        //        ui.DisplayedInventory = _inventory;
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.LogError("No Inventory UI GO found!");
-        //}
 
         if (_startingLoadout)
         {
@@ -360,6 +359,40 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void SetInventoryUIVisibility(bool visibility)
+    {
+        _uiManager.SetInventoryUIVisibilty(visibility);
+
+        if(visibility)
+        {
+            _inputLayerManager.AddLayer(_inventoryInputLayer);
+        }
+        else
+        {
+            if (_inputLayerManager.IsLayerInFront(_inventoryInputLayer))
+            {
+                _inputLayerManager.PopLayer();
+            }
+        }
+    }
+
+    public void SetChestUIVisibility(bool visibility) 
+    {
+        _uiManager.SetChestUIVisibility(visibility);
+
+        if (visibility)
+        {
+            _inputLayerManager.AddLayer(_chestInputLayer);
+        }
+        else
+        {
+            if(_inputLayerManager.IsLayerInFront(_chestInputLayer))
+            {
+                _inputLayerManager.PopLayer();
+            }
+        }
+    }
+
     public void UseInteractable()
     {
         if (_bed)
@@ -377,7 +410,7 @@ public class PlayerController : MonoBehaviour
         {
             _uiManager.ChestInventoryUI.DisplayedInventory = _nearbyChest.ChestInventory;
             _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
-            _uiManager.ToggleChestUI();
+            SetChestUIVisibility(true);
         }
     }
 }

@@ -1928,7 +1928,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: 0}
+  m_SizeDelta: {x: -40, y: -500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2689702377466038918
 MonoBehaviour:
@@ -3138,11 +3138,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6220222893509300807}
   - component: {fileID: 6220923503307924821}
-  - component: {fileID: 3812143473006904168}
   - component: {fileID: 3462553115694114726}
   - component: {fileID: 3490308053330553402}
   - component: {fileID: 1084799193047664076}
-  - component: {fileID: 5185791103933480811}
   m_Layer: 5
   m_Name: Inventory Canvas
   m_TagString: Untagged
@@ -3193,21 +3191,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &3812143473006904168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6146223835712184733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7b6a7fac6e2d604a8e529f6dddf65b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleKey: 105
-  uiContainer: {fileID: 6562870906021633108}
-  _visibleOnStart: 0
 --- !u!114 &3462553115694114726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3260,21 +3243,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5185791103933480811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6146223835712184733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7b6a7fac6e2d604a8e529f6dddf65b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleKey: 105
-  uiContainer: {fileID: 8496673336478472716}
-  _visibleOnStart: 1
 --- !u!1 &6146270940781815447
 GameObject:
   m_ObjectHideFlags: 0
@@ -3653,7 +3621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5134172060047529725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3741,6 +3709,7 @@ MonoBehaviour:
   _playerChestInventoryUI: {fileID: 6088745156825603047}
   _chestInventoryUI: {fileID: 6246836750210258654}
   _chestInventoryScreen: {fileID: 1414071202989314987}
+  _inventoryScreen: {fileID: 6562870906021633108}
 --- !u!1 &6822195752902574028
 GameObject:
   m_ObjectHideFlags: 0

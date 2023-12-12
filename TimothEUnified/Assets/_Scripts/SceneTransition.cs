@@ -42,7 +42,7 @@ public class SceneTransition : MonoBehaviour
         }
         if(trans != null)
         {
-            FindObjectOfType<PlayerInput>().transform.position = trans.transform.GetChild(0).position;
+            FindObjectOfType<PlayerController>().transform.position = trans.transform.GetChild(0).position;
         }
         else
         {

@@ -2,19 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class CoreInputLayer : IInputLayer
 {
     PlayerController _playerController;
-
-    private void Awake()
+    HotbarManager _hotbarManager;
+    
+    public void Initialize()
     {
-        _playerController = GetComponent<PlayerController>();
+        GameObject player = GameObject.FindGameObjectWithTag(GameTagManager._playerTag);
+        if(player)
+        {
+            _playerController = player.GetComponent<PlayerController>();
+        }
+        _hotbarManager = GameObject.FindObjectOfType<HotbarManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateLayer()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(_playerController == null || _hotbarManager == null) 
+        {
+            Debug.LogError("CoreInputLayer has not been fully initialized! PlayerController:" + _playerController + " HotbarManager: "+ _hotbarManager);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            _playerController.SetInventoryUIVisibility(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
             _playerController.UseInteractable();
         }
@@ -30,54 +45,54 @@ public class PlayerInput : MonoBehaviour
             _playerController.InspectPressed();
         }
 
-        if(Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0)
         {
-            FindObjectOfType<HotbarManager>().ModifyIndex(1);
+            _hotbarManager.ModifyIndex(1);
         }
-        else if(Input.mouseScrollDelta.y < 0)
+        else if (Input.mouseScrollDelta.y < 0)
         {
-            FindObjectOfType<HotbarManager>().ModifyIndex(-1);
+            _hotbarManager.ModifyIndex(-1);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(0);
+            _hotbarManager.SetIndex(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(1);
+            _hotbarManager.SetIndex(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(2);
+            _hotbarManager.SetIndex(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(3);
+            _hotbarManager.SetIndex(3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(4);
+            _hotbarManager.SetIndex(4);
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(5);
+            _hotbarManager.SetIndex(5);
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(6);
+            _hotbarManager.SetIndex(6);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(7);
+            _hotbarManager.SetIndex(7);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(8);
+            _hotbarManager.SetIndex(8);
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            FindObjectOfType<HotbarManager>().SetIndex(9);
+            _hotbarManager.SetIndex(9);
         }
 
         Vector2 movement;
