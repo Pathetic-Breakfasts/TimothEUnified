@@ -1,6 +1,7 @@
 using GameDevTV.UI.Inventories;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameObject _chestInventoryScreen;
     [SerializeField] GameObject _inventoryScreen;
+
+    [SerializeField] TextMeshProUGUI _coinText;
 
     private void Start()
     {
@@ -60,5 +63,10 @@ public class UIManager : MonoBehaviour
     public void SetHealthBarFillRatio(float ratio)
     {
         _healthBarFiller?.SetFillRatio(ratio);
+    }
+
+    public void SetCoinTextAmount(int amount)
+    {
+        _coinText.text = amount.ToString();
     }
 }

@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     ChestInputLayer _chestInputLayer;
     InventoryInputLayer _inventoryInputLayer;
+    CurrencyStore _currencyStore;
 
     public UIManager GameUIManager { get => _uiManager; }
     UIManager _uiManager;
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
         _playerHealth = GetComponent<Health>();
         _inventory = GetComponent<Inventory>();
         _inputLayerManager = GetComponent<InputLayerManager>();
+        _currencyStore = GetComponent<CurrencyStore>();
 
         _inventoryInputLayer = new InventoryInputLayer();
         _inventoryInputLayer.Initialize();
@@ -87,6 +89,8 @@ public class PlayerController : MonoBehaviour
         {
             _startingLoadout.SpawnItems(_inventory);
         }
+
+        _currencyStore.GainMoney(500);
     }
 
     private void FixedUpdate()
@@ -151,6 +155,12 @@ public class PlayerController : MonoBehaviour
         {
             _dayManager.ProgressDay();
         }
+    }
+
+    //Called through CurrencyStore OnCurrencyChanged event
+    public void OnCurrencyUpdated()
+    {
+        _uiManager.SetCoinTextAmount(_currencyStore.CurrencyAmount);
     }
 
     public void SetMovement(Vector2 movement)
