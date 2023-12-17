@@ -579,7 +579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.10712698, y: -5.69999, z: -10}
+  m_LocalPosition: {x: -0.10633826, y: -5.69999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1538,6 +1538,24 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &606388163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4913633713854478196, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+  m_PrefabInstance: {fileID: 4913633714780046163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &606388164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606388163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90826ab2336283941bb8443366212f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderers: []
 --- !u!1 &606395861
 GameObject:
   m_ObjectHideFlags: 0
@@ -12792,7 +12810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3327809443853551775, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3399351811536648329, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: _enableLogging
@@ -12808,7 +12826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4913633712880355720, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_Size.y
-      value: 2
+      value: 0.6875
       objectReference: {fileID: 0}
     - target: {fileID: 4913633712880355720, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -12944,7 +12962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4913633714074625856, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7785715
+      value: 1.7787315
       objectReference: {fileID: 0}
     - target: {fileID: 4913633714074625863, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_LocalPosition.x

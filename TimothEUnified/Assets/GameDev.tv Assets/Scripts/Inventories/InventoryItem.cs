@@ -25,11 +25,21 @@ namespace GameDevTV.Inventories
         Cabbage
     }
 
+    [System.Serializable]
     public enum ToolType
     {
         Hoe,
         Pickaxe,
         Axe
+    }
+
+    [System.Serializable]
+    public enum ArmorType
+    {
+        Head,
+        Chest,
+        Arms, 
+        Legs
     }
 
 
@@ -55,7 +65,9 @@ namespace GameDevTV.Inventories
         [SerializeField] public Sprite icon = null;
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
         [SerializeField] public bool isStackable = true;
-
+        [Tooltip("How much this item is worth before before factoring local merchant rates. Set to -1 for Unsellable Items")]
+        [Min(-1f)][SerializeField] public int itemValue = 0;
+        [Tooltip("The type of item this is. Controls how the item behaves and what variables are modifiable.")]
         [SerializeField] public ItemType itemType;
 
         // STATE

@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject _heldItemGO;
 
+
+    [SerializeField] CharacterSprite _headSprites;
+    [SerializeField] CharacterSprite _chestSprites;
+    [SerializeField] CharacterSprite _armSprites;
+    [SerializeField] CharacterSprite _legSprites;
+
     CharacterEnergy _characterEnergy;
     Inventory _inventory;
     Mover _mover;
@@ -30,6 +36,8 @@ public class PlayerController : MonoBehaviour
     ChestInputLayer _chestInputLayer;
     InventoryInputLayer _inventoryInputLayer;
     CurrencyStore _currencyStore;
+
+    CharacterSpriteController _characterSpriteController;
 
     public UIManager GameUIManager { get => _uiManager; }
     UIManager _uiManager;
@@ -60,6 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        _characterSpriteController = GetComponent<CharacterSpriteController>();
         _characterEnergy = GetComponent<CharacterEnergy>();
         _animator = GetComponent<Animator>();
         _activeTool = GetComponent<ActiveTool>();
@@ -90,6 +99,11 @@ public class PlayerController : MonoBehaviour
             _startingLoadout.SpawnItems(_inventory);
         }
 
+        _characterSpriteController.SetSpriteSet(ArmorType.Head, _headSprites);
+        _characterSpriteController.SetSpriteSet(ArmorType.Chest, _chestSprites);
+        _characterSpriteController.SetSpriteSet(ArmorType.Arms, _armSprites);
+        _characterSpriteController.SetSpriteSet(ArmorType.Legs, _legSprites);
+
         _currencyStore.GainMoney(500);
     }
 
@@ -114,6 +128,9 @@ public class PlayerController : MonoBehaviour
         {
             DebugUpdate();
         }
+
+        _characterSpriteController.UpdateSprite();
+
 
         _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

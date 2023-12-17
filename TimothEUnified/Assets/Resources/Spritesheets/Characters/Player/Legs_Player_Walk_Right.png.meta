@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 509d71c195ecae64c9b697ea6a3aeb0f
+guid: 1c557d29865fedc4a89f3ec8a3da80af
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7999504597709609117
-    second: Player_Arms_Walk_Up_0
+      213: 3187883865507285555
+    second: Legs_Player_Walk_Right_0
   - first:
-      213: 6655524457033154750
-    second: Player_Arms_Walk_Up_1
+      213: -1671247726296361104
+    second: Legs_Player_Walk_Right_1
   - first:
-      213: 3815108910885750276
-    second: Player_Arms_Walk_Up_2
+      213: -3478629531381079521
+    second: Legs_Player_Walk_Right_2
   - first:
-      213: 1435522410215386612
-    second: Player_Arms_Walk_Up_3
+      213: 2509151276026965956
+    second: Legs_Player_Walk_Right_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -80,7 +80,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,7 +92,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -104,7 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,7 +116,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -128,7 +128,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,85 +139,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Arms_Walk_Up_0
+      name: Legs_Player_Walk_Right_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
-        height: 11
+        height: 13
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3672a6a93fc0cf090800000000000000
-      internalID: -7999504597709609117
+      spriteID: 33ac2cc4c73ad3c20800000000000000
+      internalID: 3187883865507285555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Arms_Walk_Up_1
+      name: Legs_Player_Walk_Right_1
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
-        height: 11
+        height: 13
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb0c26f2b3c2d5c50800000000000000
-      internalID: 6655524457033154750
+      spriteID: 0771d6e2c098ec8e0800000000000000
+      internalID: -1671247726296361104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Arms_Walk_Up_2
+      name: Legs_Player_Walk_Right_2
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 16
-        height: 11
+        height: 13
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 406c5c4575df1f430800000000000000
-      internalID: 3815108910885750276
+      spriteID: f12e8dc2fdc69bfc0800000000000000
+      internalID: -3478629531381079521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Arms_Walk_Up_3
+      name: Legs_Player_Walk_Right_3
       rect:
         serializedVersion: 2
         x: 48
         y: 0
         width: 16
-        height: 11
+        height: 13
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fd2000c6000ce310800000000000000
-      internalID: 1435522410215386612
+      spriteID: 4cf2e4f9acb42d220800000000000000
+      internalID: 2509151276026965956
       vertices: []
       indices: 
       edges: []
