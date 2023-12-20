@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: 8ce433cc1ce867044b74910fb4c0ce4a
+guid: 855e8bde6f7541d4c84b1a239a4c6cde
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6813845941916639254
-    second: Player_Walk_Down_0
+      213: 4101715975065823868
+    second: Armor_Leather_Chest_0
   - first:
-      213: 6234056664746195788
-    second: Player_Walk_Down_1
+      213: 8507770669144496124
+    second: Armor_Leather_Chest_1
   - first:
-      213: -1424901875817321497
-    second: Player_Walk_Down_2
-  - first:
-      213: -8742117578677461190
-    second: Player_Walk_Down_3
+      213: -3624824015767077453
+    second: Armor_Leather_Chest_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -80,7 +77,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,7 +89,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -104,7 +101,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,7 +113,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -128,7 +125,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Walk_Down_0
+      name: Armor_Leather_Chest_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 610ad2a68c4af8e50800000000000000
-      internalID: 6813845941916639254
+      spriteID: c7ae75f82f83ce830800000000000000
+      internalID: 4101715975065823868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Walk_Down_1
+      name: Armor_Leather_Chest_1
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4b7ad3d181d38650800000000000000
-      internalID: 6234056664746195788
+      spriteID: cf758d4f85ca11670800000000000000
+      internalID: 8507770669144496124
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Walk_Down_2
+      name: Armor_Leather_Chest_2
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 16
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,29 +192,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ebee1c1b4bb93ce0800000000000000
-      internalID: -1424901875817321497
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Walk_Down_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a3f5b324162cda680800000000000000
-      internalID: -8742117578677461190
+      spriteID: 3bdf5e643c902bdc0800000000000000
+      internalID: -3624824015767077453
       vertices: []
       indices: 
       edges: []

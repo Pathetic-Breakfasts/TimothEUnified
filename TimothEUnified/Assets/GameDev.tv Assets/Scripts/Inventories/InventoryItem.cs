@@ -126,8 +126,16 @@ namespace GameDevTV.Inventories
         //End of Tool Config
 
 
-
-
+        //Beginning of Armor Config
+        [Header("Armor Settings")]
+        [Tooltip("Where this piece of armor gets equipped on a character")]
+        public ArmorType armorType = ArmorType.Head;
+        [Tooltip("The defensive attribute of this armor piece")]
+        [Min(0f)]public int armorDefence = 0;
+        [Tooltip("Collection of animation sprites used for this armor piece")]
+        public BodyPieceSpriteCollection armorSprites;
+        [Tooltip("Should the armor sprite replace the sprite below it, used for chest/legs")]
+        public bool armorReplaceSprite = false;
 
         // PUBLIC
 

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc047c233344664c9996be4c36379e2, type: 3}
+  m_Name: Armor_LeatherChest
+  m_EditorClassIdentifier: 
+  itemID: f862c5a7-5f45-431f-9c6e-afd26bd1a12b
+  displayName: Leather Chest
+  description: A leather helmet
+  icon: {fileID: 0}
+  isStackable: 1
+  itemValue: 0
+  itemType: 4
+  growthSpriteArray: []
+  daysToGrow: 1
+  correctSeason: 0
+  grownCropItem: {fileID: 0}
+  damage: 10
+  attackRange: 1.5
+  attackSpeed: 0.2
+  heavyAttackDamageBoost: 2
+  lightAttackSwingRate: 15
+  heavyAttackSwingRate: 7.5
+  weaponSwingDistance: 90
+  weaponSprite: {fileID: 0}
+  isRanged: 0
+  projectileConfig: {fileID: 0}
+  toolType: 0
+  toolPower: 50
+  energyConsumption: 3
+  horizontalToolSprite: {fileID: 0}
+  verticalToolSprite: {fileID: 0}
+  armorType: 0
+  armorDefence: 0
+  armorSprites:
+    directions:
+    - sprites:
+      - {fileID: 4101715975065823868, guid: 855e8bde6f7541d4c84b1a239a4c6cde, type: 3}
+    - sprites:
+      - {fileID: 8507770669144496124, guid: 855e8bde6f7541d4c84b1a239a4c6cde, type: 3}
+    - sprites:
+      - {fileID: -3624824015767077453, guid: 855e8bde6f7541d4c84b1a239a4c6cde, type: 3}
+    - sprites:
+      - {fileID: -3624824015767077453, guid: 855e8bde6f7541d4c84b1a239a4c6cde, type: 3}
+  armorReplaceSprite: 0

@@ -48,6 +48,12 @@ public class InventoryItemEditor : Editor
     SerializedProperty propToolHorizontalSprite;
     SerializedProperty propToolVerticalSprite;
 
+    //Armor Item
+    SerializedProperty propArmorType;
+    SerializedProperty propArmorDefence;
+    SerializedProperty propArmorSprites;
+    SerializedProperty propArmorReplaceSprite;
+
     //Holdable Item
 
     private void OnEnable()
@@ -61,7 +67,6 @@ public class InventoryItemEditor : Editor
         propItemIcon = so.FindProperty("icon");
         propItemIsStackable = so.FindProperty("isStackable");
         propItemValue = so.FindProperty("itemValue");
-
 
         //Seed Item
         propSeedSpriteArray = so.FindProperty("growthSpriteArray");
@@ -87,6 +92,12 @@ public class InventoryItemEditor : Editor
         propToolEnergyConsumption = so.FindProperty("energyConsumption");
         propToolHorizontalSprite = so.FindProperty("horizontalToolSprite");
         propToolVerticalSprite = so.FindProperty("verticalToolSprite");
+
+        //Armor Item
+        propArmorType = so.FindProperty("armorType");
+        propArmorDefence = so.FindProperty("armorDefence");
+        propArmorSprites = so.FindProperty("armorSprites");
+        propArmorReplaceSprite = so.FindProperty("armorReplaceSprite");
     }
 
 
@@ -187,6 +198,18 @@ public class InventoryItemEditor : Editor
 
                 break;
             case ItemType.ARMOR:
+                EditorGUILayout.PropertyField(propArmorType);
+                EditorGUILayout.PropertyField(propArmorDefence);
+                EditorGUILayout.PropertyField(propArmorReplaceSprite);
+
+                SerializedProperty sp = propArmorSprites.FindPropertyRelative("directions");
+                sp.arraySize = 4;
+                string[] dirStrs = { "Up", "Down", "Left", "Right"};
+                
+                for(int i = 0; i < 4; ++i)
+                {
+                    EditorGUILayout.PropertyField(sp.GetArrayElementAtIndex(i), new GUIContent(dirStrs[i]));
+                }
                 break;
         }
 

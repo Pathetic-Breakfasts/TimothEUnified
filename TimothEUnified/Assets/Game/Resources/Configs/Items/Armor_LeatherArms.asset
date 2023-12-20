@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc047c233344664c9996be4c36379e2, type: 3}
+  m_Name: Armor_LeatherArms
+  m_EditorClassIdentifier: 
+  itemID: f862c5a7-5f45-431f-9c6e-afd26bd1a12b
+  displayName: Leather Legs
+  description: A leather helmet
+  icon: {fileID: 0}
+  isStackable: 1
+  itemValue: 0
+  itemType: 4
+  growthSpriteArray: []
+  daysToGrow: 1
+  correctSeason: 0
+  grownCropItem: {fileID: 0}
+  damage: 10
+  attackRange: 1.5
+  attackSpeed: 0.2
+  heavyAttackDamageBoost: 2
+  lightAttackSwingRate: 15
+  heavyAttackSwingRate: 7.5
+  weaponSwingDistance: 90
+  weaponSprite: {fileID: 0}
+  isRanged: 0
+  projectileConfig: {fileID: 0}
+  toolType: 0
+  toolPower: 50
+  energyConsumption: 3
+  horizontalToolSprite: {fileID: 0}
+  verticalToolSprite: {fileID: 0}
+  armorType: 0
+  armorDefence: 0
+  armorSprites:
+    directions:
+    - sprites:
+      - {fileID: -1384717015152866027, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -3128894826421534389, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 7082630956083013319, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 266745874372373921, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    - sprites:
+      - {fileID: 2445321050812345105, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -3056409330345460657, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -9012422481343775484, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -8616821238473132351, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    - sprites:
+      - {fileID: 8889684416353197694, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -3505478332964989220, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -7537917752713960625, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 8352416746413359212, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    - sprites:
+      - {fileID: 8889684416353197694, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -3505478332964989220, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -7537917752713960625, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 8352416746413359212, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+  armorReplaceSprite: 0

@@ -19,10 +19,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject _heldItemGO;
 
 
-    [SerializeField] CharacterSprite _headSprites;
-    [SerializeField] CharacterSprite _chestSprites;
-    [SerializeField] CharacterSprite _armSprites;
-    [SerializeField] CharacterSprite _legSprites;
+    [SerializeField] BodyPieceSpriteCollection _headSprites;
+    [SerializeField] BodyPieceSpriteCollection _chestSprites;
+    [SerializeField] BodyPieceSpriteCollection _armSprites;
+    [SerializeField] BodyPieceSpriteCollection _legSprites;
+
+    [SerializeField] InventoryItem _defaultHelmet;
+    [SerializeField] InventoryItem _defaultChest;
+    [SerializeField] InventoryItem _defaultArms;
+    [SerializeField] InventoryItem _defaultLegs;
 
     CharacterEnergy _characterEnergy;
     Inventory _inventory;
@@ -104,6 +109,15 @@ public class PlayerController : MonoBehaviour
         _characterSpriteController.SetSpriteSet(ArmorType.Arms, _armSprites);
         _characterSpriteController.SetSpriteSet(ArmorType.Legs, _legSprites);
 
+        if (_defaultHelmet)
+        {
+            _characterSpriteController.SetOverlaySpriteSet(ArmorType.Head, _defaultHelmet.armorSprites);
+        }
+
+        _characterSpriteController.SetOverlaySpriteSet(ArmorType.Chest, _defaultChest.armorSprites);
+        _characterSpriteController.SetOverlaySpriteSet(ArmorType.Arms, _defaultArms.armorSprites);
+        _characterSpriteController.SetOverlaySpriteSet(ArmorType.Legs, _defaultLegs.armorSprites);
+
         _currencyStore.GainMoney(500);
     }
 
@@ -171,6 +185,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             _dayManager.ProgressDay();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            _characterSpriteController.SetOverlaySpriteSet(ArmorType.Head, new BodyPieceSpriteCollection(4));
+        }
+        if (Input.GetKey(KeyCode.H))
+        {
+            _characterSpriteController.SetOverlaySpriteSet(ArmorType.Head, _defaultHelmet.armorSprites);
         }
     }
 
