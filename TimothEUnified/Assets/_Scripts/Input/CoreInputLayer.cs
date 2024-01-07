@@ -6,7 +6,8 @@ public class CoreInputLayer : IInputLayer
 {
     PlayerController _playerController;
     HotbarManager _hotbarManager;
-    
+
+    //////////////////////////////////////////////////
     public void Initialize()
     {
         GameObject player = GameObject.FindGameObjectWithTag(GameTagManager._playerTag);
@@ -17,6 +18,7 @@ public class CoreInputLayer : IInputLayer
         _hotbarManager = GameObject.FindObjectOfType<HotbarManager>();
     }
 
+    //////////////////////////////////////////////////
     public void UpdateLayer()
     {
         if(_playerController == null || _hotbarManager == null) 

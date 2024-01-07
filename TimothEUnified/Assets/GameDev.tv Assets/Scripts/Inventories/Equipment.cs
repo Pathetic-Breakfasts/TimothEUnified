@@ -14,7 +14,7 @@ namespace GameDevTV.Inventories
     public class Equipment : MonoBehaviour, ISaveable
     {
         // STATE
-        Dictionary<EquipLocation, EquipableItem> equippedItems = new Dictionary<EquipLocation, EquipableItem>();
+        Dictionary<ArmorType, InventoryItem> equippedItems = new Dictionary<ArmorType, InventoryItem>();
 
         // PUBLIC
 
@@ -26,7 +26,7 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Return the item in the given equip location.
         /// </summary>
-        public EquipableItem GetItemInSlot(EquipLocation equipLocation)
+        public InventoryItem GetItemInSlot(ArmorType equipLocation)
         {
             if (!equippedItems.ContainsKey(equipLocation))
             {
@@ -40,9 +40,9 @@ namespace GameDevTV.Inventories
         /// Add an item to the given equip location. Do not attempt to equip to
         /// an incompatible slot.
         /// </summary>
-        public void AddItem(EquipLocation slot, EquipableItem item)
+        public void AddItem(ArmorType slot, InventoryItem item)
         {
-            Debug.Assert(item.GetAllowedEquipLocation() == slot);
+            Debug.Assert(item.armorType == slot);
 
             equippedItems[slot] = item;
 
@@ -55,7 +55,7 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Remove the item for the given slot.
         /// </summary>
-        public void RemoveItem(EquipLocation slot)
+        public void RemoveItem(ArmorType slot)
         {
             equippedItems.Remove(slot);
             if (equipmentUpdated != null)
@@ -67,16 +67,24 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Enumerate through all the slots that currently contain items.
         /// </summary>
-        public IEnumerable<EquipLocation> GetAllPopulatedSlots()
+        public IEnumerable<ArmorType> GetAllPopulatedSlots()
         {
             return equippedItems.Keys;
+        }
+
+        /// <summary>
+        /// Enumerate through all the slots that currently contain items.
+        /// </summary>
+        public IEnumerable<InventoryItem> GetAllWornItems()
+        {
+            return equippedItems.Values;
         }
 
         // PRIVATE
 
         object ISaveable.CaptureState()
         {
-            var equippedItemsForSerialization = new Dictionary<EquipLocation, string>();
+            var equippedItemsForSerialization = new Dictionary<ArmorType, string>();
             foreach (var pair in equippedItems)
             {
                 equippedItemsForSerialization[pair.Key] = pair.Value.itemID;
@@ -86,13 +94,13 @@ namespace GameDevTV.Inventories
 
         void ISaveable.RestoreState(object state)
         {
-            equippedItems = new Dictionary<EquipLocation, EquipableItem>();
+            equippedItems = new Dictionary<ArmorType, InventoryItem>();
 
-            var equippedItemsForSerialization = (Dictionary<EquipLocation, string>)state;
+            var equippedItemsForSerialization = (Dictionary<ArmorType, string>)state;
 
             foreach (var pair in equippedItemsForSerialization)
             {
-                var item = (EquipableItem)InventoryItem.GetFromID(pair.Value);
+                var item = InventoryItem.GetFromID(pair.Value);
                 if (item != null)
                 {
                     equippedItems[pair.Key] = item;

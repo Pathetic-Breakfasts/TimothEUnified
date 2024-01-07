@@ -7,15 +7,12 @@ using GameDevTV.UI.Inventories;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Weapon _playerWeapon;
+    Weapon _playerWeapon;
     ActiveTool _activeTool;
 
     [SerializeField] Transform _weaponAttach;
-
     [SerializeField] LayerMask _interactableLayer;
-
     [SerializeField] InventoryLoadout _startingLoadout;
-
     [SerializeField] GameObject _heldItemGO;
 
 
@@ -24,17 +21,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] BodyPieceSpriteCollection _armSprites;
     [SerializeField] BodyPieceSpriteCollection _legSprites;
 
-    [SerializeField] InventoryItem _defaultHelmet;
-    [SerializeField] InventoryItem _defaultChest;
-    [SerializeField] InventoryItem _defaultArms;
-    [SerializeField] InventoryItem _defaultLegs;
-
-    CharacterEnergy _characterEnergy;
     Inventory _inventory;
-    Mover _mover;
-    DayManager _dayManager;
-    Animator _animator;
+    Equipment _equipment;
     Health _playerHealth;
+    CharacterEnergy _characterEnergy;
+
+    Mover _mover;
+    Animator _animator;
+
+    DayManager _dayManager;
 
     InputLayerManager _inputLayerManager;
 
@@ -60,28 +55,31 @@ public class PlayerController : MonoBehaviour
     InteractDirection _lookDirection;
     public InteractDirection LookDirection { get => _lookDirection; }
 
-    public Bed CurrentBed { get => _bed; set { _bed = value; UpdatePrompts(); } }
-    Bed _bed;
+    public Bed CurrentBed { get => _nearbyBed; set { _nearbyBed = value; UpdatePrompts(); } }
+    Bed _nearbyBed;
 
-    public DoorController NearbyDoor { get => _doorController; set { _doorController = value; UpdatePrompts(); } }
-    DoorController _doorController;
+    public DoorController NearbyDoor { get => _nearbyDoorController; set { _nearbyDoorController = value; UpdatePrompts(); } }
+    DoorController _nearbyDoorController;
 
     public Chest NearbyChest { get => _nearbyChest; set { _nearbyChest = value; UpdatePrompts(); } }
     Chest _nearbyChest;
-    public bool IsHeavyAttack { get => _isHeavyAttack; set => _isHeavyAttack = value; }
-    bool _isHeavyAttack = false;
+    public bool IsHeavyAttack { get => _bIsHeavyAttack; set => _bIsHeavyAttack = value; }
+    bool _bIsHeavyAttack = false;
 
+    //////////////////////////////////////////////////
     private void Awake()
     {
         _characterSpriteController = GetComponent<CharacterSpriteController>();
         _characterEnergy = GetComponent<CharacterEnergy>();
         _animator = GetComponent<Animator>();
         _activeTool = GetComponent<ActiveTool>();
+        _playerWeapon = GetComponentInChildren<Weapon>();
         _mover = GetComponent<Mover>();
         _playerHealth = GetComponent<Health>();
         _inventory = GetComponent<Inventory>();
         _inputLayerManager = GetComponent<InputLayerManager>();
         _currencyStore = GetComponent<CurrencyStore>();
+        _equipment = GetComponent<Equipment>();
 
         _inventoryInputLayer = new InventoryInputLayer();
         _inventoryInputLayer.Initialize();
@@ -90,6 +88,7 @@ public class PlayerController : MonoBehaviour
         _chestInputLayer.Initialize();
     }
 
+    //////////////////////////////////////////////////
     private void Start()
     {
         _activeTool.ChangeTool(null);
@@ -98,6 +97,8 @@ public class PlayerController : MonoBehaviour
         _uiManager = FindObjectOfType<UIManager>();
 
         _uiManager.PlayerInventoryUI.DisplayedInventory = _inventory;
+
+        _equipment.equipmentUpdated += OnEquippedArmorChanged;
 
         if (_startingLoadout)
         {
@@ -109,18 +110,10 @@ public class PlayerController : MonoBehaviour
         _characterSpriteController.SetSpriteSet(ArmorType.Arms, _armSprites);
         _characterSpriteController.SetSpriteSet(ArmorType.Legs, _legSprites);
 
-        if (_defaultHelmet)
-        {
-            _characterSpriteController.SetOverlaySpriteSet(ArmorType.Head, _defaultHelmet.armorSprites);
-        }
-
-        _characterSpriteController.SetOverlaySpriteSet(ArmorType.Chest, _defaultChest.armorSprites);
-        _characterSpriteController.SetOverlaySpriteSet(ArmorType.Arms, _defaultArms.armorSprites);
-        _characterSpriteController.SetOverlaySpriteSet(ArmorType.Legs, _defaultLegs.armorSprites);
-
         _currencyStore.GainMoney(500);
     }
 
+    //////////////////////////////////////////////////
     private void FixedUpdate()
     {
         if (_movement == Vector2.zero) return;
@@ -136,6 +129,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("LastVertical", _movement.y);
     }
 
+    //////////////////////////////////////////////////
     private void Update()
     {
         if (Debug.isDebugBuild)
@@ -162,7 +156,7 @@ public class PlayerController : MonoBehaviour
             Vector3 dir = (adjustedPos - transform.position).normalized;
 
             //Inside our bounds
-            if(Vector3.Dot(dirVec, dir) > 0.5f)
+            if (Vector3.Dot(dirVec, dir) > 0.5f)
             {
                 _playerWeapon.SetAimPosition(adjustedPos);
                 _lastValidDir = dir;
@@ -180,29 +174,60 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //////////////////////////////////////////////////
     private void DebugUpdate()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
             _dayManager.ProgressDay();
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.G))
+    //////////////////////////////////////////////////
+    private void OnEquippedArmorChanged()
+    {
+        _characterSpriteController.ClearOverlaySpriteSets();
+
+        foreach (InventoryItem armor in _equipment.GetAllWornItems())
         {
-            _characterSpriteController.SetOverlaySpriteSet(ArmorType.Head, new BodyPieceSpriteCollection(4));
-        }
-        if (Input.GetKey(KeyCode.H))
-        {
-            _characterSpriteController.SetOverlaySpriteSet(ArmorType.Head, _defaultHelmet.armorSprites);
+            if (!armor) continue;
+
+            _characterSpriteController.SetOverlaySpriteSet(armor.armorType, armor.armorSprites);
         }
     }
 
     //Called through CurrencyStore OnCurrencyChanged event
+    //////////////////////////////////////////////////
     public void OnCurrencyUpdated()
     {
         _uiManager.SetCoinTextAmount(_currencyStore.CurrencyAmount);
     }
 
+    //////////////////////////////////////////////////
+    public void OnEnergyChanged()
+    {
+        //TODO: Remove this hard codedness
+        if (_characterEnergy.GetEnergyRatio() < 0.25f)
+        {
+            //TODO: Display a UI Prompt for first time passing this
+            //Also add in a proper on energy changed event that invokes when energy is consumed (Saves: processing time and unlinks systems)
+            _mover.MovementSpeedRatio = 0.5f;
+        }
+        else
+        {
+            _mover.MovementSpeedRatio = 1.0f;
+        }
+
+        _uiManager?.SetEnergyBarFillRatio(_characterEnergy.GetEnergyRatio());
+    }
+
+    //////////////////////////////////////////////////
+    public void OnHealthChanged()
+    {
+        _uiManager?.SetHealthBarFillRatio(_playerHealth.HealthRatio);
+    }
+
+    //////////////////////////////////////////////////
     public void SetMovement(Vector2 movement)
     {
         _animator.SetFloat("Horizontal", movement.x);
@@ -211,26 +236,34 @@ public class PlayerController : MonoBehaviour
         _movement = movement;
     }
 
+    //////////////////////////////////////////////////
     private void UpdatePrompts()
     {
-        if (_bed)
+        if (_nearbyBed)
         {
             _uiManager.SetInputPromptVisibility(true);
             _uiManager.SetInputPromptText("Use Bed");
             return;
         }
 
-        if (_doorController)
+        if (_nearbyDoorController)
         {
             _uiManager.SetInputPromptVisibility(true);
             _uiManager.SetInputPromptText("Use Door");
             return;
         }
 
-        _uiManager.SetInputPromptVisibility(false);
+        if (_nearbyChest)
+        {
+            _uiManager.SetInputPromptVisibility(true);
+            _uiManager.SetInputPromptText("Use Chest");
+            return;
+        }
 
+        _uiManager.SetInputPromptVisibility(false);
     }
 
+    //////////////////////////////////////////////////
     public void EquipItem(InventoryItem item)
     {
         _currentItem = item;
@@ -267,6 +300,8 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case ItemType.ARMOR:
+                _heldItemGO.SetActive(true);
+                _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.icon;
 
                 break;
             default:
@@ -275,39 +310,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnEnergyChanged()
-    {
-        //TODO: Remove this hard codedness
-        if (_characterEnergy.GetEnergyRatio() < 0.25f)
-        {
-            //TODO: Display a UI Prompt for first time passing this
-            //Also add in a proper on energy changed event that invokes when energy is consumed (Saves: processing time and unlinks systems)
-            _mover.MovementSpeedRatio = 0.5f;
-        }
-        else
-        {
-            _mover.MovementSpeedRatio = 1.0f;
-        }
-
-        _uiManager?.SetEnergyBarFillRatio(_characterEnergy.GetEnergyRatio());
-    }
-
-    public void OnHealthChanged()
-    {
-        _uiManager?.SetHealthBarFillRatio(_playerHealth.HealthRatio);
-    }
-
+    //////////////////////////////////////////////////
     public void InteractPressed()
     {
         //Order of priority for Interactions
-        //Doors
-        //Chest
         //NPCs
         //Harvestable Plant
         //Use Tool/Weapon
 
         //Doors
-        if (_doorController)
+        if (_nearbyDoorController)
         {
             //TODO: Use door enter logic
 
@@ -350,11 +362,29 @@ public class PlayerController : MonoBehaviour
         UseEquipped();
     }
 
+    //////////////////////////////////////////////////
     public void InspectPressed()
     {
+        if (_nearbyBed)
+        {
+            //TODO: Spawn UI Prompt for specifying amount of sleep to get
+            //TODO: Add player energy per hour of sleep 
+            _nearbyBed.Sleep(1);
+            _characterEnergy.RegainEnergy(25.0f);
+        }
+        else if (_nearbyDoorController)
+        {
 
+        }
+        else if (_nearbyChest)
+        {
+            _uiManager.ChestInventoryUI.DisplayedInventory = _nearbyChest.ChestInventory;
+            _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
+            SetChestUIVisibility(true);
+        }
     }
 
+    //////////////////////////////////////////////////
     public void UseEquipped()
     {
         if (_playerWeapon.IsAttacking || _activeTool.UsingTool || !_currentItem)
@@ -380,7 +410,7 @@ public class PlayerController : MonoBehaviour
                 _animator.SetFloat("CombatVertical", directionVec.y);
                 _animator.SetFloat("LastHorizontal", directionVec.x);
                 _animator.SetFloat("LastVertical", directionVec.y);
-                _playerWeapon.StartSwing(null, _isHeavyAttack);
+                _playerWeapon.StartSwing(null, _bIsHeavyAttack);
             }
             //Bows can only rotate/aim when in the acceptable aim direction
             else if(_playerWeapon.IsRanged && _bIsInValidAimingDir)
@@ -409,9 +439,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //////////////////////////////////////////////////
     public void SetInventoryUIVisibility(bool visibility)
     {
         _uiManager.SetInventoryUIVisibilty(visibility);
+        _dayManager.IsTimePaused = visibility;
 
         if(visibility)
         {
@@ -426,6 +458,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void SetChestUIVisibility(bool visibility) 
     {
         _uiManager.SetChestUIVisibility(visibility);
@@ -443,24 +476,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void UseInteractable()
     {
-        if (_bed)
-        {
-            //TODO: Spawn UI Prompt for specifying amount of sleep to get
-            //TODO: Add player energy per hour of sleep 
-            _bed.Sleep(1);
-            _characterEnergy.RegainEnergy(25.0f);
-        }
-        else if (_doorController)
-        {
 
-        }
-        else if(_nearbyChest)
-        {
-            _uiManager.ChestInventoryUI.DisplayedInventory = _nearbyChest.ChestInventory;
-            _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
-            SetChestUIVisibility(true);
-        }
     }
 }

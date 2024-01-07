@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Armor_LeatherArms
   m_EditorClassIdentifier: 
   itemID: f862c5a7-5f45-431f-9c6e-afd26bd1a12b
-  displayName: Leather Legs
+  displayName: Leather Arms
   description: A leather helmet
-  icon: {fileID: 0}
+  icon: {fileID: -1384717015152866027, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
   isStackable: 1
   itemValue: 0
   itemType: 4

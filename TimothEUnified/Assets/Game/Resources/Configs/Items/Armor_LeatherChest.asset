@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: f862c5a7-5f45-431f-9c6e-afd26bd1a12b
   displayName: Leather Chest
   description: A leather helmet
-  icon: {fileID: 0}
+  icon: {fileID: 4101715975065823868, guid: 855e8bde6f7541d4c84b1a239a4c6cde, type: 3}
   isStackable: 1
   itemValue: 0
   itemType: 4

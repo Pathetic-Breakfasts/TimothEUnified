@@ -14,6 +14,7 @@ public class CurrencyStore : MonoBehaviour
     [SerializeField] bool _logCurrency = false;
 #endif 
 
+    //////////////////////////////////////////////////
     public void GainMoney(int amount)
     {
         _currencyAmount += amount;
@@ -32,6 +33,7 @@ public class CurrencyStore : MonoBehaviour
 
     }
 
+    //////////////////////////////////////////////////
     public void SpendMoney(int amount)
     {
         _currencyAmount -= amount;
@@ -49,6 +51,7 @@ public class CurrencyStore : MonoBehaviour
 #endif 
     }
 
+    //////////////////////////////////////////////////
     public bool CanAfford(int amount)
     {
         return amount <= _currencyAmount;

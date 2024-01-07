@@ -39,7 +39,9 @@ namespace GameDevTV.Inventories
         Head,
         Chest,
         Arms, 
-        Legs
+        Legs,
+        LeftHand,
+        RightHand
     }
 
 

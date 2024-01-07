@@ -22,12 +22,14 @@ public class ActiveTool : MonoBehaviour
 
     Vector2 _targetPositon;
 
+    //////////////////////////////////////////////////
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         ChangeTool(_config);
     }
 
+    //////////////////////////////////////////////////
     public void ChangeTool(InventoryItem newConfig)
     {
         _config = newConfig;
@@ -44,8 +46,8 @@ public class ActiveTool : MonoBehaviour
         _toolSpriteRenderer.gameObject.SetActive(false);
     }
 
-    
 
+    //////////////////////////////////////////////////
     public void UseTool(Vector2 targetPos)
     {
         if (!_hasTool)
@@ -59,6 +61,8 @@ public class ActiveTool : MonoBehaviour
         _animator.SetBool("UsingTool", true);
     }
 
+    //Called through Unity Animation Events
+    //////////////////////////////////////////////////
     public void ToolUseFinished()
     {
         _usingTool = false;

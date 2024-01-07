@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: f862c5a7-5f45-431f-9c6e-afd26bd1a12b
   displayName: Leather Helmet
   description: A leather helmet
-  icon: {fileID: 0}
+  icon: {fileID: -7801270535023620196, guid: 2a2615db68e999f46b228bd797e602a6, type: 3}
   isStackable: 1
   itemValue: 0
   itemType: 4

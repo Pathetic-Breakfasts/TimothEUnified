@@ -54,8 +54,7 @@ public class InventoryItemEditor : Editor
     SerializedProperty propArmorSprites;
     SerializedProperty propArmorReplaceSprite;
 
-    //Holdable Item
-
+    //////////////////////////////////////////////////
     private void OnEnable()
     {
         so = serializedObject;
@@ -100,7 +99,7 @@ public class InventoryItemEditor : Editor
         propArmorReplaceSprite = so.FindProperty("armorReplaceSprite");
     }
 
-
+    //////////////////////////////////////////////////
     public override void OnInspectorGUI()
     {
         InventoryItem item = (InventoryItem)target;
@@ -221,6 +220,7 @@ public class InventoryItemEditor : Editor
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
+    //////////////////////////////////////////////////
     private string ExtractResourcePath(string path)
     {
         if (string.IsNullOrEmpty(path))

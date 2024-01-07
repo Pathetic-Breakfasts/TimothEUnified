@@ -15,7 +15,7 @@ namespace GameDevTV.UI.Inventories
         // CONFIG DATA
 
         [SerializeField] InventoryItemIcon icon = null;
-        [SerializeField] EquipLocation equipLocation = EquipLocation.Weapon;
+        [SerializeField] ArmorType equipLocation = ArmorType.Head;
 
         // CACHE
         Equipment playerEquipment;
@@ -38,9 +38,9 @@ namespace GameDevTV.UI.Inventories
 
         public int MaxAcceptable(InventoryItem item)
         {
-            EquipableItem equipableItem = item as EquipableItem;
-            if (equipableItem == null) return 0;
-            if (equipableItem.GetAllowedEquipLocation() != equipLocation) return 0;
+            if (!item) return 0;
+            if(item.itemType != ItemType.ARMOR) return 0;
+            if (item.armorType != equipLocation) return 0;
             if (GetItem() != null) return 0;
 
             return 1;
@@ -48,7 +48,7 @@ namespace GameDevTV.UI.Inventories
 
         public void AddItems(InventoryItem item, int number)
         {
-            playerEquipment.AddItem(equipLocation, (EquipableItem) item);
+            playerEquipment.AddItem(equipLocation, item);
         }
 
         public InventoryItem GetItem()

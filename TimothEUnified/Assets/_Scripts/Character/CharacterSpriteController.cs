@@ -49,6 +49,7 @@ public class CharacterSpriteController : MonoBehaviour
     BodyPieceSpriteCollection[] _characterSpriteArray;
     BodyPieceSpriteCollection[] _overlayedCharacterSpriteArray;
 
+    //////////////////////////////////////////////////
     public void Awake()
     {
         _characterSpriteArray = new BodyPieceSpriteCollection[4];
@@ -61,18 +62,32 @@ public class CharacterSpriteController : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void SetSpriteSet(ArmorType armorType, BodyPieceSpriteCollection sprite)
     {
         _characterSpriteArray[(int)armorType] = sprite;
     }
 
+    //////////////////////////////////////////////////
     public void SetOverlaySpriteSet(ArmorType armorType, BodyPieceSpriteCollection overlaySprite)
     {
         _overlayedCharacterSpriteArray[(int)armorType] = overlaySprite;
     }
 
+    //////////////////////////////////////////////////
+    public void ClearOverlaySpriteSets()
+    {
+        _overlayedCharacterSpriteArray = new BodyPieceSpriteCollection[4];
+        for(int i = 0; i < 4; i++)
+        {
+            _overlayedCharacterSpriteArray[i] = new BodyPieceSpriteCollection(4);
+        }
+    }
+
+    //////////////////////////////////////////////////
     public void UpdateSprite()
     {
+        //Head, Chest, Arms, Legs
         _spriteRenderers[0].sprite = _characterSpriteArray[0].directions[_currentDirection].sprites[0];
         _spriteRenderers[1].sprite = _characterSpriteArray[1].directions[_currentDirection].sprites[0];
         _spriteRenderers[2].sprite = _characterSpriteArray[2].directions[_currentDirection].sprites[_currentSpriteIndex];
