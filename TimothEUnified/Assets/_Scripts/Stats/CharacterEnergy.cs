@@ -8,6 +8,8 @@ public class CharacterEnergy : MonoBehaviour
 {
     [Min(0f)][SerializeField] float _StartingEnergy = 100.0f;
 
+    [SerializeField] bool _shouldUseEnergy = true;
+
     float _currentEnergy;
 
     public UnityEvent _onEnergyChanged;
@@ -31,12 +33,14 @@ public class CharacterEnergy : MonoBehaviour
 
     public bool CanUseAmount(float amount)
     {
+        if (!_shouldUseEnergy) return true;
+
         return _currentEnergy - amount > 0.0f;
     }
 
     public void UseEnergy(float amount)
     {
-        _currentEnergy = Mathf.Clamp(_currentEnergy - amount, 0.0f, _StartingEnergy);
+        if (_shouldUseEnergy) _currentEnergy = Mathf.Clamp(_currentEnergy - amount, 0.0f, _StartingEnergy);
         _onEnergyChanged.Invoke();
     }
 

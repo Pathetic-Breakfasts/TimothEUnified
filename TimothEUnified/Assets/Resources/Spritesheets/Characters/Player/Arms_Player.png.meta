@@ -1,79 +1,79 @@
 fileFormatVersion: 2
-guid: e2bf6c8617454644d93d9e612c3f47cb
+guid: 365e2f751524a4e459055c17705fddf0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1384717015152866027
-    second: Armor_Leather_Arms_0
+      213: -7112534567767566887
+    second: Arms_Player_0
   - first:
-      213: -3128894826421534389
-    second: Armor_Leather_Arms_1
+      213: -5584408959842681898
+    second: Arms_Player_1
   - first:
-      213: 7082630956083013319
-    second: Armor_Leather_Arms_2
+      213: -1380995862844239080
+    second: Arms_Player_2
   - first:
-      213: 266745874372373921
-    second: Armor_Leather_Arms_3
+      213: 4600237332351755912
+    second: Arms_Player_3
   - first:
-      213: 2445321050812345105
-    second: Armor_Leather_Arms_4
+      213: 2025073232956385488
+    second: Arms_Player_4
   - first:
-      213: -3056409330345460657
-    second: Armor_Leather_Arms_5
+      213: 8314850039695187814
+    second: Arms_Player_5
   - first:
-      213: -9012422481343775484
-    second: Armor_Leather_Arms_6
+      213: -7735623503585547063
+    second: Arms_Player_6
   - first:
-      213: -8616821238473132351
-    second: Armor_Leather_Arms_7
+      213: 1471637930276702018
+    second: Arms_Player_7
   - first:
-      213: 8889684416353197694
-    second: Armor_Leather_Arms_8
+      213: 9200476307752158066
+    second: Arms_Player_8
   - first:
-      213: -3505478332964989220
-    second: Armor_Leather_Arms_9
+      213: -6545947430195755766
+    second: Arms_Player_9
   - first:
-      213: -7537917752713960625
-    second: Armor_Leather_Arms_10
+      213: 7727227178831225673
+    second: Arms_Player_10
   - first:
-      213: 8352416746413359212
-    second: Armor_Leather_Arms_11
+      213: -8195228358445258050
+    second: Arms_Player_11
   - first:
-      213: -5586085893898537832
-    second: Armor_Leather_Arms_12
+      213: -353983542855662508
+    second: Arms_Player_12
   - first:
-      213: -632114604541862648
-    second: Armor_Leather_Arms_13
+      213: 1268161863442230718
+    second: Arms_Player_13
   - first:
-      213: -2855029312663932238
-    second: Armor_Leather_Arms_14
+      213: -3111431447090614888
+    second: Arms_Player_14
   - first:
-      213: 2728977532051613483
-    second: Armor_Leather_Arms_15
+      213: 2725253382967356157
+    second: Arms_Player_15
   - first:
-      213: 1516298141676970614
-    second: Armor_Leather_Arms_16
+      213: 2393698637244341430
+    second: Arms_Player_16
   - first:
-      213: 5753867688369022070
-    second: Armor_Leather_Arms_17
+      213: 912245940574867578
+    second: Arms_Player_17
   - first:
-      213: -7582923391141876147
-    second: Armor_Leather_Arms_18
+      213: 4183214461322894728
+    second: Arms_Player_18
   - first:
-      213: 1626968541232795656
-    second: Armor_Leather_Arms_19
+      213: -1409694582296955283
+    second: Arms_Player_19
   - first:
-      213: 6798123333380171100
-    second: Armor_Leather_Arms_20
+      213: 6961137380385322050
+    second: Arms_Player_20
   - first:
-      213: -7310904640345274011
-    second: Armor_Leather_Arms_21
+      213: -1697043104331077754
+    second: Arms_Player_21
   - first:
-      213: 1196047626792923520
-    second: Armor_Leather_Arms_22
+      213: -8841717261892572974
+    second: Arms_Player_22
   - first:
-      213: 3484212171986644165
-    second: Armor_Leather_Arms_23
+      213: 2891184484155291934
+    second: Arms_Player_23
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -199,7 +199,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Armor_Leather_Arms_0
+      name: Arms_Player_0
       rect:
         serializedVersion: 2
         x: 0
@@ -213,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51dcf55163f78cce0800000000000000
-      internalID: -1384717015152866027
+      spriteID: 9d517839e733b4d90800000000000000
+      internalID: -7112534567767566887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_1
+      name: Arms_Player_1
       rect:
         serializedVersion: 2
         x: 16
@@ -234,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b414693abbee394d0800000000000000
-      internalID: -3128894826421534389
+      spriteID: 6db711473a13082b0800000000000000
+      internalID: -5584408959842681898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_2
+      name: Arms_Player_2
       rect:
         serializedVersion: 2
         x: 32
@@ -255,14 +255,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c66384445f8a4260800000000000000
-      internalID: 7082630956083013319
+      spriteID: 81392ee5497b5dce0800000000000000
+      internalID: -1380995862844239080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_3
+      name: Arms_Player_3
       rect:
         serializedVersion: 2
         x: 48
@@ -276,14 +276,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ad244f95fba3b300800000000000000
-      internalID: 266745874372373921
+      spriteID: 886215d0b7357df30800000000000000
+      internalID: 4600237332351755912
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_4
+      name: Arms_Player_4
       rect:
         serializedVersion: 2
         x: 0
@@ -297,14 +297,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11b64733a868fe120800000000000000
-      internalID: 2445321050812345105
+      spriteID: 0d8648640618a1c10800000000000000
+      internalID: 2025073232956385488
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_5
+      name: Arms_Player_5
       rect:
         serializedVersion: 2
         x: 16
@@ -318,14 +318,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4cb19858e37595d0800000000000000
-      internalID: -3056409330345460657
+      spriteID: 66f9ca0ae08446370800000000000000
+      internalID: 8314850039695187814
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_6
+      name: Arms_Player_6
       rect:
         serializedVersion: 2
         x: 32
@@ -339,14 +339,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40d72c9c0817de280800000000000000
-      internalID: -9012422481343775484
+      spriteID: 9ccee98986b85a490800000000000000
+      internalID: -7735623503585547063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_7
+      name: Arms_Player_7
       rect:
         serializedVersion: 2
         x: 48
@@ -360,14 +360,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c674cbccb6ea6880800000000000000
-      internalID: -8616821238473132351
+      spriteID: 247422886ee4c6410800000000000000
+      internalID: 1471637930276702018
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_8
+      name: Arms_Player_8
       rect:
         serializedVersion: 2
         x: 0
@@ -381,14 +381,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7ede0a80e08e5b70800000000000000
-      internalID: 8889684416353197694
+      spriteID: 27307f7a478aeaf70800000000000000
+      internalID: 9200476307752158066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_9
+      name: Arms_Player_9
       rect:
         serializedVersion: 2
         x: 16
@@ -402,14 +402,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd61bcb670a0a5fc0800000000000000
-      internalID: -3505478332964989220
+      spriteID: a050dc08e7f1825a0800000000000000
+      internalID: -6545947430195755766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_10
+      name: Arms_Player_10
       rect:
         serializedVersion: 2
         x: 32
@@ -423,14 +423,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f43af53ddbfe36790800000000000000
-      internalID: -7537917752713960625
+      spriteID: 943aaf4bd20ac3b60800000000000000
+      internalID: 7727227178831225673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_11
+      name: Arms_Player_11
       rect:
         serializedVersion: 2
         x: 48
@@ -444,14 +444,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c600ef127ceb9e370800000000000000
-      internalID: 8352416746413359212
+      spriteID: ebaa9a96a33b44e80800000000000000
+      internalID: -8195228358445258050
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_12
+      name: Arms_Player_12
       rect:
         serializedVersion: 2
         x: 0
@@ -465,14 +465,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8947b51d97c3a72b0800000000000000
-      internalID: -5586085893898537832
+      spriteID: 45401cfd7d5661bf0800000000000000
+      internalID: -353983542855662508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_13
+      name: Arms_Player_13
       rect:
         serializedVersion: 2
         x: 16
@@ -486,14 +486,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80d12f2cd174a37f0800000000000000
-      internalID: -632114604541862648
+      spriteID: ebdeb2cee7a699110800000000000000
+      internalID: 1268161863442230718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_14
+      name: Arms_Player_14
       rect:
         serializedVersion: 2
         x: 32
@@ -507,14 +507,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b2b65b77f5e068d0800000000000000
-      internalID: -2855029312663932238
+      spriteID: 89d2f2d7599f1d4d0800000000000000
+      internalID: -3111431447090614888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_15
+      name: Arms_Player_15
       rect:
         serializedVersion: 2
         x: 48
@@ -528,14 +528,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2765fd4b964fd520800000000000000
-      internalID: 2728977532051613483
+      spriteID: dfa63b6438b02d520800000000000000
+      internalID: 2725253382967356157
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_16
+      name: Arms_Player_16
       rect:
         serializedVersion: 2
         x: 0
@@ -549,14 +549,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 672ad3c4029fa0510800000000000000
-      internalID: 1516298141676970614
+      spriteID: 6bc194c6a30283120800000000000000
+      internalID: 2393698637244341430
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_17
+      name: Arms_Player_17
       rect:
         serializedVersion: 2
         x: 16
@@ -570,14 +570,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67465d16d28d9df40800000000000000
-      internalID: 5753867688369022070
+      spriteID: a70d1c389d2f8ac00800000000000000
+      internalID: 912245940574867578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_18
+      name: Arms_Player_18
       rect:
         serializedVersion: 2
         x: 32
@@ -591,14 +591,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4eecff0a5b04c690800000000000000
-      internalID: -7582923391141876147
+      spriteID: 88d9d629363cd0a30800000000000000
+      internalID: 4183214461322894728
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_19
+      name: Arms_Player_19
       rect:
         serializedVersion: 2
         x: 48
@@ -612,14 +612,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8009ae8a447249610800000000000000
-      internalID: 1626968541232795656
+      spriteID: d66b56c0f32cf6ce0800000000000000
+      internalID: -1409694582296955283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_20
+      name: Arms_Player_20
       rect:
         serializedVersion: 2
         x: 0
@@ -633,14 +633,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c556b695729c75e50800000000000000
-      internalID: 6798123333380171100
+      spriteID: 2447f86d09dea9060800000000000000
+      internalID: 6961137380385322050
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_21
+      name: Arms_Player_21
       rect:
         serializedVersion: 2
         x: 16
@@ -654,14 +654,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5690775e6f27a8a90800000000000000
-      internalID: -7310904640345274011
+      spriteID: 687e1d5b944e278e0800000000000000
+      internalID: -1697043104331077754
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_22
+      name: Arms_Player_22
       rect:
         serializedVersion: 2
         x: 32
@@ -675,14 +675,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 081f079caf6399010800000000000000
-      internalID: 1196047626792923520
+      spriteID: 2d82478eef8eb4580800000000000000
+      internalID: -8841717261892572974
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Armor_Leather_Arms_23
+      name: Arms_Player_23
       rect:
         serializedVersion: 2
         x: 48
@@ -696,8 +696,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cc2b51a2886a5030800000000000000
-      internalID: 3484212171986644165
+      spriteID: e19723e58fc8f1820800000000000000
+      internalID: 2891184484155291934
       vertices: []
       indices: 
       edges: []

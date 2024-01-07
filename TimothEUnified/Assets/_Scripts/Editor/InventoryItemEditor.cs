@@ -201,14 +201,30 @@ public class InventoryItemEditor : Editor
                 EditorGUILayout.PropertyField(propArmorDefence);
                 EditorGUILayout.PropertyField(propArmorReplaceSprite);
 
-                SerializedProperty sp = propArmorSprites.FindPropertyRelative("directions");
-                sp.arraySize = 4;
+                SerializedProperty propDirections = propArmorSprites.FindPropertyRelative("directions");
+                propDirections.arraySize = 4;
                 string[] dirStrs = { "Up", "Down", "Left", "Right"};
                 
                 for(int i = 0; i < 4; ++i)
                 {
-                    EditorGUILayout.PropertyField(sp.GetArrayElementAtIndex(i), new GUIContent(dirStrs[i]));
+                    EditorGUILayout.PropertyField(propDirections.GetArrayElementAtIndex(i), new GUIContent(dirStrs[i]));
                 }
+
+                SerializedProperty propCanUseAlternatives = propArmorSprites.FindPropertyRelative("canUseAlternativeSprites");
+                EditorGUILayout.PropertyField (propCanUseAlternatives);
+
+                if(propCanUseAlternatives.boolValue)
+                {
+                    SerializedProperty propAlternativeDirections = propArmorSprites.FindPropertyRelative("alternativeDirections");
+                    propAlternativeDirections.arraySize = 4;
+
+                    for(int i  = 0; i < 4; ++i)
+                    {
+                        EditorGUILayout.PropertyField(propAlternativeDirections.GetArrayElementAtIndex(i), new GUIContent(dirStrs[i]));
+                    }
+
+                }
+
                 break;
         }
 

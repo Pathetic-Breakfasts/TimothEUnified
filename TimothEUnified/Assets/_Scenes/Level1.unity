@@ -1558,6 +1558,7 @@ MonoBehaviour:
   _currentDirection: 0
   _currentSpriteIndex: 0
   _flipXAxis: 0
+  _useAlternativeSpriteSet: 0
   _spriteRenderers: []
   _overlayedSpriteRenderers: []
 --- !u!1 &606395861
@@ -12808,6 +12809,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1345143860684128157, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: _shouldUseEnergy
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2410378391059634608, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -12975,6 +12980,14 @@ PrefabInstance:
     - target: {fileID: 4913633714074625863, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_LocalPosition.y
       value: -5.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4913633714297042003, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4913633714297042003, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4913633714297042349, guid: 54358e89a60d8ad4b8e49e6190e83f04, type: 3}
       propertyPath: m_Layer

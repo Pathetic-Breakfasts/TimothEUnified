@@ -38,7 +38,7 @@ MonoBehaviour:
   energyConsumption: 3
   horizontalToolSprite: {fileID: 0}
   verticalToolSprite: {fileID: 0}
-  armorType: 0
+  armorType: 3
   armorDefence: 0
   armorSprites:
     directions:
@@ -62,4 +62,6 @@ MonoBehaviour:
       - {fileID: -2271717252572319434, guid: eb47416240216f9438e096cbe25b13e6, type: 3}
       - {fileID: -4794278433050801792, guid: eb47416240216f9438e096cbe25b13e6, type: 3}
       - {fileID: 4775467206580017851, guid: eb47416240216f9438e096cbe25b13e6, type: 3}
+    alternativeDirections: []
+    canUseAlternativeSprites: 0
   armorReplaceSprite: 0

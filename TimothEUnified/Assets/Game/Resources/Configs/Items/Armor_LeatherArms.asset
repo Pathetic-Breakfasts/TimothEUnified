@@ -38,7 +38,7 @@ MonoBehaviour:
   energyConsumption: 3
   horizontalToolSprite: {fileID: 0}
   verticalToolSprite: {fileID: 0}
-  armorType: 0
+  armorType: 2
   armorDefence: 0
   armorSprites:
     directions:
@@ -62,4 +62,26 @@ MonoBehaviour:
       - {fileID: -3505478332964989220, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
       - {fileID: -7537917752713960625, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
       - {fileID: 8352416746413359212, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    alternativeDirections:
+    - sprites:
+      - {fileID: -5586085893898537832, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -632114604541862648, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -2855029312663932238, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 2728977532051613483, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    - sprites:
+      - {fileID: 1516298141676970614, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 5753867688369022070, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -7582923391141876147, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 1626968541232795656, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    - sprites:
+      - {fileID: 6798123333380171100, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -7310904640345274011, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 1196047626792923520, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 3484212171986644165, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    - sprites:
+      - {fileID: 6798123333380171100, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: -7310904640345274011, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 1196047626792923520, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+      - {fileID: 3484212171986644165, guid: e2bf6c8617454644d93d9e612c3f47cb, type: 3}
+    canUseAlternativeSprites: 1
   armorReplaceSprite: 0
