@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742576173223937633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.59, z: 0}
+  m_LocalPosition: {x: 0, y: 0.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8365147085474458261}
@@ -155,12 +155,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 6190ff712a472e94ca8fca3e885dab12, type: 3}
+  m_Sprite: {fileID: -6568411854926685270, guid: e5ca87d058558e142a1305c8d185c0b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.5625}
+  m_Size: {x: 1, y: 0.6875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -191,7 +191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3291928132368870777}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.7, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8365147085474458261}
@@ -238,7 +238,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 2668898503335597178, guid: 31d6811a7f4913643a8192a2c1b6c4c8, type: 3}
+  m_Sprite: {fileID: -4247775119689232002, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -766,7 +766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7248638042788736876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0, y: -0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8365147085474458261}
@@ -1137,7 +1137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62066f67ad61d714aa41db9148be54d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerWeapon: {fileID: 3798145941062185353}
   _weaponAttach: {fileID: 8365147085001494865}
   _interactableLayer:
     serializedVersion: 2
@@ -1147,23 +1146,23 @@ MonoBehaviour:
   _headSprites:
     directions:
     - sprites:
-      - {fileID: 21300000, guid: d819af69415378f49a35a79779552ec9, type: 3}
+      - {fileID: 2976391434773497173, guid: e5ca87d058558e142a1305c8d185c0b2, type: 3}
     - sprites:
-      - {fileID: 21300000, guid: 6190ff712a472e94ca8fca3e885dab12, type: 3}
+      - {fileID: -6568411854926685270, guid: e5ca87d058558e142a1305c8d185c0b2, type: 3}
     - sprites:
-      - {fileID: 21300000, guid: b60f2d96e8b95f44f8d430a815d1d7f6, type: 3}
+      - {fileID: -1964083263083136010, guid: e5ca87d058558e142a1305c8d185c0b2, type: 3}
     - sprites:
-      - {fileID: 21300000, guid: b60f2d96e8b95f44f8d430a815d1d7f6, type: 3}
+      - {fileID: -1964083263083136010, guid: e5ca87d058558e142a1305c8d185c0b2, type: 3}
   _chestSprites:
     directions:
     - sprites:
-      - {fileID: 21300000, guid: 20a2d0222c85e1142a41fac51b1dc390, type: 3}
+      - {fileID: -1858759236656909316, guid: a5b14241b8bc314499a21533136dab2b, type: 3}
     - sprites:
-      - {fileID: 21300000, guid: b07b8d76f9e44b046b62289801367da4, type: 3}
+      - {fileID: -446110603584688413, guid: a5b14241b8bc314499a21533136dab2b, type: 3}
     - sprites:
-      - {fileID: 21300000, guid: 91756d88a34cc7744b18b3f316c48257, type: 3}
+      - {fileID: 8325902526845770707, guid: a5b14241b8bc314499a21533136dab2b, type: 3}
     - sprites:
-      - {fileID: 21300000, guid: 91756d88a34cc7744b18b3f316c48257, type: 3}
+      - {fileID: 8325902526845770707, guid: a5b14241b8bc314499a21533136dab2b, type: 3}
   _armSprites:
     directions:
     - sprites:
@@ -1189,29 +1188,25 @@ MonoBehaviour:
   _legSprites:
     directions:
     - sprites:
-      - {fileID: 1735885196388347293, guid: d81531b33dc4f6f4fad5f5412b0a83d6, type: 3}
-      - {fileID: 2574012896511361101, guid: d81531b33dc4f6f4fad5f5412b0a83d6, type: 3}
-      - {fileID: 5204263123809917409, guid: d81531b33dc4f6f4fad5f5412b0a83d6, type: 3}
-      - {fileID: -1760954038601845973, guid: d81531b33dc4f6f4fad5f5412b0a83d6, type: 3}
+      - {fileID: 3150552090149351, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: 1818091115820922161, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -5942639201043364557, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -838908337706005800, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
     - sprites:
-      - {fileID: 2668898503335597178, guid: 31d6811a7f4913643a8192a2c1b6c4c8, type: 3}
-      - {fileID: -6249006798508348656, guid: 31d6811a7f4913643a8192a2c1b6c4c8, type: 3}
-      - {fileID: -1260974242334178524, guid: 31d6811a7f4913643a8192a2c1b6c4c8, type: 3}
-      - {fileID: -2883389555071708109, guid: 31d6811a7f4913643a8192a2c1b6c4c8, type: 3}
+      - {fileID: -4247775119689232002, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -8079143886973010513, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -5154252455879088375, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -7230529929423031296, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
     - sprites:
-      - {fileID: 3187883865507285555, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
-      - {fileID: -1671247726296361104, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
-      - {fileID: -3478629531381079521, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
-      - {fileID: 2509151276026965956, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
+      - {fileID: 4820138374725075545, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -4472380326212251183, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -2437823084666239134, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -568501487791744290, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
     - sprites:
-      - {fileID: 3187883865507285555, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
-      - {fileID: -1671247726296361104, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
-      - {fileID: -3478629531381079521, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
-      - {fileID: 2509151276026965956, guid: 1c557d29865fedc4a89f3ec8a3da80af, type: 3}
-  _defaultHelmet: {fileID: 11400000, guid: 4f917d4ef7fafcd49a384aecd46635e0, type: 2}
-  _defaultChest: {fileID: 11400000, guid: 450161ee8ab8c8e4b97c8e44608d0bc0, type: 2}
-  _defaultArms: {fileID: 11400000, guid: ee2bfa498c8604c41b21d1d9b78e76ff, type: 2}
-  _defaultLegs: {fileID: 11400000, guid: 5ad3265a237667e47b918e6c18f68d55, type: 2}
+      - {fileID: 4820138374725075545, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -4472380326212251183, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -2437823084666239134, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
+      - {fileID: -568501487791744290, guid: 3369b8d2e54c4224fb63dd0a2bbedf7d, type: 3}
 --- !u!50 &8365147085474458262
 Rigidbody2D:
   serializedVersion: 4
@@ -1676,12 +1671,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: b07b8d76f9e44b046b62289801367da4, type: 3}
+  m_Sprite: {fileID: -446110603584688413, guid: a5b14241b8bc314499a21533136dab2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.625}
+  m_Size: {x: 1, y: 0.6875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
