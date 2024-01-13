@@ -5,20 +5,19 @@ using UnityEngine;
 public class UpdateSpriteByMovement : MonoBehaviour
 {
     EnemyPathfinder _pathfinder;
-
     Animator _animator;
 
+    //////////////////////////////////////////////////
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _pathfinder = GetComponent<EnemyPathfinder>();
     }
 
-
+    //////////////////////////////////////////////////
     void Update()
     {
         Vector2 characterVelocity = _pathfinder.DirectionVector;
-
         Vector2 direction = Vector2.zero;
 
 
@@ -47,6 +46,5 @@ public class UpdateSpriteByMovement : MonoBehaviour
         _animator.SetFloat("horizontal", direction.x);
         _animator.SetFloat("vertical", direction.y);
         _animator.SetFloat("speed", direction.magnitude);
-
     }
 }

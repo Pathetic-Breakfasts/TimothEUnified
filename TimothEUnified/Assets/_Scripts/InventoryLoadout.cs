@@ -4,7 +4,7 @@ using UnityEngine;
 using GameDevTV.Inventories;
 using static GameDevTV.Inventories.Inventory;
 
-[CreateAssetMenu(menuName ="Inventories/New Inventory Loadout")]
+[CreateAssetMenu(menuName ="Inventory/New Inventory Loadout")]
 public class InventoryLoadout : ScriptableObject
 {
     [SerializeField] InventorySlot[] items;

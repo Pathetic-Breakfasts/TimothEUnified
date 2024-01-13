@@ -53,6 +53,7 @@ namespace GameDevTV.Inventories
     /// In practice, you are likely to use a subclass such as `ActionItem` or
     /// `EquipableItem`.
     /// </remarks>
+    //////////////////////////////////////////////////
     [CreateAssetMenu(menuName = ("Inventory/Inventory Item"))]
     public class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
     {
@@ -150,6 +151,7 @@ namespace GameDevTV.Inventories
         /// <returns>
         /// Inventory item instance corresponding to the ID.
         /// </returns>
+        //////////////////////////////////////////////////
         public static InventoryItem GetFromID(string itemID)
         {
             if (itemLookupCache == null)
@@ -171,13 +173,14 @@ namespace GameDevTV.Inventories
             if (itemID == null || !itemLookupCache.ContainsKey(itemID)) return null;
             return itemLookupCache[itemID];
         }
-        
+
         /// <summary>
         /// Spawn the pickup gameobject into the world.
         /// </summary>
         /// <param name="position">Where to spawn the pickup.</param>
         /// <param name="number">How many instances of the item does the pickup represent.</param>
         /// <returns>Reference to the pickup object spawned.</returns>
+        //////////////////////////////////////////////////
         public Pickup SpawnPickup(Vector3 position, int number)
         {
             GameObject pickupObject = Instantiate(Resources.Load("Pickup")) as GameObject;
@@ -197,7 +200,7 @@ namespace GameDevTV.Inventories
         }
 
         // PRIVATE
-        
+        //////////////////////////////////////////////////
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
             // Generate and save a new UUID if this is blank.
@@ -207,6 +210,7 @@ namespace GameDevTV.Inventories
             }
         }
 
+        //////////////////////////////////////////////////
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
             // Require by the ISerializationCallbackReceiver but we don't need

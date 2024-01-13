@@ -16,7 +16,10 @@ public class ResourceNode : MonoBehaviour
 {
     [SerializeField] ResourceNodeType _type;
 
-    [SerializeField] int _amount = 1;
+    [SerializeField] LootTable _droppedItemTable = null;
+    [Min(0f)][SerializeField] int _numberOfGuranteedItems = 1;
+    [Min(0f)][SerializeField] int _numberOfAdditionalItems = 0;
+
 
     int _currentSpriteIndex = 0;
     Animation _shakeAnim;
@@ -41,7 +44,7 @@ public class ResourceNode : MonoBehaviour
     SpriteRenderer _renderer;
     AudioSource _source;
 
-
+    //////////////////////////////////////////////////
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
@@ -50,6 +53,7 @@ public class ResourceNode : MonoBehaviour
         _health = GetComponent<Health>();
     }
 
+    //////////////////////////////////////////////////
     private void Start()
     {
         _renderer.sprite = _sprites[0];
@@ -59,6 +63,7 @@ public class ResourceNode : MonoBehaviour
         _spriteSwapTarget = _health.MaxHealth / lengthOfSpritesArr;
     }
 
+    //////////////////////////////////////////////////
     public bool CanDestroy(InventoryItem config)
     {
         bool returnVal = (config.toolType == _typeToDestroy && config.toolPower >= _minimumToolPower);
@@ -75,6 +80,7 @@ public class ResourceNode : MonoBehaviour
     }
 
     //Called via OnDamage from the Health Component
+    //////////////////////////////////////////////////
     public void ProcessHit()
     {
         if(_health.CurrentHealth <= _health.MaxHealth - (_spriteSwapTarget * (_currentSpriteIndex + 1)))
@@ -88,6 +94,11 @@ public class ResourceNode : MonoBehaviour
             if(_source && _destroyedSfx)
             {
                 _source.PlayOneShot(_destroyedSfx);
+            }
+
+            if(_droppedItemTable)
+            {
+                _droppedItemTable.SpawnItems(transform.position, _numberOfGuranteedItems, _numberOfAdditionalItems);
             }
 
             Destroy(gameObject);
