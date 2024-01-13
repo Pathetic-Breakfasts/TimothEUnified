@@ -43,7 +43,7 @@ public class ActiveTool : MonoBehaviour
 
         _hasTool = true;
         _toolSpriteRenderer.sprite = _config.horizontalToolSprite;
-        _toolSpriteRenderer.gameObject.SetActive(false);
+        _toolSpriteRenderer.enabled = false;
     }
 
 
@@ -55,7 +55,7 @@ public class ActiveTool : MonoBehaviour
             return;
         }
 
-        _toolSpriteRenderer.gameObject.SetActive(true);
+        _toolSpriteRenderer.enabled = true;
         _targetPositon = targetPos;
         _usingTool = true;
         _animator.SetBool("UsingTool", true);
@@ -93,6 +93,6 @@ public class ActiveTool : MonoBehaviour
             }
         }
 
-        _toolSpriteRenderer.gameObject.SetActive(false);
+        _toolSpriteRenderer.enabled = false;
     }
 }

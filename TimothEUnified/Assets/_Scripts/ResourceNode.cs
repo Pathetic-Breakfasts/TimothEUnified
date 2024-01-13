@@ -100,6 +100,10 @@ public class ResourceNode : MonoBehaviour
             {
                 _droppedItemTable.SpawnItems(transform.position, _numberOfGuranteedItems, _numberOfAdditionalItems);
             }
+            else
+            {
+                Debug.LogWarning(gameObject.name + " has no Loot Table Set!");
+            }
 
             Destroy(gameObject);
         }

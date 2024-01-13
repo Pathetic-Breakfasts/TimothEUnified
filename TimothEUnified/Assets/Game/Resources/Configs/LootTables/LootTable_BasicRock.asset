@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: LootTable_BasicRock
   m_EditorClassIdentifier: 
   guranteedItems:
-  - item: {fileID: 11400000, guid: 6d41ad3f63b643f4a9f2377753b65ebf, type: 2}
-    chanceOfSpawningItem: 1
+  - {fileID: 11400000, guid: 6d41ad3f63b643f4a9f2377753b65ebf, type: 2}
   additionalItems:
   - item: {fileID: 11400000, guid: 277b8f577f5d08f4e8280c2e6fe3fc01, type: 2}
     chanceOfSpawningItem: 1
