@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
 
     CharacterSpriteController _characterSpriteController;
 
+    public Warehouse NearbyWarehouse { get => _nearbyWarehouse; set => _nearbyWarehouse = value; }
+    Warehouse _nearbyWarehouse;
+
     public UIManager GameUIManager { get => _uiManager; }
     UIManager _uiManager;
 
@@ -282,6 +285,7 @@ public class PlayerController : MonoBehaviour
         switch (item.itemType)
         {
             case ItemType.HOLDABLE:
+            case ItemType.RESOURCE:
                 _heldItemGO.SetActive(true);
                 _heldItemGO.GetComponent<SpriteRenderer>().sprite = item.icon;
 
@@ -358,6 +362,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //Warehouse
+        if (_nearbyWarehouse)
+        {
+            if(_currentItem.itemType == ItemType.RESOURCE)
+            {
+                int numberOfItem = _inventory.GetItemCount(_currentItem);
+                int numberPutIn = _nearbyWarehouse.InsertResource(_currentItem, numberOfItem);
+                if(numberPutIn != -1)
+                {
+                    _inventory.RemoveItem(_currentItem, numberPutIn);
+                }
+            }
+            return;
+        }
+
         //Tools/Weapons
         UseEquipped();
     }
@@ -381,6 +400,15 @@ public class PlayerController : MonoBehaviour
             _uiManager.ChestInventoryUI.DisplayedInventory = _nearbyChest.ChestInventory;
             _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
             SetChestUIVisibility(true);
+        }
+        else if(_nearbyWarehouse)
+        {
+            Dictionary<ResourceType, int> map = _nearbyWarehouse.ResourceMap;
+            foreach(KeyValuePair<ResourceType, int> kvp in map)
+            {
+                Debug.Log(kvp.Key.ToString() + ": " + kvp.Value);
+            }
+
         }
     }
 

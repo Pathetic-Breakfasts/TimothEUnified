@@ -140,6 +140,18 @@ namespace GameDevTV.Inventories
             return false;
         }
 
+        //////////////////////////////////////////////////
+        public int GetItemCount(InventoryItem item)
+        {
+            int index = FindItem(item);
+            if(index != -1)
+            {
+                return slots[index].number;
+            }
+
+            return -1;
+        }
+
         /// <summary>
         /// Return the item type in the given slot.
         /// </summary>

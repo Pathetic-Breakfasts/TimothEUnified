@@ -11,7 +11,8 @@ namespace GameDevTV.Inventories
         WEAPON,
         TOOL,
         SEED,
-        ARMOR
+        ARMOR,
+        RESOURCE
     }
     public enum CropType
     {
@@ -42,6 +43,15 @@ namespace GameDevTV.Inventories
         Legs,
         LeftHand,
         RightHand
+    }
+
+    [System.Serializable]
+    public enum ResourceType
+    {
+        Wood,
+        Logs,
+        Stone,
+        Coal
     }
 
 
@@ -139,6 +149,11 @@ namespace GameDevTV.Inventories
         public BodyPieceSpriteCollection armorSprites;
         [Tooltip("Should the armor sprite replace the sprite below it, used for chest/legs")]
         public bool armorReplaceSprite = false;
+
+        //Beginning of Resources
+        public int resourceSize = 1;
+        public ResourceType resourceType;
+        //End of Resources
 
         // PUBLIC
 

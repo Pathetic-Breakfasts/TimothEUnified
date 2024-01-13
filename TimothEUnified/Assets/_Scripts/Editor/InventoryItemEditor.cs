@@ -54,6 +54,10 @@ public class InventoryItemEditor : Editor
     SerializedProperty propArmorSprites;
     SerializedProperty propArmorReplaceSprite;
 
+    //Resource Item
+    SerializedProperty propResourceSize;
+    SerializedProperty propResourceType;
+
     //////////////////////////////////////////////////
     private void OnEnable()
     {
@@ -97,6 +101,10 @@ public class InventoryItemEditor : Editor
         propArmorDefence = so.FindProperty("armorDefence");
         propArmorSprites = so.FindProperty("armorSprites");
         propArmorReplaceSprite = so.FindProperty("armorReplaceSprite");
+
+        //Resource Item
+        propResourceSize = so.FindProperty("resourceSize");
+        propResourceType = so.FindProperty("resourceType");
     }
 
     //////////////////////////////////////////////////
@@ -225,6 +233,10 @@ public class InventoryItemEditor : Editor
 
                 }
 
+                break;
+            case ItemType.RESOURCE:
+                EditorGUILayout.PropertyField(propResourceSize);
+                EditorGUILayout.PropertyField(propResourceType);
                 break;
         }
 
