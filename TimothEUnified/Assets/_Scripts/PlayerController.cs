@@ -34,21 +34,20 @@ public class PlayerController : MonoBehaviour
     InputLayerManager _inputLayerManager;
 
     ChestInputLayer _chestInputLayer;
+    WarehouseUIInputLayer _warehouseInputLayer;
     InventoryInputLayer _inventoryInputLayer;
     CurrencyStore _currencyStore;
 
     CharacterSpriteController _characterSpriteController;
 
-    public Warehouse NearbyWarehouse { get => _nearbyWarehouse; set => _nearbyWarehouse = value; }
-    Warehouse _nearbyWarehouse;
-
+    List<InteractableVolume> _nearbyInteractables;
     public UIManager GameUIManager { get => _uiManager; }
     UIManager _uiManager;
 
 
     Vector2 _movement;
+    Vector2 _activeMousePos;
     Vector2 _mousePosAtClick;
-    Vector2 _mousePos;
 
     Vector3 _lastValidDir;
     bool _bIsInValidAimingDir = false;
@@ -58,14 +57,6 @@ public class PlayerController : MonoBehaviour
     InteractDirection _lookDirection;
     public InteractDirection LookDirection { get => _lookDirection; }
 
-    public Bed CurrentBed { get => _nearbyBed; set { _nearbyBed = value; UpdatePrompts(); } }
-    Bed _nearbyBed;
-
-    public DoorController NearbyDoor { get => _nearbyDoorController; set { _nearbyDoorController = value; UpdatePrompts(); } }
-    DoorController _nearbyDoorController;
-
-    public Chest NearbyChest { get => _nearbyChest; set { _nearbyChest = value; UpdatePrompts(); } }
-    Chest _nearbyChest;
     public bool IsHeavyAttack { get => _bIsHeavyAttack; set => _bIsHeavyAttack = value; }
     bool _bIsHeavyAttack = false;
 
@@ -89,6 +80,11 @@ public class PlayerController : MonoBehaviour
 
         _chestInputLayer = new ChestInputLayer();
         _chestInputLayer.Initialize();
+
+        _warehouseInputLayer = new WarehouseUIInputLayer();
+        _warehouseInputLayer.Initialize();
+
+        _nearbyInteractables = new List<InteractableVolume>();
     }
 
     //////////////////////////////////////////////////
@@ -100,6 +96,7 @@ public class PlayerController : MonoBehaviour
         _uiManager = FindObjectOfType<UIManager>();
 
         _uiManager.PlayerInventoryUI.DisplayedInventory = _inventory;
+        _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
 
         _equipment.equipmentUpdated += OnEquippedArmorChanged;
 
@@ -143,7 +140,7 @@ public class PlayerController : MonoBehaviour
         _characterSpriteController.UpdateSprite();
 
 
-        _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _activeMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (_activeTool.UsingTool || _playerWeapon.IsAttacking)
         {
@@ -154,7 +151,7 @@ public class PlayerController : MonoBehaviour
         //Only set our aim position when using a ranged weapon within a -45/+45 degree angle of the direction we are facing
         if (!_playerWeapon.IsAttacking && _playerWeapon.HasWeapon && _playerWeapon.IsRanged)
         {
-            Vector3 adjustedPos = _mousePos;
+            Vector3 adjustedPos = _activeMousePos;
             Vector3 dirVec = GameUtilities.GetDirectionVector(_lookDirection);
             Vector3 dir = (adjustedPos - transform.position).normalized;
 
@@ -242,27 +239,6 @@ public class PlayerController : MonoBehaviour
     //////////////////////////////////////////////////
     private void UpdatePrompts()
     {
-        if (_nearbyBed)
-        {
-            _uiManager.SetInputPromptVisibility(true);
-            _uiManager.SetInputPromptText("Use Bed");
-            return;
-        }
-
-        if (_nearbyDoorController)
-        {
-            _uiManager.SetInputPromptVisibility(true);
-            _uiManager.SetInputPromptText("Use Door");
-            return;
-        }
-
-        if (_nearbyChest)
-        {
-            _uiManager.SetInputPromptVisibility(true);
-            _uiManager.SetInputPromptText("Use Chest");
-            return;
-        }
-
         _uiManager.SetInputPromptVisibility(false);
     }
 
@@ -317,19 +293,6 @@ public class PlayerController : MonoBehaviour
     //////////////////////////////////////////////////
     public void InteractPressed()
     {
-        //Order of priority for Interactions
-        //NPCs
-        //Harvestable Plant
-        //Use Tool/Weapon
-
-        //Doors
-        if (_nearbyDoorController)
-        {
-            //TODO: Use door enter logic
-
-            return;
-        }
-
         //Farmland
         if (Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
         {
@@ -362,20 +325,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //TODO: Figure out how to handle putting items in warehouses (Actually we could have that in the Warehouse screen
         //Warehouse
-        if (_nearbyWarehouse)
-        {
-            if(_currentItem.itemType == ItemType.RESOURCE)
-            {
-                int numberOfItem = _inventory.GetItemCount(_currentItem);
-                int numberPutIn = _nearbyWarehouse.InsertResource(_currentItem, numberOfItem);
-                if(numberPutIn != -1)
-                {
-                    _inventory.RemoveItem(_currentItem, numberPutIn);
-                }
-            }
-            return;
-        }
+        //if (_nearbyWarehouse)
+        //{
+        //    if(_currentItem.itemType == ItemType.RESOURCE)
+        //    {
+        //        int numberOfItem = _inventory.GetItemCount(_currentItem);
+        //        int numberPutIn = _nearbyWarehouse.InsertResource(_currentItem, numberOfItem);
+        //        if(numberPutIn != -1)
+        //        {
+        //            _inventory.RemoveItem(_currentItem, numberPutIn);
+        //        }
+        //    }
+        //    return;
+        //}
 
         //Tools/Weapons
         UseEquipped();
@@ -384,31 +348,25 @@ public class PlayerController : MonoBehaviour
     //////////////////////////////////////////////////
     public void InspectPressed()
     {
-        if (_nearbyBed)
-        {
-            //TODO: Spawn UI Prompt for specifying amount of sleep to get
-            //TODO: Add player energy per hour of sleep 
-            _nearbyBed.Sleep(1);
-            _characterEnergy.RegainEnergy(25.0f);
-        }
-        else if (_nearbyDoorController)
-        {
+        _mousePosAtClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        }
-        else if (_nearbyChest)
+        if (_nearbyInteractables.Count == 0) return;
+
+        foreach(InteractableVolume interactable in _nearbyInteractables)
         {
-            _uiManager.ChestInventoryUI.DisplayedInventory = _nearbyChest.ChestInventory;
-            _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
-            SetChestUIVisibility(true);
-        }
-        else if(_nearbyWarehouse)
-        {
-            Dictionary<ResourceType, int> map = _nearbyWarehouse.ResourceMap;
-            foreach(KeyValuePair<ResourceType, int> kvp in map)
+            if (!interactable) continue;
+
+            RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
+            if (hit.collider != null)
             {
-                Debug.Log(kvp.Key.ToString() + ": " + kvp.Value);
+                InteractableVolume iv = hit.transform.GetComponentInChildren<InteractableVolume>();
+                if(iv && iv == interactable)
+                {
+                    IInteractable interaction = hit.transform.GetComponent<IInteractable>();
+                    interaction?.OnUse(this);
+                    break;
+                }
             }
-
         }
     }
 
@@ -505,8 +463,44 @@ public class PlayerController : MonoBehaviour
     }
 
     //////////////////////////////////////////////////
+    public void SetWarehouseUIVisibility(bool visibility, Warehouse warehouse)
+    {
+        _uiManager.SetWarehouseUIVisibility(visibility, warehouse);
+
+        if(visibility)
+        {
+            _inputLayerManager.AddLayer(_warehouseInputLayer);
+        }
+        else
+        {
+            if(_inputLayerManager.IsLayerInFront(_warehouseInputLayer))
+            {
+                _inputLayerManager.PopLayer();
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////
     public void UseInteractable()
     {
 
+    }
+
+    //////////////////////////////////////////////////
+    public void AddInteractable(InteractableVolume interactable)
+    {
+        if (!_nearbyInteractables.Contains(interactable))
+        {
+            _nearbyInteractables.Add(interactable);
+        }
+    }
+
+    //////////////////////////////////////////////////
+    public void RemoveInteractable(InteractableVolume interactable)
+    {
+        if(_nearbyInteractables.Contains(interactable))
+        {
+            _nearbyInteractables.Remove(interactable);
+        }
     }
 }

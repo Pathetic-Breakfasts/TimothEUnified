@@ -16,9 +16,9 @@ MonoBehaviour:
   displayName: Iron Ingot
   description: 
   icon: {fileID: 21300000, guid: 5235a25b5d45efb40949230c2b40ab62, type: 3}
-  pickup: {fileID: 0}
   isStackable: 1
-  itemType: 0
+  itemValue: 0
+  itemType: 5
   growthSpriteArray:
   - {fileID: 3255702263911208407, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
   - {fileID: -9135177321954078996, guid: e2535da7e7aaf6d4691d972ebf771cbd, type: 3}
@@ -36,9 +36,18 @@ MonoBehaviour:
   weaponSwingDistance: 90
   weaponSprite: {fileID: 0}
   isRanged: 0
-  projectilePrefab: {fileID: 0}
+  projectileConfig: {fileID: 0}
   toolType: 0
   toolPower: 50
   energyConsumption: 3
   horizontalToolSprite: {fileID: 0}
   verticalToolSprite: {fileID: 0}
+  armorType: 0
+  armorDefence: 0
+  armorSprites:
+    directions: []
+    alternativeDirections: []
+    canUseAlternativeSprites: 0
+  armorReplaceSprite: 0
+  resourceSize: 1
+  resourceType: 0

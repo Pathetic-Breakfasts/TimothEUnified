@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public class Warehouse : MonoBehaviour
+public class Warehouse : MonoBehaviour, IInteractable
 {
     public Dictionary<ResourceType, int> ResourceMap { get => _resourceMap; }
     Dictionary<ResourceType, int> _resourceMap;
@@ -110,26 +110,8 @@ public class Warehouse : MonoBehaviour
     }
 
     //////////////////////////////////////////////////
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnUse(PlayerController controller)
     {
-        if (!collision.CompareTag(GameTagManager._playerTag)) return;
-
-        PlayerController pc = collision.GetComponent<PlayerController>();
-        if (pc != null)
-        {
-            pc.NearbyWarehouse = this;
-        }
-    }
-
-    //////////////////////////////////////////////////
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!collision.CompareTag(GameTagManager._playerTag)) return;
-
-        PlayerController pc = collision.GetComponent<PlayerController>();
-        if(pc != null)
-        {
-            pc.NearbyWarehouse = null;
-        }
+        controller.SetWarehouseUIVisibility(true, this);
     }
 }

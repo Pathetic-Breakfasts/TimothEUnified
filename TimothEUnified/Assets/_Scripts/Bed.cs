@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bed : MonoBehaviour
+public class Bed : MonoBehaviour, IInteractable
 {
     public bool CanSleep { get => _bCanSleep; set => _bCanSleep = value; }
     bool _bCanSleep = false;
 
     DayManager _dayManager;
 
+    //////////////////////////////////////////////////
     private void Start()
     {
         _dayManager = FindObjectOfType<DayManager>();
@@ -17,22 +18,7 @@ public class Bed : MonoBehaviour
         _bCanSleep = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag(GameTagManager._playerTag))
-        {
-            collision.gameObject.GetComponent<PlayerController>().CurrentBed = this;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.CompareTag(GameTagManager._playerTag))
-        {
-            collision.gameObject.GetComponent<PlayerController>().CurrentBed = null;
-        }
-    }
-
+    //////////////////////////////////////////////////
     public void Sleep(int desiredSleep)
     {
         if(_bCanSleep)
@@ -43,5 +29,12 @@ public class Bed : MonoBehaviour
         {
             //TODO: UI PROMPT: "You cannot sleep right now"
         }
+    }
+
+    //////////////////////////////////////////////////
+    public void OnUse(PlayerController controller)
+    {
+        //TODO: Implement sleep UI and regaining character energy
+        throw new System.NotImplementedException();
     }
 }
