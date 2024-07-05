@@ -15,12 +15,6 @@ public class UIManager : MonoBehaviour
     public InventoryUI PlayerInventoryUI { get => _playerInventoryUI; }
     [SerializeField] private InventoryUI _playerInventoryUI;
 
-    public InventoryUI PlayerChestInventoryUI { get => _playerChestInventoryUI; }
-    [SerializeField] private InventoryUI _playerChestInventoryUI;
-
-    public InventoryUI WarehousePlayerChestInventoryUI { get => _warehousePlayerInventoryUI; }
-    [SerializeField] private InventoryUI _warehousePlayerInventoryUI;
-
     public InventoryUI ChestInventoryUI { get => _chestInventoryUI; }
     [SerializeField] private InventoryUI _chestInventoryUI;
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1838247497330030908}
   - component: {fileID: 1838247497330030909}
   - component: {fileID: 1838247497330030910}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Farmtile
   m_TagString: Farmland
   m_Icon: {fileID: 0}
@@ -99,8 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cropPrefab: {fileID: 3604818203093086020, guid: 74dada15615f5294981a70e6daee3c78, type: 3}
-  _tilledSprite: {fileID: 954490159988430888, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
-  _untilledSprite: {fileID: 5744295494702524529, guid: e8d56455be419044b9562fb1cdb0d622, type: 3}
   _untilledTile: {fileID: 11400000, guid: 78c24dcbd4193bf408c8488a8930792d, type: 2}
   _tilledTile: {fileID: 11400000, guid: 672fa959424744f4685f75a43c6aefa4, type: 2}
 --- !u!61 &1838247497330030909

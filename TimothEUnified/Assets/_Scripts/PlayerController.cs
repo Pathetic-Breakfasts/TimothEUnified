@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Transform _weaponAttach;
     [SerializeField] LayerMask _interactableLayer;
+    [SerializeField] LayerMask _farmableLayer;
     [SerializeField] InventoryLoadout _startingLoadout;
     [SerializeField] GameObject _heldItemGO;
 
@@ -96,8 +97,6 @@ public class PlayerController : MonoBehaviour
         _uiManager = FindObjectOfType<UIManager>();
 
         _uiManager.PlayerInventoryUI.DisplayedInventory = _inventory;
-        _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
-        _uiManager.WarehousePlayerChestInventoryUI.DisplayedInventory = _inventory;
 
         _equipment.equipmentUpdated += OnEquippedArmorChanged;
 
@@ -297,7 +296,7 @@ public class PlayerController : MonoBehaviour
         //Farmland
         if (Vector2.Distance(_mousePosAtClick, transform.position) < 1.75f)
         {
-            RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _interactableLayer);
+            RaycastHit2D hit = Physics2D.Raycast(_mousePosAtClick, Vector2.zero, 10.0f, _farmableLayer);
             if (hit.collider != null)
             {
                 FarmableLand farmableLand = hit.collider.GetComponent<FarmableLand>();

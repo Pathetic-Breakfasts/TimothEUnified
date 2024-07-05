@@ -1140,6 +1140,9 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 64
+  _farmableLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   _startingLoadout: {fileID: 0}
   _heldItemGO: {fileID: 3829674606356305016}
   _headSprites:
