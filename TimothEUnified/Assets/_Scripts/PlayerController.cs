@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
         _uiManager.PlayerInventoryUI.DisplayedInventory = _inventory;
         _uiManager.PlayerChestInventoryUI.DisplayedInventory = _inventory;
+        _uiManager.WarehousePlayerChestInventoryUI.DisplayedInventory = _inventory;
 
         _equipment.equipmentUpdated += OnEquippedArmorChanged;
 

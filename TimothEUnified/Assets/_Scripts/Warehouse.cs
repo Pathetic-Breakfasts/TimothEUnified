@@ -24,11 +24,8 @@ public class Warehouse : MonoBehaviour, IInteractable
     {
         if (item == null || item.itemType != ItemType.RESOURCE)
         {
-            if (_debugWarehouse)
-            {
-                string reason = item ? item.displayName + ": ItemType is incorrect: " + item.itemType.ToString() : "Item is null";
-                Debug.Log(gameObject.name + ": Failed to insert item! Reason: " + reason);
-            }
+            string reason = item ? item.displayName + ": ItemType is incorrect: " + item.itemType.ToString() : "Item is null";
+            DebugLog(gameObject.name + ": Failed to insert item! Reason: " + reason);
 
             return -1;
         }
@@ -36,31 +33,22 @@ public class Warehouse : MonoBehaviour, IInteractable
         int putIn = CalculatePutIn(number * item.resourceSize);
         if(putIn == 0)
         {
-            if(_debugWarehouse)
-            {
-                Debug.Log(gameObject.name + ": No space present in this warehosue.");
-            }
+            Debug.Log(gameObject.name + ": No space present in this warehosue.");
             return -1;
         }
 
         if (_resourceMap.ContainsKey(item.resourceType))
         {
-            if(_debugWarehouse)
-            {
-                Debug.Log(gameObject.name + ": Resource is already present in this warehouse. Adding: " + putIn);
-            }
-
+            DebugLog(gameObject.name + ": Resource is already present in this warehouse. Adding: " + putIn);
             _resourceMap[item.resourceType] += putIn;
         }
         else
         {
-            if(_debugWarehouse)
-            {
-                Debug.Log(gameObject.name + ": Resource is not present in this warehouse. Adding: " + putIn);
-            }
-
+            DebugLog(gameObject.name + ": Resource is not present in this warehouse. Adding: " + putIn);
             _resourceMap.Add(item.resourceType, putIn);
         }
+
+        FindObjectOfType<WarehouseUI>().Redraw(this);
 
         return putIn;
     }
@@ -68,7 +56,7 @@ public class Warehouse : MonoBehaviour, IInteractable
     //////////////////////////////////////////////////
     private int CalculatePutIn(int num)
     {
-        int space = _maximumCapactity - GetCurrentStorage();
+        int space = _maximumCapactity - GetCurrentResourceTotal();
         //No space remaining
         if(space == 0)
         {
@@ -92,7 +80,7 @@ public class Warehouse : MonoBehaviour, IInteractable
 
 
     //////////////////////////////////////////////////
-    public int GetCurrentStorage()
+    public int GetCurrentResourceTotal()
     {
         int runningTotal = 0;
         foreach(KeyValuePair<ResourceType, int> record in _resourceMap)
@@ -100,6 +88,12 @@ public class Warehouse : MonoBehaviour, IInteractable
             runningTotal += record.Value;
         }
         return runningTotal;
+    }
+
+    //////////////////////////////////////////////////
+    public int GetRemainingCapacity()
+    {
+        return _maximumCapactity - GetCurrentResourceTotal();
     }
 
     //TODO: Figure out how removing items across multiple warehouses will work
@@ -113,5 +107,15 @@ public class Warehouse : MonoBehaviour, IInteractable
     public void OnUse(PlayerController controller)
     {
         controller.SetWarehouseUIVisibility(true, this);
+    }
+
+
+    //////////////////////////////////////////////////
+    private void DebugLog(string message)
+    {
+        if (_debugWarehouse)
+        {
+            Debug.Log(message);
+        }
     }
 }

@@ -18,9 +18,15 @@ public class UIManager : MonoBehaviour
     public InventoryUI PlayerChestInventoryUI { get => _playerChestInventoryUI; }
     [SerializeField] private InventoryUI _playerChestInventoryUI;
 
+    public InventoryUI WarehousePlayerChestInventoryUI { get => _warehousePlayerInventoryUI; }
+    [SerializeField] private InventoryUI _warehousePlayerInventoryUI;
+
     public InventoryUI ChestInventoryUI { get => _chestInventoryUI; }
     [SerializeField] private InventoryUI _chestInventoryUI;
 
+
+    public Warehouse CurrentWarehouse { get => _currentWarehouse; }
+    private Warehouse _currentWarehouse;
 
     [SerializeField] GameObject _chestInventoryScreen;
     [SerializeField] GameObject _inventoryScreen;
@@ -52,6 +58,7 @@ public class UIManager : MonoBehaviour
     //////////////////////////////////////////////////
     public void SetWarehouseUIVisibility(bool val, Warehouse desiredWarehouse)
     {
+        _currentWarehouse = desiredWarehouse;
         _warehouseScreen.SetActive(val);
 
         if(desiredWarehouse != null)
