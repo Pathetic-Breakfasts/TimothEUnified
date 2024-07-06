@@ -7,7 +7,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace GameDevTV.Saving
+namespace GameFramework.Saving
 {
     /// <summary>
     /// This component provides the interface to the saving system. It provides

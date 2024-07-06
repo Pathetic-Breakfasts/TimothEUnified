@@ -1,4 +1,4 @@
-﻿namespace GameDevTV.Core.UI.Dragging
+﻿namespace GameFramework.Core.UI.Dragging
 {
     /// <summary>
     /// Components that implement this interfaces can act as the destination for

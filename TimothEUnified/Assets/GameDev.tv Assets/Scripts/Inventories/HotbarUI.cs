@@ -1,53 +1,56 @@
-using GameDevTV.Inventories;
-using GameDevTV.UI.Inventories;
+using GameFramework.UI.Inventories;
+using GameFramework.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HotbarUI : MonoBehaviour, IItemHolder
+namespace GameFramework.UI.Inventories
 {
-    [SerializeField] int index = 0;
-
-    [SerializeField] GameObject _selectedIconObject = null;
-
-    InventoryItemIcon _slotUI;
-    Inventory _inventory;
-
-    private void Awake()
+    public class HotbarUI : MonoBehaviour, IItemHolder
     {
-        _slotUI = GetComponentInChildren<InventoryItemIcon>();
+        [SerializeField] int index = 0;
 
-        _inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        [SerializeField] GameObject _selectedIconObject = null;
 
-        if (_selectedIconObject)
+        InventoryItemIcon _slotUI;
+        Inventory _inventory;
+
+        private void Awake()
         {
-            _selectedIconObject.SetActive(false);
-        }
-    }
+            _slotUI = GetComponentInChildren<InventoryItemIcon>();
 
-    public void Setup()
-    {
-        if(!_inventory)
-        {
-            Debug.LogError("No Inventory!");
-            return;
+            _inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+
+            if (_selectedIconObject)
+            {
+                _selectedIconObject.SetActive(false);
+            }
         }
 
-        _slotUI.SetItem(_inventory.GetItemInSlot(index), _inventory.GetNumberInSlot(index));
-    }
+        public void Setup()
+        {
+            if (!_inventory)
+            {
+                Debug.LogError("No Inventory!");
+                return;
+            }
 
-    public void SetSelected()
-    {
-        _selectedIconObject?.SetActive(true);
-    }
+            _slotUI.SetItem(_inventory.GetItemInSlot(index), _inventory.GetNumberInSlot(index));
+        }
 
-    public void SetUnselected()
-    {
-        _selectedIconObject?.SetActive(false);
-    }
+        public void SetSelected()
+        {
+            _selectedIconObject?.SetActive(true);
+        }
 
-    public InventoryItem GetItem()
-    {
-        return _inventory.GetItemInSlot(index);
+        public void SetUnselected()
+        {
+            _selectedIconObject?.SetActive(false);
+        }
+
+        public InventoryItem GetItem()
+        {
+            return _inventory.GetItemInSlot(index);
+        }
     }
 }

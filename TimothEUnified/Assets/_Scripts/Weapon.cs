@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
-using GameDevTV.Inventories;
+using GameFramework.Inventories;
 
 public class Weapon : MonoBehaviour
 {

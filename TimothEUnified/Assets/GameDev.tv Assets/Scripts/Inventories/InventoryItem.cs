@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameDevTV.Inventories
+namespace GameFramework.Inventories
 {
     [System.Serializable]
     public enum ItemType

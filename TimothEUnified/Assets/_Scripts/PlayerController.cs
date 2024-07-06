@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameDevTV.Inventories;
+using GameFramework.Inventories;
 using Unity.VisualScripting;
-using GameDevTV.UI.Inventories;
+using GameFramework.UI.Inventories;
 
 public class PlayerController : MonoBehaviour
 {

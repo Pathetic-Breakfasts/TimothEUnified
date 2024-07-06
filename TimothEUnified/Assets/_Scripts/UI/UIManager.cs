@@ -1,4 +1,4 @@
-using GameDevTV.UI.Inventories;
+using GameFramework.UI.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

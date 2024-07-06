@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using GameDevTV.Core.UI.Dragging;
-using GameDevTV.Inventories;
+using GameFramework.Core.UI.Dragging;
+using GameFramework.Inventories;
 
-namespace GameDevTV.UI.Inventories
+namespace GameFramework.UI.Inventories
 {
     /// <summary>
     /// Handles spawning pickups when item dropped into the world.

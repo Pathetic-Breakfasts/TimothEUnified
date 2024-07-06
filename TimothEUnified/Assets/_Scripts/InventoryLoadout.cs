@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameDevTV.Inventories;
-using static GameDevTV.Inventories.Inventory;
+using GameFramework.Inventories;
+using static GameFramework.Inventories.Inventory;
 
 [CreateAssetMenu(menuName ="Inventory/New Inventory Loadout")]
 public class InventoryLoadout : ScriptableObject

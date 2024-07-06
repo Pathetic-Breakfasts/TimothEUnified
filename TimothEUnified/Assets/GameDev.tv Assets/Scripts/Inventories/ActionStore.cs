@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using GameDevTV.Saving;
+using GameFramework.Saving;
 
-namespace GameDevTV.Inventories
+namespace GameFramework.Inventories
 {
     /// <summary>
     /// Provides the storage for an action bar. The bar has a finite number of

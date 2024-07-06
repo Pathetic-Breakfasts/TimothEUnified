@@ -1,10 +1,10 @@
-﻿using GameDevTV.UI.Inventories;
+﻿using GameFramework.UI.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace GameDevTV.Core.UI.Dragging
+namespace GameFramework.Core.UI.Dragging
 {
     /// <summary>
     /// Allows a UI element to be dragged and dropped from and to a container.

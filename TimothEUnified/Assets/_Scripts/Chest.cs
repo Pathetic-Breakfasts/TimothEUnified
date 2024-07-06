@@ -1,5 +1,5 @@
-using GameDevTV.Inventories;
-using GameDevTV.Saving;
+using GameFramework.Inventories;
+using GameFramework.Saving;
 using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]

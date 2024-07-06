@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GameDevTV.Utils
+namespace GameFramework.Utils
 {
     /// <summary>
     /// An alternative to using the singleton pattern. Will handle spawning a
