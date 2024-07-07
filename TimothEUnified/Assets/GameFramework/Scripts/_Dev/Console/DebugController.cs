@@ -7,9 +7,12 @@ namespace GameFramework.Core.Dev
     {
         // STATE
         bool _bShowConsole;
-        string _input;
-        Vector2 _scrollView;
         bool _bShowHelp = false;
+        bool _bShowError = false;
+
+        string _input;
+        string _error;
+        Vector2 _scrollView;
         public List<object> _commandList;
 
         public static DebugController Instance { get; private set; }
@@ -95,6 +98,7 @@ namespace GameFramework.Core.Dev
 
             GUI.Box(new Rect(0, y, Screen.width, 30), "");
             GUI.backgroundColor = new Color(0, 0, 0, 0);
+            GUI.contentColor = Color.white;
             GUI.SetNextControlName("console");
             _input = GUI.TextField(new Rect(10.0f, y + 5.0f, Screen.width - 20.0f, 20), _input);
             GUI.FocusControl("console");
@@ -109,6 +113,13 @@ namespace GameFramework.Core.Dev
                 {
                     HandleInput();
                 }
+            }
+            y += 30.0f;
+
+            if(_bShowError)
+            {
+                GUI.contentColor = Color.red;
+                GUI.Label(new Rect(5.0f, y, Screen.width - 20.0f, 20), _error);
             }
         }
 
@@ -145,6 +156,13 @@ namespace GameFramework.Core.Dev
         }
 
         //////////////////////////////////////////////////
+        private void DisplayError(string error)
+        {
+            _bShowError = true;
+            _error = error;
+        }
+
+        //////////////////////////////////////////////////
         private void HandleInput()
         {
             //Input Filtering to avoid errors
@@ -168,6 +186,7 @@ namespace GameFramework.Core.Dev
                         {
                             (commandBase as DebugCommand).Invoke();
                             _input = "";
+                            _bShowError = false;
                         }
                         else if (commandBase is DebugCommand<int>)
                         {
@@ -177,21 +196,47 @@ namespace GameFramework.Core.Dev
                                 if (int.TryParse(properties[1], out num))
                                 {
                                     (commandBase as DebugCommand<int>).Invoke(int.Parse(properties[1]));
+                                    _bShowError = false;
+                                }
+                                else
+                                {
+                                    DisplayError($"Invalid Paramater {properties[1]}");
                                 }
                                 _input = "";
+                            }
+                            else
+                            {
+                                DisplayError("Command expects a paramater");
                             }
                         }
                         else if (commandBase is DebugCommand<bool>)
                         {
-                            bool val;
-                            if (bool.TryParse(properties[1], out val))
+                            if(properties.Length >= 2)
                             {
-                                (commandBase as DebugCommand<bool>).Invoke(bool.Parse(properties[1]));
+                                bool val;
+                                if (bool.TryParse(properties[1], out val))
+                                {
+                                    (commandBase as DebugCommand<bool>).Invoke(bool.Parse(properties[1]));
+                                    _bShowError = false;
+                                }
+                                else
+                                {
+                                    DisplayError($"Invalid Paramater {properties[1]}");
+                                }
+                                _input = "";
                             }
-                            _input = "";
+                            else
+                            {
+                                DisplayError("Command expects a paramater");
+                            }
                         }
                     }
                 }
+            }
+
+            if(_input.Length > 0)
+            {
+                DisplayError($"Invalid Command {_input}");
             }
         }
     }
