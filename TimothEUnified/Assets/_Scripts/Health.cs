@@ -4,6 +4,7 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 using CustomAttributes;
+using GameFramework.Core.Dev;
 
 public class Health : MonoBehaviour
 {
@@ -28,6 +29,28 @@ public class Health : MonoBehaviour
     public float MaxHealth { get => _maxHealth; }
 
     public float HealthRatio { get => _currentHealth / _maxHealth; }
+
+    public static DebugCommand KILL_PLAYER;
+
+    void Awake()
+    {
+        if (KILL_PLAYER == null)
+        {
+            KILL_PLAYER = new DebugCommand("kill_player", "Kills the current player", "kill_player", () =>
+            {
+                PlayerController pc = FindObjectOfType<PlayerController>();
+                if (pc)
+                {
+                    Health playerHealth = pc.GetComponent<Health>();
+                    if (playerHealth)
+                    {
+                        playerHealth.Kill();
+                    }
+                }
+            });
+        }
+        DebugController.Instance.AddCommand(KILL_PLAYER);
+    }
 
     private void LateUpdate()
     {
