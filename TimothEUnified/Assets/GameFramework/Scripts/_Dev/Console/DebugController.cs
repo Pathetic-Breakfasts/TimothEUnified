@@ -173,8 +173,6 @@ namespace GameFramework.Core.Dev
             }
             _input = _input.ToLower();
 
-            string[] properties = _input.Split(' ');
-
             for (int i = 0; i < _commandList.Count; i++)
             {
                 DebugCommandBase commandBase = _commandList[i] as DebugCommandBase;
@@ -188,46 +186,29 @@ namespace GameFramework.Core.Dev
                             _input = "";
                             _bShowError = false;
                         }
-                        else if (commandBase is DebugCommand<int>)
+                        else
                         {
+                            string[] properties = _input.Split(' ');
                             if(properties.Length >= 2)
                             {
-                                int num;
-                                if (int.TryParse(properties[1], out num))
+                                if (commandBase is DebugCommand<int>)
                                 {
-                                    (commandBase as DebugCommand<int>).Invoke(int.Parse(properties[1]));
-                                    _bShowError = false;
+                                    int num;
+                                    if (int.TryParse(properties[1], out num))
+                                    {
+                                        (commandBase as DebugCommand<int>).Invoke(int.Parse(properties[1]));
+                                        _bShowError = false;
+                                    }
+                                    else
+                                    {
+                                        DisplayError($"Invalid Paramater {properties[1]}");
+                                    }
+                                    _input = "";
                                 }
-                                else
-                                {
-                                    DisplayError($"Invalid Paramater {properties[1]}");
-                                }
-                                _input = "";
                             }
                             else
                             {
-                                DisplayError("Command expects a paramater");
-                            }
-                        }
-                        else if (commandBase is DebugCommand<bool>)
-                        {
-                            if(properties.Length >= 2)
-                            {
-                                bool val;
-                                if (bool.TryParse(properties[1], out val))
-                                {
-                                    (commandBase as DebugCommand<bool>).Invoke(bool.Parse(properties[1]));
-                                    _bShowError = false;
-                                }
-                                else
-                                {
-                                    DisplayError($"Invalid Paramater {properties[1]}");
-                                }
-                                _input = "";
-                            }
-                            else
-                            {
-                                DisplayError("Command expects a paramater");
+                                DisplayError("Command Expects a paramater");
                             }
                         }
                     }
