@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace GameFramework.Core.Dev
 {
@@ -167,19 +164,30 @@ namespace GameFramework.Core.Dev
                 {
                     if (_input.Contains(commandBase.CommandId))
                     {
-                        if (commandBase as DebugCommand != null)
+                        if (commandBase is DebugCommand)
                         {
                             (commandBase as DebugCommand).Invoke();
                             _input = "";
                         }
-                        else if (commandBase as DebugCommand<int> != null)
+                        else if (commandBase is DebugCommand<int>)
                         {
-                            (commandBase as DebugCommand<int>).Invoke(int.Parse(properties[1]));
-                            _input = "";
+                            if(properties.Length >= 2)
+                            {
+                                int num;
+                                if (int.TryParse(properties[1], out num))
+                                {
+                                    (commandBase as DebugCommand<int>).Invoke(int.Parse(properties[1]));
+                                }
+                                _input = "";
+                            }
                         }
-                        else if (commandBase as DebugCommand<bool> != null)
+                        else if (commandBase is DebugCommand<bool>)
                         {
-                            (commandBase as DebugCommand<bool>).Invoke(bool.Parse(properties[1]));
+                            bool val;
+                            if (bool.TryParse(properties[1], out val))
+                            {
+                                (commandBase as DebugCommand<bool>).Invoke(bool.Parse(properties[1]));
+                            }
                             _input = "";
                         }
                     }
