@@ -3783,8 +3783,6 @@ MonoBehaviour:
   _energyBarFiller: {fileID: 6097350215391322758}
   _healthBarFiller: {fileID: 791043932970944946}
   _playerInventoryUI: {fileID: 7870253098611001216}
-  _playerChestInventoryUI: {fileID: 7870253098611001216}
-  _warehousePlayerInventoryUI: {fileID: 7870253098611001216}
   _chestInventoryUI: {fileID: 4675070688175357490}
   _chestInventoryScreen: {fileID: 8411520773017078688}
   _inventoryScreen: {fileID: 7480725202264624018}
@@ -5392,6 +5390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9018681290375694849}
+  - component: {fileID: 2844120838868994835}
   m_Layer: 0
   m_Name: Persistant Objects
   m_TagString: Untagged
@@ -5416,6 +5415,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2844120838868994835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9018681290375694855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89bb657578320c74f8b0b5993178d707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9056242869690563027
 GameObject:
   m_ObjectHideFlags: 0
