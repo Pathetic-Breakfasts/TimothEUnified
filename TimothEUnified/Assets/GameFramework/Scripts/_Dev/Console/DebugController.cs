@@ -131,6 +131,14 @@ public class DebugController : MonoBehaviour
     //////////////////////////////////////////////////
     private void HandleInput()
     {
+        //Input Filtering to avoid errors
+        if (_input.Contains("#"))
+        {
+            int index = _input.IndexOf("#");
+            _input = _input.Remove(index);
+        }
+        _input = _input.ToLower();
+
         string[] properties = _input.Split(' ');
 
         for(int i  = 0; i < _commandList.Count; i++)
