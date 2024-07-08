@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GameFramework.Core.Dev
@@ -63,6 +64,11 @@ namespace GameFramework.Core.Dev
             {
                 OnEnter();
             }
+
+            if (Input.GetKeyDown(KeyCode.Question))
+            {
+                Autocorrect();
+            }
         }
 
         //////////////////////////////////////////////////
@@ -101,6 +107,9 @@ namespace GameFramework.Core.Dev
             GUI.contentColor = Color.white;
             GUI.SetNextControlName("console");
             _input = GUI.TextField(new Rect(10.0f, y + 5.0f, Screen.width - 20.0f, 20), _input);
+            TextEditor textEditor = (TextEditor)GUIUtility.GetStateObject(typeof(TextEditor), GUIUtility.keyboardControl); 
+            if (textEditor != null) { textEditor.MoveCursorToPosition(new Vector2(5555, 5555)); }
+
             GUI.FocusControl("console");
 
             if (_input.Length > 0)
@@ -112,6 +121,10 @@ namespace GameFramework.Core.Dev
                 else if (_input.Contains("#"))
                 {
                     HandleInput();
+                }
+                else if (_input.Contains("?"))
+                {
+                    Autocorrect();
                 }
             }
             y += 30.0f;
@@ -163,6 +176,56 @@ namespace GameFramework.Core.Dev
         }
 
         //////////////////////////////////////////////////
+        private void Autocorrect()
+        {
+            string bestMatch = "";
+            int bestMatchCount = 0;
+
+            _input = _input.Remove(_input.IndexOf("?"));
+
+            //Loop through our command list 
+            foreach (object obj in _commandList)
+            {
+                //Convert to a DebugCommand
+                DebugCommandBase commandBase = obj as DebugCommandBase;
+                if (commandBase != null)
+                {
+                    //Does the command contain our input
+                    if (commandBase.CommandId.ContainsInsensitive(_input))
+                    {
+                        //Cycle through the characters of the command and compare against best match
+                        string cmd = commandBase.CommandId;
+                        int matchCount = 0;
+
+                        for(int cmdIdx = 0; cmdIdx < cmd.Length; cmdIdx++)
+                        {
+                            if (cmdIdx >= _input.Length)
+                            {
+                                break;
+                            }
+
+                            if (cmd[cmdIdx] == _input[cmdIdx])
+                            {
+                                matchCount++;
+                            }
+                        }
+
+                        if(matchCount > bestMatchCount)
+                        {
+                            bestMatchCount = matchCount;
+                            bestMatch = cmd;
+                        }
+                    }
+                }
+            }
+
+            if(bestMatch != "")
+            {
+                _input = bestMatch + " ";
+            }
+        }
+
+        //////////////////////////////////////////////////
         private void HandleInput()
         {
             //Input Filtering to avoid errors
@@ -173,9 +236,9 @@ namespace GameFramework.Core.Dev
             }
             _input = _input.ToLower();
 
-            for (int i = 0; i < _commandList.Count; i++)
+            foreach(object obj in _commandList)
             {
-                DebugCommandBase commandBase = _commandList[i] as DebugCommandBase;
+                DebugCommandBase commandBase = obj as DebugCommandBase;
                 if (commandBase != null)
                 {
                     if (_input.Contains(commandBase.CommandId))
