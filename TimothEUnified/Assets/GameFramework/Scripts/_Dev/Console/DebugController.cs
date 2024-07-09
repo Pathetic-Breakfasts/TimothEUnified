@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace GameFramework.Core.Dev
         string _error;
         Vector2 _scrollView;
         public List<object> _commandList;
+
+        Queue<string> _commandQueue;
+        int _commandIdx = 0;
 
         public static DebugController Instance { get; private set; }
 
@@ -33,6 +37,8 @@ namespace GameFramework.Core.Dev
             {
                 Instance = this;
             }
+
+            _commandQueue = new Queue<string>();
 
             GIVE_GOLD = new DebugCommand<int>("give_gold", "Gives <x> gold to the current player", "give_gold <desiredAmount>", (int x) =>
             {
@@ -125,6 +131,23 @@ namespace GameFramework.Core.Dev
                 else if (_input.Contains("?"))
                 {
                     Autocorrect();
+                }
+                else if (_input.Contains("[")) 
+                {
+                    if(_commandIdx > 0)
+                    {
+                        _input = _commandQueue.ElementAt(_commandIdx--);
+                    }
+                    _input.Remove(_input.Length - 1);
+                }
+                else if (_input.Contains("]"))
+                {
+                    if(_commandIdx < 50 - 1 && _commandIdx < _commandList.Count - 1)
+                    {
+                        Debug.Log(_commandIdx);
+                        _input = _commandQueue.ElementAt(_commandIdx++);
+                    }
+                    _input.Remove(_input.Length - 1);
                 }
             }
             y += 30.0f;
@@ -235,6 +258,12 @@ namespace GameFramework.Core.Dev
                 _input = _input.Remove(index);
             }
             _input = _input.ToLower();
+            _commandQueue.Enqueue(_input);
+            if(_commandQueue.Count > 50)
+            {
+                _commandQueue.Dequeue();
+            }
+            _commandIdx = _commandQueue.Count - 1;
 
             foreach(object obj in _commandList)
             {
