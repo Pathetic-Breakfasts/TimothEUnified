@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TimothE.Gameplay.Interactables;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private PromptController _promptController;

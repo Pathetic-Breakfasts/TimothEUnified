@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TimothE.Utility;
 
 namespace GameFramework.Inventories
 {

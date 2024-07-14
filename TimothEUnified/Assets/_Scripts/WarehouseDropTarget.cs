@@ -3,7 +3,7 @@ using GameFramework.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TimothE.Gameplay.Interactables;
 public class WarehouseDropTarget : MonoBehaviour, IDragDestination<InventoryItem>
 {
     //////////////////////////////////////////////////

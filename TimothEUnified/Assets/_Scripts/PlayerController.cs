@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameFramework.Inventories;
-using Unity.VisualScripting;
-using GameFramework.UI.Inventories;
-
+using TimothE.Gameplay.Interactables;
+using TimothE.Utility;
 public class PlayerController : MonoBehaviour
 {
     Weapon _playerWeapon;

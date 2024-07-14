@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TimothE.Gameplay.Interactables;
 
+//////////////////////////////////////////////////
 public class UpdateWeaponPositionByDirection : MonoBehaviour
 {
 
@@ -9,13 +11,14 @@ public class UpdateWeaponPositionByDirection : MonoBehaviour
     Weapon _weapon;
     EnemyPathfinder _pathfinder;
 
+    //////////////////////////////////////////////////
     private void Awake()
     {
         _weapon = GetComponentInChildren<Weapon>();
         _pathfinder = GetComponent<EnemyPathfinder>();
     }
 
-    // Update is called once per frame
+    //////////////////////////////////////////////////
     void Update()
     {
         if (!_weapon.IsAttacking)
@@ -48,6 +51,7 @@ public class UpdateWeaponPositionByDirection : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public InteractDirection CalculateDirection(Vector2 a)
     {
         InteractDirection dir;
