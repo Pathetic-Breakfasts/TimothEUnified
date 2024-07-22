@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8bc5f8c93720e0468b46a2eaf042ff0, type: 3}
-  m_Name: Warehouse
+  m_Name: Wood Walls
   m_EditorClassIdentifier: 
-  buildingName: Warehouse
-  description: Stores Resources Used for building Structures
-  structureSize: {x: 9, y: 7}
-  icon: {fileID: 21300000, guid: db6d6ca1dccb662459e5a1ce4684dce9, type: 3}
-  tilemapTile: {fileID: 11400000, guid: da1e1fca001b7674ca43eaf097fc3062, type: 2}
+  buildingName: Wood Walls
+  description: Provides some protection from enemies
+  structureSize: {x: 1, y: 1}
+  icon: {fileID: 1647050942368824789, guid: b7b92531d1df3014d96bc325901a3f88, type: 3}
+  tilemapTile: {fileID: 11400000, guid: 73c9da1a913af7345a90b030a6dd2152, type: 2}

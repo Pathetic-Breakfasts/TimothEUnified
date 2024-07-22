@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 
 public class BuildModeController : MonoBehaviour
 {
-    
     bool _bEnabled = false;
 
     Tilemap[] _tilemaps;
 
     [SerializeField] Tilemap _placementTilemap;
 
-    [SerializeField] StructureConfig _config;
+    public StructureConfig CurrentConfig { set => _currentConfig = value; }
+    StructureConfig _currentConfig = null;
 
     //////////////////////////////////////////////////
     private void Awake()
@@ -30,35 +28,28 @@ public class BuildModeController : MonoBehaviour
     //////////////////////////////////////////////////
     void Update()
     {
-        if (!_bEnabled) return;
-
-        //TODO: Hook this into the current structure config
-        Vector2 size = new Vector2(10.0f, 9.0f);
+        if (!_bEnabled || !_currentConfig) return;
 
         Vector2 mouseWorldSpace = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         bool canPlace = true;
-        foreach (Tilemap tilemap in _tilemaps)
+
+        for(int x = 0; x < _currentConfig.structureSize.x; ++x)
         {
-            Vector3Int originCellPosition = tilemap.WorldToCell(mouseWorldSpace);
-
-            List<Vector3Int> cellPositions = new List<Vector3Int>();
-            for(int x = 0; x < size.x; x++)
+            for(int y = 0; y < _currentConfig.structureSize.y; ++y)
             {
-                for(int y = 0; y < size.y; y++)
+                Vector3 newSamplePos = new Vector3(mouseWorldSpace.x + x, mouseWorldSpace.y + y, 0.0f);
+
+                GraphNode node = AstarPath.active.GetNearest(newSamplePos).node;
+                if (node != null && !node.Walkable)
                 {
-                    Vector3Int pos = new Vector3Int(originCellPosition.x + x, originCellPosition.y + y, originCellPosition.z);
-                    cellPositions.Add(pos);
+                    canPlace = false;
+                    break;
                 }
-            }
 
-            for(int i = 0; i < cellPositions.Count; i++)
-            {
-                Vector3 pos = tilemap.CellToWorld(cellPositions[i]);
-                RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 10.0f);
-                if(hit.collider !=  null)
+                RaycastHit2D hit = Physics2D.Raycast(newSamplePos, Vector2.zero, 10.0f);
+                if(hit.collider != null)
                 {
-                    Debug.Log(hit.collider.name);
                     canPlace = false;
                     break;
                 }
@@ -67,15 +58,18 @@ public class BuildModeController : MonoBehaviour
 
         BuildModeUI ui = FindObjectOfType<BuildModeUI>();
         Vector3Int tilePos = _tilemaps[0].WorldToCell(mouseWorldSpace);
-        ui.SetBoxPosition(tilePos, size, canPlace);
+        ui.SetBoxPosition(tilePos, _currentConfig.structureSize, canPlace);
         
         if(Input.GetMouseButtonDown(0))
         {
             if(canPlace)
             {
-                _placementTilemap.SetTile(tilePos, _config.tilemapTile);
+                _placementTilemap.SetTile(tilePos, _currentConfig.tilemapTile);
             }
         }
-
+        if (Input.GetMouseButtonDown(1))
+        {
+            ui.SelectedConfig = null;
+        }
     }
 }

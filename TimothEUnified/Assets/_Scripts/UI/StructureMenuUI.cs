@@ -21,7 +21,7 @@ public class StructureMenuUI : MonoBehaviour
 
         for (int i = 0; i < _structureConfigList.Count; i++)
         {
-            StructureCardUI structureCard = Instantiate(_structureCardUIPrefab, transform);
+            StructureCardUI structureCard = Instantiate(_structureCardUIPrefab, _structureCardParent);
             structureCard.Initialize(_structureConfigList[i]);
         }
     }
