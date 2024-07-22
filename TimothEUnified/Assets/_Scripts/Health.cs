@@ -32,8 +32,21 @@ public class Health : MonoBehaviour
 
     public static DebugCommand KILL_PLAYER;
 
-    void Awake()
+    //////////////////////////////////////////////////
+    private void LateUpdate()
     {
+        if(_dead && _destroyOnDeath)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    //////////////////////////////////////////////////
+    private void Start()
+    {
+        _currentHealth = _startingHealth;
+        _currentHealth = Mathf.Clamp(_currentHealth, 0.0f, _maxHealth);
+
         if (KILL_PLAYER == null)
         {
             KILL_PLAYER = new DebugCommand("kill_player", "Kills the current player", "kill_player", () =>
@@ -52,36 +65,25 @@ public class Health : MonoBehaviour
         DebugController.Instance.AddCommand(KILL_PLAYER);
     }
 
-    private void LateUpdate()
-    {
-        if(_dead && _destroyOnDeath)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        _currentHealth = _startingHealth;
-        _currentHealth = Mathf.Clamp(_currentHealth, 0.0f, _maxHealth);
-    }
-
+    //////////////////////////////////////////////////
     public virtual void OnDamage(float amount)
     {
         _onDamageAction.Invoke();
     }
 
+    //////////////////////////////////////////////////
     public virtual void OnDeath()
     {
         _onDeathAction.Invoke();
     }
 
+    //////////////////////////////////////////////////
     public virtual void OnHeal(float amount)
     {
         _onHealAction.Invoke();
     }
 
-
+    //////////////////////////////////////////////////
     public void TakeDamage(float amount)
     {
         _currentHealth = Mathf.Clamp(_currentHealth - amount, 0.0f, _maxHealth);
@@ -93,12 +95,14 @@ public class Health : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void Kill()
     {
         _dead = true;
         OnDeath();
     }
 
+    //////////////////////////////////////////////////
     public void Heal(float amount)
     {
         _currentHealth = Mathf.Clamp(_currentHealth + amount, 0.0f, _maxHealth);

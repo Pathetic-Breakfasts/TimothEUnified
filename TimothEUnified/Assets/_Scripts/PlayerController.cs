@@ -4,6 +4,8 @@ using UnityEngine;
 using GameFramework.Inventories;
 using TimothE.Gameplay.Interactables;
 using TimothE.Utility;
+using Cinemachine;
+
 public class PlayerController : MonoBehaviour
 {
     Weapon _playerWeapon;
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InventoryLoadout _startingLoadout;
     [SerializeField] GameObject _heldItemGO;
 
+    [SerializeField] Transform _buildModeTarget;
 
     [SerializeField] BodyPieceSpriteCollection _headSprites;
     [SerializeField] BodyPieceSpriteCollection _chestSprites;
@@ -37,6 +40,8 @@ public class PlayerController : MonoBehaviour
     WarehouseUIInputLayer _warehouseInputLayer;
     InventoryInputLayer _inventoryInputLayer;
     BuildModeInputLayer _buildModeInputLayer;
+
+    [SerializeField] CinemachineVirtualCamera _camera;
 
     CurrencyStore _currencyStore;
 
@@ -89,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
         _buildModeInputLayer = new BuildModeInputLayer();
         _buildModeInputLayer.Initialize();
+        _buildModeInputLayer.BuildModeFollowTarget = _buildModeTarget;
 
         _nearbyInteractables = new List<InteractableVolume>();
     }
@@ -206,6 +212,8 @@ public class PlayerController : MonoBehaviour
     {
         _bIsInBuildMode = active;
         _uiManager.SetBuildMenuUIVisibility(active);
+        _camera.Follow = active ? _buildModeTarget : transform;
+        _camera.m_Lens.OrthographicSize = active ? 9.0f : 5.0f;
 
         if (active)
         {

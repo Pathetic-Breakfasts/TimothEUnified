@@ -21,6 +21,7 @@ public class FarmableLand : MonoBehaviour
     Crop _childCrop;
     bool _isTilled = false;
 
+    //////////////////////////////////////////////////
     public bool IsTilled { get => _isTilled; set
         {
             _isTilled = value;
@@ -31,7 +32,7 @@ public class FarmableLand : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+    //////////////////////////////////////////////////
     void Start()
     {
         //Finds all tilemap objects in the scene
@@ -54,6 +55,7 @@ public class FarmableLand : MonoBehaviour
         IsTilled = false;
     }
 
+    //////////////////////////////////////////////////
     public void Plant(InventoryItem desiredCrop)
     {
         if (ReadyToPlant())
@@ -67,7 +69,7 @@ public class FarmableLand : MonoBehaviour
         }
     }
 
-
+    //////////////////////////////////////////////////
     public void Harvest()
     {
         if (_childCrop && _childCrop.ReadyToPick)
@@ -79,6 +81,7 @@ public class FarmableLand : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void ProgressDay()
     {
         if(_isOccupied && _childCrop)
@@ -87,11 +90,13 @@ public class FarmableLand : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public bool ReadyToPlant()
     {
         return !_isOccupied && _isTilled;
     }
 
+    //////////////////////////////////////////////////
     public bool ReadyToHarvest()
     {
         //Makes sure we have a child crop and if it is ready to harvest

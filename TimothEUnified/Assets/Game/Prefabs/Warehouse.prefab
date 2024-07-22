@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 2795767911212345474}
   - component: {fileID: 2795767911212345472}
   - component: {fileID: 2795767911212345475}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Interaction Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
