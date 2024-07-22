@@ -37,6 +37,11 @@ public class CoreInputLayer : IInputLayer
             _playerController.UseInteractable();
         }
 
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            _playerController.SetBuildModeActive(true);
+        }
+
         _playerController.IsHeavyAttack = Input.GetKeyDown(KeyCode.LeftShift);
 
         if (Input.GetMouseButtonDown(0))

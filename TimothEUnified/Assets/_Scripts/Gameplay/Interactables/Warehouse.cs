@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TimothE.Gameplay.Interactables
 {
     //////////////////////////////////////////////////
-    public class Warehouse : MonoBehaviour, IInteractable
+    public class Warehouse : MonoBehaviour, IInteractable, IStructure
     {
         public Dictionary<ResourceType, int> ResourceMap { get => _resourceMap; }
         Dictionary<ResourceType, int> _resourceMap;
@@ -105,13 +105,6 @@ namespace TimothE.Gameplay.Interactables
         }
 
         //////////////////////////////////////////////////
-        public void OnUse(PlayerController controller)
-        {
-            controller.SetWarehouseUIVisibility(true, this);
-        }
-
-
-        //////////////////////////////////////////////////
         private void DebugLog(string message)
         {
             if (_debugWarehouse)
@@ -119,5 +112,50 @@ namespace TimothE.Gameplay.Interactables
                 Debug.Log(message);
             }
         }
+
+        //IInteractable Start
+
+        //////////////////////////////////////////////////
+        public void OnUse(PlayerController controller)
+        {
+            controller.SetWarehouseUIVisibility(true, this);
+        }
+
+        //IInteractable End
+
+
+        //IStructure Start
+
+        //////////////////////////////////////////////////
+        public void OnConstruction()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        //////////////////////////////////////////////////
+        public void OnDestruction()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        //////////////////////////////////////////////////
+        public void OnHourElapsed()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        //////////////////////////////////////////////////
+        public void OnDayElapsed()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        //////////////////////////////////////////////////
+        public StructureConfig GetConfig()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        //IStructure End
     }
 }

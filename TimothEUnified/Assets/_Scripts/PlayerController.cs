@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     ChestInputLayer _chestInputLayer;
     WarehouseUIInputLayer _warehouseInputLayer;
     InventoryInputLayer _inventoryInputLayer;
+    BuildModeInputLayer _buildModeInputLayer;
+
     CurrencyStore _currencyStore;
 
     CharacterSpriteController _characterSpriteController;
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsHeavyAttack { get => _bIsHeavyAttack; set => _bIsHeavyAttack = value; }
     bool _bIsHeavyAttack = false;
+    bool _bIsInBuildMode = false;
 
     //////////////////////////////////////////////////
     private void Awake()
@@ -83,6 +86,9 @@ public class PlayerController : MonoBehaviour
 
         _warehouseInputLayer = new WarehouseUIInputLayer();
         _warehouseInputLayer.Initialize();
+
+        _buildModeInputLayer = new BuildModeInputLayer();
+        _buildModeInputLayer.Initialize();
 
         _nearbyInteractables = new List<InteractableVolume>();
     }
@@ -192,6 +198,25 @@ public class PlayerController : MonoBehaviour
             if (!armor) continue;
 
             _characterSpriteController.SetOverlaySpriteSet(armor.armorType, armor.armorSprites);
+        }
+    }
+
+    //////////////////////////////////////////////////
+    public void SetBuildModeActive(bool active)
+    {
+        _bIsInBuildMode = active;
+        _uiManager.SetBuildMenuUIVisibility(active);
+
+        if (active)
+        {
+            _inputLayerManager.AddLayer(_buildModeInputLayer);
+        }
+        else
+        {
+            if (_inputLayerManager.IsLayerInFront(_buildModeInputLayer))
+            {
+                _inputLayerManager.PopLayer();
+            }
         }
     }
 

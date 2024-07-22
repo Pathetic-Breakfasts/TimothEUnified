@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     public InventoryUI ChestInventoryUI { get => _chestInventoryUI; }
     [SerializeField] private InventoryUI _chestInventoryUI;
 
+    [SerializeField] private StructureMenuUI _structureMenuUI;
+
 
     public Warehouse CurrentWarehouse { get => _currentWarehouse; }
     private Warehouse _currentWarehouse;
@@ -26,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject _inventoryScreen;
     [SerializeField] GameObject _warehouseScreen;
     [SerializeField] GameObject _usableScreen;
+    [SerializeField] GameObject _buildUIScreen;
 
     [SerializeField] TextMeshProUGUI _coinText;
 
@@ -63,6 +66,13 @@ public class UIManager : MonoBehaviour
         {
             _warehouseScreen.GetComponent<WarehouseUI>().Redraw(desiredWarehouse);
         }
+    }
+
+    //////////////////////////////////////////////////
+    public void SetBuildMenuUIVisibility(bool val)
+    {
+        _structureMenuUI.Redraw();
+        _buildUIScreen.SetActive(val);
     }
 
     //////////////////////////////////////////////////
