@@ -209,10 +209,12 @@ public class PlayerController : MonoBehaviour
 
         if (active)
         {
+            FindObjectOfType<BuildModeController>().IsEnabled(true);
             _inputLayerManager.AddLayer(_buildModeInputLayer);
         }
         else
         {
+            FindObjectOfType<BuildModeController>().IsEnabled(false);
             if (_inputLayerManager.IsLayerInFront(_buildModeInputLayer))
             {
                 _inputLayerManager.PopLayer();
