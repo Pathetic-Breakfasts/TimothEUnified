@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Stores Resources Used for building Structures
   structureSize: {x: 10, y: 9}
   icon: {fileID: 21300000, guid: db6d6ca1dccb662459e5a1ce4684dce9, type: 3}
-  prefab: {fileID: 0}
+  tilemapTile: {fileID: 11400000, guid: da1e1fca001b7674ca43eaf097fc3062, type: 2}

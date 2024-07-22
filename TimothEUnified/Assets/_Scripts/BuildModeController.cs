@@ -11,6 +11,10 @@ public class BuildModeController : MonoBehaviour
 
     Tilemap[] _tilemaps;
 
+    [SerializeField] Tilemap _placementTilemap;
+
+    [SerializeField] StructureConfig _config;
+
     //////////////////////////////////////////////////
     private void Awake()
     {
@@ -39,11 +43,11 @@ public class BuildModeController : MonoBehaviour
             Vector3Int originCellPosition = tilemap.WorldToCell(mouseWorldSpace);
 
             List<Vector3Int> cellPositions = new List<Vector3Int>();
-            for(int x = originCellPosition.x; x < size.x; x++)
+            for(int x = 0; x < size.x; x++)
             {
-                for(int y = originCellPosition.y; y < size.y; y++)
+                for(int y = 0; y < size.y; y++)
                 {
-                    Vector3Int pos = new Vector3Int(x, y, originCellPosition.z);
+                    Vector3Int pos = new Vector3Int(originCellPosition.x + x, originCellPosition.y + y, originCellPosition.z);
                     cellPositions.Add(pos);
                 }
             }
@@ -54,16 +58,24 @@ public class BuildModeController : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 10.0f);
                 if(hit.collider !=  null)
                 {
+                    Debug.Log(hit.collider.name);
                     canPlace = false;
                     break;
                 }
             }
         }
 
-        BuildModeUI ui = FindObjectOfType<BuildModeUI>(); 
-        ui.SetBoxPosition(_tilemaps[0].WorldToCell(mouseWorldSpace), size, canPlace);
-
-        Debug.Log("Can Place: " + canPlace);
+        BuildModeUI ui = FindObjectOfType<BuildModeUI>();
+        Vector3Int tilePos = _tilemaps[0].WorldToCell(mouseWorldSpace);
+        ui.SetBoxPosition(tilePos, size, canPlace);
+        
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(canPlace)
+            {
+                _placementTilemap.SetTile(tilePos, _config.tilemapTile);
+            }
+        }
 
     }
 }

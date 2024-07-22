@@ -38,8 +38,8 @@ public class FarmableLand : MonoBehaviour
         Tilemap[] tilemaps = FindObjectsOfType<Tilemap>();
         foreach(Tilemap tm in tilemaps)
         {
-            //Finds the correct tilemap 
-            if(tm.gameObject.name == "Tilemap_Farmland")
+            //Finds the correct tilemap //TODO: Stop hardcoding this
+            if(tm.gameObject.name == "Tilemap_Gameplay")
             {
                 _tilemap = tm;
                 break;
