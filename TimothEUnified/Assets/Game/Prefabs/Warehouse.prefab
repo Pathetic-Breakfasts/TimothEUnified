@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198dd356d3e904447a7dfeacda206d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maximumCapactity: 1000
+  _maximumCapactity: 500
   _debugWarehouse: 0
 --- !u!61 &2795767910218243497
 BoxCollider2D:

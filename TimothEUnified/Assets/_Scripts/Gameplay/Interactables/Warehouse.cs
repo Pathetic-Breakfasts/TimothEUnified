@@ -118,7 +118,18 @@ namespace TimothE.Gameplay.Interactables
         //////////////////////////////////////////////////
         public void RemoveResource(ResourceType type, int num)
         {
-            throw new System.NotImplementedException();
+            if (_resourceMap.ContainsKey(type))
+            {
+                if(num <= _resourceMap[type])
+                {
+                    _resourceMap[type] -= num;
+                }
+
+                if (_resourceMap[type] <= 0)
+                {
+                    _resourceMap.Remove(type);
+                }
+            }
         }
 
         //////////////////////////////////////////////////

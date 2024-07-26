@@ -45,6 +45,33 @@ public class WarehouseManager : MonoBehaviour
                 }
             }
         }
+
+        //amount needed is 600 wood
+        //in our warehouse we have 500 wood
+        //we now calculare amount - inWarehouse (600 - 500) to get 100
+        //We remove inWarehouse from the warehouse
+        //and now set amount to be the takeaway
+
+        foreach(Warehouse wh in FindObjectsOfType<Warehouse>()) 
+        {
+            if (amount == 0) break;
+
+            if (wh.ResourceMap.ContainsKey(resourceType))
+            {
+                int inWarehouse = wh.ResourceMap[resourceType];
+                if(inWarehouse >= amount)
+                {
+                    wh.ResourceMap[resourceType] -= amount;
+                    wh.RemoveResource(resourceType, amount);
+                }
+                else
+                {
+                    int remainder = amount - inWarehouse;
+                    wh.RemoveResource(resourceType, inWarehouse);
+                    amount = remainder;
+                }
+            }
+        }
     }
 
     //////////////////////////////////////////////////
