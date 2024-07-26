@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-struct ResourceCost
+public struct ResourceCost
 {
     public ResourceType item;
     public int quantity;
@@ -25,6 +25,6 @@ public class StructureConfig : ScriptableObject
     public RuleTile tilemapTile;
 
     //Resource Costs
-    List<ResourceCost> structureResourceCost;
-    int structureGoldCost;
+    public List<ResourceCost> resourceCost;
+    public int goldCost;
 }

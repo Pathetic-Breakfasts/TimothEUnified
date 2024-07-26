@@ -20,10 +20,16 @@ public class BuildModeController : MonoBehaviour
     public Vector3Int CurrentTilePosition { get => _currentTilePosition; }
     Vector3Int _currentTilePosition;
 
+
+    CurrencyStore _currencyStore;
+    WarehouseManager _warehouseManager;
+
     //////////////////////////////////////////////////
     private void Awake()
     {
         _tilemaps = FindObjectsOfType<Tilemap>();
+        _currencyStore = FindObjectOfType<CurrencyStore>();
+        _warehouseManager = FindObjectOfType<WarehouseManager>();
     }
 
     //////////////////////////////////////////////////
@@ -67,6 +73,45 @@ public class BuildModeController : MonoBehaviour
         {
             return; //TODO: Place SFX/VFX here?
         };
+
+        if (!CanAfford(_currentConfig))
+        {
+            return;
+        }
+
+        _currencyStore.SpendMoney(_currentConfig.goldCost);
+
+        if(_currentConfig.resourceCost.Count > 0)
+        {
+            foreach(ResourceCost cost in _currentConfig.resourceCost)
+            {
+                _warehouseManager.RemoveResource(cost.item, cost.quantity);
+            }
+        }
+
         _placementTilemap.SetTile(_currentTilePosition, _currentConfig.tilemapTile);
+    }
+
+    public bool CanAfford(StructureConfig config)
+    {
+        if (!config) return false;
+
+        if (!_currencyStore.CanAfford(config.goldCost))
+        {
+            return false;
+        }
+
+        if(_currentConfig.resourceCost.Count > 0)
+        {
+            foreach(ResourceCost cost in  _currentConfig.resourceCost)
+            {
+                if (!_warehouseManager.HasResource(cost.item, cost.quantity))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

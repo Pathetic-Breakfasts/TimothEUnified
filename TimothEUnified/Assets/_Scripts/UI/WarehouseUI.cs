@@ -41,7 +41,7 @@ public class WarehouseUI : MonoBehaviour
             }
         }
 
-        Dictionary<ResourceType, int> completeMap = FindObjectOfType<WarehouseManager>().GetResourceMap();
+        Dictionary<ResourceType, int> completeMap = FindObjectOfType<WarehouseManager>().ResourceMap;
         foreach (KeyValuePair<ResourceType, int> kvp in completeMap)
         {
             ResourceCardUI ui = Instantiate(_resourceCardPrefab);

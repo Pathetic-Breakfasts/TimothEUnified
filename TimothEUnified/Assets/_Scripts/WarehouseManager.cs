@@ -5,27 +5,59 @@ using TimothE.Gameplay.Interactables;
 public class WarehouseManager : MonoBehaviour
 {
     //////////////////////////////////////////////////
-    public Dictionary<ResourceType, int> GetResourceMap()
+    public Dictionary<ResourceType, int> ResourceMap { get => _resources; }
+    Dictionary<ResourceType, int> _resources;
+
+    //////////////////////////////////////////////////
+    private void Awake()
     {
-        Dictionary<ResourceType, int> map = new Dictionary<ResourceType, int>();
+        _resources = new Dictionary<ResourceType, int>();
+    }
 
-        foreach(Warehouse warehouse in FindObjectsOfType<Warehouse>())
+    //TODO: Figure out how to take objects out of their source warehouse
+    //If warehouses even care about what objects are inside of them? 
+
+    //////////////////////////////////////////////////
+    public void AddResource(ResourceType resourceType, int amount)
+    {
+        if(_resources.ContainsKey(resourceType))
         {
-            Dictionary<ResourceType, int> warehouseMap = warehouse.ResourceMap;
+            _resources[resourceType] += amount;
+        }
+        else
+        {
+            _resources.Add(resourceType, amount);
+        }
+    }
 
-            foreach(KeyValuePair<ResourceType, int> kvp in warehouseMap)
+    //////////////////////////////////////////////////
+    public void RemoveResource(ResourceType resourceType, int amount) 
+    {
+        if( _resources.ContainsKey(resourceType))
+        {
+            if (amount <= _resources[resourceType]) 
             {
-                if(map.ContainsKey(kvp.Key))
+                _resources[resourceType] -= amount;
+
+                if (_resources[resourceType] <= 0)
                 {
-                    map[kvp.Key] += kvp.Value;
-                }
-                else
-                {
-                    map.Add(kvp.Key, kvp.Value);
+                    _resources.Remove(resourceType);
                 }
             }
         }
+    }
 
-        return map;
+    //////////////////////////////////////////////////
+    public bool HasResource(ResourceType resourceType, int amount)
+    {
+        if (_resources.ContainsKey(resourceType))
+        {
+            if (amount <= _resources[resourceType])
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

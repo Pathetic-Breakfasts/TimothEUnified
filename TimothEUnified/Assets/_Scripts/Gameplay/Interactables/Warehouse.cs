@@ -1,5 +1,6 @@
 using GameFramework.Inventories;
 using System.Collections.Generic;
+using System.Resources;
 using UnityEngine;
 
 namespace TimothE.Gameplay.Interactables
@@ -14,10 +15,19 @@ namespace TimothE.Gameplay.Interactables
 
         [SerializeField] bool _debugWarehouse = false;
 
+        WarehouseManager _warehouseManager;
+        WarehouseUI _warehouseUI;
+
         //////////////////////////////////////////////////
         private void Awake()
         {
             _resourceMap = new Dictionary<ResourceType, int>();
+            _warehouseManager = FindObjectOfType<WarehouseManager>();
+        }
+
+        void Start()
+        {
+            _warehouseManager = FindObjectOfType<WarehouseManager>();
         }
 
         //////////////////////////////////////////////////
@@ -49,7 +59,14 @@ namespace TimothE.Gameplay.Interactables
                 _resourceMap.Add(item.resourceType, putIn);
             }
 
-            FindObjectOfType<WarehouseUI>().Redraw(this);
+            _warehouseManager.AddResource(item.resourceType, putIn);
+
+            if(_warehouseUI == null)
+            {
+                _warehouseUI = FindObjectOfType<WarehouseUI>();
+            }
+
+            _warehouseUI.Redraw(this);
 
             return putIn;
         }
@@ -101,7 +118,7 @@ namespace TimothE.Gameplay.Interactables
         //////////////////////////////////////////////////
         public void RemoveResource(ResourceType type, int num)
         {
-
+            throw new System.NotImplementedException();
         }
 
         //////////////////////////////////////////////////
