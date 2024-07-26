@@ -8,6 +8,11 @@ namespace TimothE.Utility
     //////////////////////////////////////////////////
     public class GameUtilities : MonoBehaviour
     {
+        public static int UILayer
+        {
+            get => LayerMask.NameToLayer("UI");
+        }
+
         public static InteractDirection CalculateDirection(Vector2 a, Vector2 b)
         {
             InteractDirection dir;
