@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
         _dayManager.IsTimePaused = active;
         _camera.Follow = active ? _buildModeTarget : transform;
         _camera.m_Lens.OrthographicSize = active ? 9.0f : 5.0f;
-        _buildModeController.IsEnabled(active);
+        _buildModeController.IsEnabled = active;
 
         if (active)
         {

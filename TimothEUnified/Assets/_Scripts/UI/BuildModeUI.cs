@@ -49,6 +49,11 @@ public class BuildModeUI : MonoBehaviour
         }
 
         _preview.gameObject.SetActive(bEnablePreview && _selectedConfig != null);
+
+        if(_selectedConfig != null)
+        {
+            SetBoxPosition(_buildController.CurrentTilePosition, _selectedConfig.structureSize, _buildController.CanPlace);
+        }
     }
 
     //////////////////////////////////////////////////

@@ -1,10 +1,19 @@
+using GameFramework.Inventories;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+struct ResourceCost
+{
+    public ResourceType item;
+    public int quantity;
+}
+
 [CreateAssetMenu(menuName ="Assets/Create Structure Config")]
 public class StructureConfig : ScriptableObject
 {
+    //UI
     public string buildingName;
     public string description;
 
@@ -12,8 +21,10 @@ public class StructureConfig : ScriptableObject
 
     public Sprite icon;
 
+    //Gameplay
     public RuleTile tilemapTile;
 
-    //TODO: Resource Costs
-
+    //Resource Costs
+    List<ResourceCost> structureResourceCost;
+    int structureGoldCost;
 }

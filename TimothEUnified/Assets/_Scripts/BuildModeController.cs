@@ -4,7 +4,11 @@ using UnityEngine.Tilemaps;
 
 public class BuildModeController : MonoBehaviour
 {
+    public bool IsEnabled { get => _bEnabled; set => _bEnabled = value; }
     bool _bEnabled = false;
+
+    public bool CanPlace { get => _bCanPlace; }
+    bool _bCanPlace = false;
 
     Tilemap[] _tilemaps;
 
@@ -13,6 +17,9 @@ public class BuildModeController : MonoBehaviour
     public StructureConfig CurrentConfig { set => _currentConfig = value; }
     StructureConfig _currentConfig = null;
 
+    public Vector3Int CurrentTilePosition { get => _currentTilePosition; }
+    Vector3Int _currentTilePosition;
+
     //////////////////////////////////////////////////
     private void Awake()
     {
@@ -20,19 +27,13 @@ public class BuildModeController : MonoBehaviour
     }
 
     //////////////////////////////////////////////////
-    public void IsEnabled(bool enabled)
-    {
-        _bEnabled = enabled;
-    }
-
-    //////////////////////////////////////////////////
-    void Update()
+    void FixedUpdate()
     {
         if (!_bEnabled || !_currentConfig) return;
 
         Vector2 mouseWorldSpace = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        bool canPlace = true;
+        _bCanPlace = true;
 
         for(int x = 0; x < _currentConfig.structureSize.x; ++x)
         {
@@ -43,33 +44,29 @@ public class BuildModeController : MonoBehaviour
                 GraphNode node = AstarPath.active.GetNearest(newSamplePos).node;
                 if (node != null && !node.Walkable)
                 {
-                    canPlace = false;
+                    _bCanPlace = false;
                     break;
                 }
 
                 RaycastHit2D hit = Physics2D.Raycast(newSamplePos, Vector2.zero, 10.0f);
                 if(hit.collider != null)
                 {
-                    canPlace = false;
+                    _bCanPlace = false;
                     break;
                 }
             }
         }
 
-        BuildModeUI ui = FindObjectOfType<BuildModeUI>();
-        Vector3Int tilePos = _tilemaps[0].WorldToCell(mouseWorldSpace);
-        ui.SetBoxPosition(tilePos, _currentConfig.structureSize, canPlace);
-        
-        if(Input.GetMouseButtonDown(0))
+        _currentTilePosition = _tilemaps[0].WorldToCell(mouseWorldSpace);
+    }
+
+    //////////////////////////////////////////////////
+    public void PlaceStructure()
+    {
+        if (!_bCanPlace)
         {
-            if(canPlace)
-            {
-                _placementTilemap.SetTile(tilePos, _currentConfig.tilemapTile);
-            }
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            ui.SelectedConfig = null;
-        }
+            return; //TODO: Place SFX/VFX here?
+        };
+        _placementTilemap.SetTile(_currentTilePosition, _currentConfig.tilemapTile);
     }
 }

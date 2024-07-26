@@ -5,6 +5,9 @@ using UnityEngine;
 public class BuildModeInputLayer : IInputLayer
 {
     PlayerController _playerController;
+    BuildModeUI _buildModeUI;
+    BuildModeController _buildModeController;
+    Mover _buildTargetMover;
 
     public Transform BuildModeFollowTarget { set
         {
@@ -16,12 +19,13 @@ public class BuildModeInputLayer : IInputLayer
     }
     Transform _buildModeFollowTarget;
 
-    Mover _buildTargetMover;
 
     //////////////////////////////////////////////////
     public void Initialize()
     {
         _playerController = GameObject.FindObjectOfType<PlayerController>();
+        _buildModeUI = GameObject.FindObjectOfType<BuildModeUI>();
+        _buildModeController = GameObject.FindObjectOfType<BuildModeController>();
     }
 
     //////////////////////////////////////////////////
@@ -32,6 +36,14 @@ public class BuildModeInputLayer : IInputLayer
             _playerController.SetBuildModeActive(false);
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            _buildModeController.PlaceStructure();
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            _buildModeUI.SelectedConfig = null;
+        }
 
         if (_buildTargetMover)
         {
