@@ -72,6 +72,7 @@ public class DayManager : MonoBehaviour
 
     float _lengthOfDay = 180.0f; //180 is temp
 
+    //////////////////////////////////////////////////
     private void Awake()
     {
         //Set Temp Date and Time
@@ -91,6 +92,7 @@ public class DayManager : MonoBehaviour
         SetTimeDateString();
     }
 
+    //////////////////////////////////////////////////
     private void Start()
     {
         if(!_timeText)
@@ -104,6 +106,7 @@ public class DayManager : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void Update()
     {
         if(Debug.isDebugBuild)
@@ -131,6 +134,7 @@ public class DayManager : MonoBehaviour
         _isAM = _hours < 12;
     }
 
+    //////////////////////////////////////////////////
     private void DebugUpdate()
     {
         if(Input.GetKeyDown(KeyCode.P)) 
@@ -145,6 +149,7 @@ public class DayManager : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void ProgressDay()
     {
         _currentDay++;
@@ -175,11 +180,13 @@ public class DayManager : MonoBehaviour
         StartNight();
     }
 
+    //////////////////////////////////////////////////
     public void StartNight()
     {
         IsTimePaused = true;
     }
 
+    //////////////////////////////////////////////////
     public void EndNight()
     {
         IsTimePaused = false;
@@ -187,6 +194,7 @@ public class DayManager : MonoBehaviour
         ProgressHour(2);
     }
 
+    //////////////////////////////////////////////////
     public void ProgressWeek()
     {
         _currentWeekOfMonth++;
@@ -211,6 +219,7 @@ public class DayManager : MonoBehaviour
 
     }
 
+    //////////////////////////////////////////////////
     public void ProgressSeason()
     {
         _currentWeekOfMonth = 1;
@@ -234,17 +243,19 @@ public class DayManager : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void SleepSkipTime(int desiredSleep)
     {
         ProgressHour(desiredSleep);
     }
 
-
+    //////////////////////////////////////////////////
     public void ProgressYear()
     {
         _currentYear++;
     }
 
+    //////////////////////////////////////////////////
     private void ProgressHour(int numHours)
     {
         _minutes = 0;
@@ -256,6 +267,7 @@ public class DayManager : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     void SetTimeDateString()
     {
         switch (_timeFormat)

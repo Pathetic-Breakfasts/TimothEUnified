@@ -5,6 +5,7 @@ using GameFramework.Inventories;
 using TimothE.Gameplay.Interactables;
 using TimothE.Utility;
 using Cinemachine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviour
     WarehouseUIInputLayer _warehouseInputLayer;
     InventoryInputLayer _inventoryInputLayer;
     BuildModeInputLayer _buildModeInputLayer;
+
+    BuildModeController _buildModeController;
 
     [SerializeField] CinemachineVirtualCamera _camera;
 
@@ -82,6 +85,7 @@ public class PlayerController : MonoBehaviour
         _inputLayerManager = GetComponent<InputLayerManager>();
         _currencyStore = GetComponent<CurrencyStore>();
         _equipment = GetComponent<Equipment>();
+        _buildModeController = FindObjectOfType<BuildModeController>();
 
         _inventoryInputLayer = new InventoryInputLayer();
         _inventoryInputLayer.Initialize();
@@ -212,17 +216,17 @@ public class PlayerController : MonoBehaviour
     {
         _bIsInBuildMode = active;
         _uiManager.SetBuildMenuUIVisibility(active);
+        _dayManager.IsTimePaused = active;
         _camera.Follow = active ? _buildModeTarget : transform;
         _camera.m_Lens.OrthographicSize = active ? 9.0f : 5.0f;
+        _buildModeController.IsEnabled(active);
 
         if (active)
         {
-            FindObjectOfType<BuildModeController>().IsEnabled(true);
             _inputLayerManager.AddLayer(_buildModeInputLayer);
         }
         else
         {
-            FindObjectOfType<BuildModeController>().IsEnabled(false);
             if (_inputLayerManager.IsLayerInFront(_buildModeInputLayer))
             {
                 _inputLayerManager.PopLayer();
