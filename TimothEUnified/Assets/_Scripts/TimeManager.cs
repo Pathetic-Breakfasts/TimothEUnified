@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using GameFramework.Core.Dev;
 
 public enum Days
 {
-    Monday,
+    Monday = 1,
     Tuesday,
     Wednesday,
     Thursday,
@@ -23,22 +20,17 @@ public enum Seasons
     Winter
 }
 
-public enum TimeFormat
-{
-    Hour_24,
-    Hour_12
-}
 
-public class DayManager : MonoBehaviour
+
+public class TimeManager : MonoBehaviour
 {
-    [SerializeField] TimeFormat _timeFormat = TimeFormat.Hour_12;
     [SerializeField] private float _secsPerMinute = 60;
-    [SerializeField] private TextMeshProUGUI _timeText;
-    [SerializeField] private TextMeshProUGUI _seasonText;
 
     private bool _isDay;
 
+    public Days CurrentDay { get => (Days)(_currentDay % 7); }
     private Seasons _currentSeason = Seasons.Spring;
+
     private int _currentDay = 1;
     private int _currentYear = 1;
     private Days _currentDayOfWeek = Days.Monday;
@@ -51,15 +43,16 @@ public class DayManager : MonoBehaviour
     private bool _bIsTimePaused = false;
 
     double _currentSecondTimer = 0.0f;
-    private bool _isAM = false;
+
+
+    public int Hour { get => _hours; }
+    public int Minute { get => _minutes; }
+
     int _hours = 6;
     int _minutes = 0;
 
     int _hoursPerDay = 24;
     int _minsPerHour = 60;
-
-    private string _timeString;
-    private string _seasonString;
 
     public static DebugCommand PROGRESS_HOUR; 
     public static DebugCommand PROGRESS_DAY;
@@ -68,29 +61,8 @@ public class DayManager : MonoBehaviour
     public static DebugCommand PROGRESS_YEAR;
 
     //////////////////////////////////////////////////
-    private void Awake()
-    {
-        if (_hours < 12)
-        {
-            _isAM = true;
-        }
-
-        SetTimeDateString();
-    }
-
-    //////////////////////////////////////////////////
     private void Start()
     {
-        if(!_timeText)
-        {
-            Debug.LogError("DayManager " + gameObject.name + " is missing TimeText!");
-        }
-
-        if(!_seasonText)
-        {
-            Debug.LogError("DayManager " + gameObject.name + " is missing SeasonText");
-        }
-
         DebugController.Instance.CreateCommand(PROGRESS_HOUR, "time_progressHour", "Progresses game time by one hour", () => ProgressHour(1));
         DebugController.Instance.CreateCommand(PROGRESS_DAY, "time_progressDay", "Progresses game time by one day", () =>  ProgressDay());
         DebugController.Instance.CreateCommand(PROGRESS_WEEK, "time_progressWeek", "Progresses game time by one week", () => ProgressWeek());
@@ -119,11 +91,8 @@ public class DayManager : MonoBehaviour
             if(_minutes >= _minsPerHour){
                 ProgressHour(1);
             }
-            SetTimeDateString();
             _currentSecondTimer = 0;
         }
-
-        _isAM = _hours < 12;
     }
 
     //////////////////////////////////////////////////
@@ -226,38 +195,6 @@ public class DayManager : MonoBehaviour
         if (_hours >= _hoursPerDay)
         {
             ProgressDay();
-        }
-    }
-
-    //////////////////////////////////////////////////
-    void SetTimeDateString()
-    {
-        switch (_timeFormat)
-        {
-            case TimeFormat.Hour_12:
-            {
-                int sanitisedHours = (_hours % 12) + 1;
-                _timeString = sanitisedHours < 10 ? "0" + sanitisedHours + ":" : sanitisedHours + ":";
-                _timeString += _minutes < 10 ? "0" + _minutes.ToString() : _minutes.ToString();
-                _timeString += _isAM ? " AM" : "PM";
-                break;
-            }
-            case TimeFormat.Hour_24:
-            {
-                _timeString += _hours < 10 ? "0" + _hours.ToString() : _hours.ToString();
-                _timeString += _minutes < 10 ? "0" + _minutes.ToString() : _minutes.ToString();
-                break;
-            }
-        }
-
-        if (_timeText)
-        {
-            _timeText.text = _timeString;
-        }
-
-        if (_seasonText)
-        {
-            _seasonText.text = _seasonString;
         }
     }
 }

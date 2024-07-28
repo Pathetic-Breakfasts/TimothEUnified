@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     Mover _mover;
     Animator _animator;
 
-    DayManager _dayManager;
+    TimeManager _dayManager;
 
     InputLayerManager _inputLayerManager;
 
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
     {
         _activeTool.ChangeTool(null);
 
-        _dayManager = FindObjectOfType<DayManager>();
+        _dayManager = FindObjectOfType<TimeManager>();
         _uiManager = FindObjectOfType<UIManager>();
 
         _uiManager.PlayerInventoryUI.DisplayedInventory = _inventory;

@@ -18,11 +18,11 @@ public class Crop : MonoBehaviour
 
     int _timeToGrowCrop;
 
-    DayManager _dm;
+    TimeManager _dm;
 
     private void Awake()
     {
-        _dm = FindObjectOfType<DayManager>();
+        _dm = FindObjectOfType<TimeManager>();
         _sp = GetComponent<SpriteRenderer>();
     }
 

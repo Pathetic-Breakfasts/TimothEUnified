@@ -10,12 +10,12 @@ namespace TimothE.Gameplay.Interactables
         public bool CanSleep { get => _bCanSleep; set => _bCanSleep = value; }
         bool _bCanSleep = false;
     
-        DayManager _dayManager;
+        TimeManager _dayManager;
     
         //////////////////////////////////////////////////
         private void Start()
         {
-            _dayManager = FindObjectOfType<DayManager>();
+            _dayManager = FindObjectOfType<TimeManager>();
     
             //HACK allows us to sleep until we have a RaidManager in place
             _bCanSleep = true;
