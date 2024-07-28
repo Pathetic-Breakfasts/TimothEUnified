@@ -22,13 +22,6 @@ public enum Seasons
     Winter
 }
 
-public enum SeasonPhase
-{
-    Early = 7,
-    Mid = 14,
-    Late = 21
-}
-
 public enum TimeFormat
 {
     Hour_24,
@@ -37,19 +30,19 @@ public enum TimeFormat
 
 public class DayManager : MonoBehaviour
 {
-    [SerializeField] Seasons _currentSeason;
     [SerializeField] TimeFormat _timeFormat = TimeFormat.Hour_12;
-
-    [SerializeField] private bool _isDay;
-
-    [SerializeField] private int _currentDay;
-    [SerializeField] private int _currentYear;
-    [SerializeField] private Days _currentDayOfWeek;
-    [SerializeField] private  int _currentWeekOfMonth;
     [SerializeField] private float _secsPerMinute = 60;
-
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private TextMeshProUGUI _seasonText;
+
+    private bool _isDay;
+
+    private Seasons _currentSeason = Seasons.Spring;
+    private int _currentDay = 1;
+    private int _currentYear = 1;
+    private Days _currentDayOfWeek = Days.Monday;
+    private  int _currentWeekOfMonth = 1;
+
 
     public Seasons CurrentSeason { get => _currentSeason; }
     public bool IsTimePaused { get => _bIsTimePaused; set => _bIsTimePaused = value; }
@@ -58,32 +51,18 @@ public class DayManager : MonoBehaviour
 
     double _currentSecondTimer = 0.0f;
     private bool _isAM = false;
-    int _hours;
-    int _minutes;
+    int _hours = 6;
+    int _minutes = 0;
 
     int _hoursPerDay = 24;
     int _minsPerHour = 60;
-    int _monthsPerYear = 12;
 
     private string _timeString;
     private string _seasonString;
 
-    private SeasonPhase _currentSeasonPhase;
-
-    float _lengthOfDay = 180.0f; //180 is temp
-
     //////////////////////////////////////////////////
     private void Awake()
     {
-        //Set Temp Date and Time
-        _hours              = 6;
-        _minutes            = 0;
-        _currentSeason      = Seasons.Spring;
-        _currentSeasonPhase = SeasonPhase.Early;
-        _currentDay         = 1;
-        _currentYear        = 1;
-        _currentWeekOfMonth = 1;
-
         if (_hours < 12)
         {
             _isAM = true;
@@ -200,19 +179,7 @@ public class DayManager : MonoBehaviour
         _currentWeekOfMonth++;
         _currentDayOfWeek = Days.Monday;
         
-        if (_currentWeekOfMonth == 1)
-        {
-            _currentSeasonPhase = SeasonPhase.Early;
-        }
-        else if (_currentWeekOfMonth == 2)
-        {
-            _currentSeasonPhase = SeasonPhase.Mid;
-        }
-        else if (_currentWeekOfMonth == 3)
-        {
-            _currentSeasonPhase = SeasonPhase.Late;
-        }
-        else if (_currentWeekOfMonth == 4)
+        if (_currentWeekOfMonth == 4)
         {
             ProgressSeason();
         }
@@ -223,24 +190,6 @@ public class DayManager : MonoBehaviour
     public void ProgressSeason()
     {
         _currentWeekOfMonth = 1;
-        _currentSeasonPhase = SeasonPhase.Early;
-        switch (_currentSeason)
-        {
-            case Seasons.Spring:
-                _lengthOfDay = 600;
-                break;
-            case Seasons.Summer:
-                _lengthOfDay = 540;
-                break;
-            case Seasons.Autumn:
-                _lengthOfDay = 480;
-                break;
-            case Seasons.Winter:
-                _lengthOfDay = 540;
-                break;
-            default:
-                break;
-        }
     }
 
     //////////////////////////////////////////////////
@@ -287,7 +236,6 @@ public class DayManager : MonoBehaviour
                 break;
             }
         }
-        _seasonString = _currentSeasonPhase.ToString() + " " + _currentSeason.ToString();
 
         if (_timeText)
         {
