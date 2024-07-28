@@ -19,5 +19,5 @@ MonoBehaviour:
   tilemapTile: {fileID: 11400000, guid: 73c9da1a913af7345a90b030a6dd2152, type: 2}
   resourceCost:
   - item: 0
-    quantity: 5
+    quantity: 10
   goldCost: 10

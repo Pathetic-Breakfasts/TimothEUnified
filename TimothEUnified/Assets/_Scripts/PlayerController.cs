@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     InputLayerManager _inputLayerManager;
 
+    CoreInputLayer _coreInputLayer;
     ChestInputLayer _chestInputLayer;
     WarehouseUIInputLayer _warehouseInputLayer;
     InventoryInputLayer _inventoryInputLayer;
@@ -87,6 +88,10 @@ public class PlayerController : MonoBehaviour
         _equipment = GetComponent<Equipment>();
         _buildModeController = FindObjectOfType<BuildModeController>();
 
+        _coreInputLayer = new CoreInputLayer();
+        _coreInputLayer.Initialize();
+        _inputLayerManager.AddLayer( _coreInputLayer );
+
         _inventoryInputLayer = new InventoryInputLayer();
         _inventoryInputLayer.Initialize();
 
@@ -131,8 +136,6 @@ public class PlayerController : MonoBehaviour
     //////////////////////////////////////////////////
     private void FixedUpdate()
     {
-        if (_movement == Vector2.zero) return;
-
         _mover.Move(_movement);
 
         Vector3 adjustedPos = transform.position + new Vector3(_movement.x, _movement.y);
@@ -187,6 +190,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        _inputLayerManager.UpdateLayers();
     }
 
     //////////////////////////////////////////////////
@@ -268,6 +272,12 @@ public class PlayerController : MonoBehaviour
     //////////////////////////////////////////////////
     public void SetMovement(Vector2 movement)
     {
+        if (!_inputLayerManager.IsLayerInFront(_coreInputLayer))
+        {
+            _movement = Vector2.zero;
+            return;
+        }
+
         _animator.SetFloat("Horizontal", movement.x);
         _animator.SetFloat("Vertical", movement.y);
         _animator.SetFloat("Speed", movement.sqrMagnitude);
@@ -362,22 +372,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-        //TODO: Figure out how to handle putting items in warehouses (Actually we could have that in the Warehouse screen
-        //Warehouse
-        //if (_nearbyWarehouse)
-        //{
-        //    if(_currentItem.itemType == ItemType.RESOURCE)
-        //    {
-        //        int numberOfItem = _inventory.GetItemCount(_currentItem);
-        //        int numberPutIn = _nearbyWarehouse.InsertResource(_currentItem, numberOfItem);
-        //        if(numberPutIn != -1)
-        //        {
-        //            _inventory.RemoveItem(_currentItem, numberPutIn);
-        //        }
-        //    }
-        //    return;
-        //}
 
         //Tools/Weapons
         UseEquipped();

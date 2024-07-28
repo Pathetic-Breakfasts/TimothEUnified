@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class InputLayerManager : MonoBehaviour
 {
-    CoreInputLayer _coreInputLayer;
-
     Stack<IInputLayer> _inputLayers;
 
 #if DEBUG
     [SerializeField] bool _enableLogging = false;
 #endif
 
+    //////////////////////////////////////////////////
     void Awake()
     {
-        _coreInputLayer = new CoreInputLayer();
-        _coreInputLayer.Initialize();
-
         _inputLayers = new Stack<IInputLayer>();
-        AddLayer(_coreInputLayer);
     }
 
-    
-    void Update()
+    //////////////////////////////////////////////////
+
+    public void UpdateLayers()
     {
         if(_inputLayers.Count > 0)
         {
@@ -36,6 +32,7 @@ public class InputLayerManager : MonoBehaviour
 #endif
     }
 
+    //////////////////////////////////////////////////
     public void AddLayer(IInputLayer layer)
     {
         if(!_inputLayers.Contains(layer) )
@@ -48,20 +45,22 @@ public class InputLayerManager : MonoBehaviour
         }
     }
 
+    //////////////////////////////////////////////////
     public void PopLayer()
     {
 #if DEBUG
         if (_enableLogging) Debug.Log("Popping Input Layer: " + _inputLayers.Peek());
 #endif
-
         _inputLayers.Pop();
     }
 
+    //////////////////////////////////////////////////
     public bool ContainsLayer(IInputLayer layer)
     {
         return _inputLayers.Contains(layer);
     }
 
+    //////////////////////////////////////////////////
     public bool IsLayerInFront(IInputLayer layer)
     {
         return _inputLayers.Peek() == layer;
