@@ -47,22 +47,18 @@ public class Health : MonoBehaviour
         _currentHealth = _startingHealth;
         _currentHealth = Mathf.Clamp(_currentHealth, 0.0f, _maxHealth);
 
-        if (KILL_PLAYER == null)
+        DebugController.Instance.CreateCommand(KILL_PLAYER, "kill_player", "Kills the player", () =>
         {
-            KILL_PLAYER = new DebugCommand("kill_player", "Kills the current player", "kill_player", () =>
+            PlayerController pc = FindObjectOfType<PlayerController>();
+            if (pc)
             {
-                PlayerController pc = FindObjectOfType<PlayerController>();
-                if (pc)
+                Health playerHealth = pc.GetComponent<Health>();
+                if (playerHealth)
                 {
-                    Health playerHealth = pc.GetComponent<Health>();
-                    if (playerHealth)
-                    {
-                        playerHealth.Kill();
-                    }
+                    playerHealth.Kill();
                 }
-            });
-        }
-        DebugController.Instance.AddCommand(KILL_PLAYER);
+            }
+        });
     }
 
     //////////////////////////////////////////////////

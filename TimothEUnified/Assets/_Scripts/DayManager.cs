@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using GameFramework.Core.Dev;
 
 public enum Days
 {
@@ -60,6 +61,12 @@ public class DayManager : MonoBehaviour
     private string _timeString;
     private string _seasonString;
 
+    public static DebugCommand PROGRESS_HOUR; 
+    public static DebugCommand PROGRESS_DAY;
+    public static DebugCommand PROGRESS_WEEK;
+    public static DebugCommand PROGRESS_SEASON;
+    public static DebugCommand PROGRESS_YEAR;
+
     //////////////////////////////////////////////////
     private void Awake()
     {
@@ -83,6 +90,12 @@ public class DayManager : MonoBehaviour
         {
             Debug.LogError("DayManager " + gameObject.name + " is missing SeasonText");
         }
+
+        DebugController.Instance.CreateCommand(PROGRESS_HOUR, "time_progressHour", "Progresses game time by one hour", () => ProgressHour(1));
+        DebugController.Instance.CreateCommand(PROGRESS_DAY, "time_progressDay", "Progresses game time by one day", () =>  ProgressDay());
+        DebugController.Instance.CreateCommand(PROGRESS_WEEK, "time_progressWeek", "Progresses game time by one week", () => ProgressWeek());
+        DebugController.Instance.CreateCommand(PROGRESS_SEASON, "time_progressSeason", "Progresses game time by one season", () => ProgressSeason());
+        DebugController.Instance.CreateCommand(PROGRESS_YEAR, "time_progressYear", "Progresses game time by one year", () => ProgressYear());
     }
 
     //////////////////////////////////////////////////

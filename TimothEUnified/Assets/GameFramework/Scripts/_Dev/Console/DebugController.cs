@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -39,22 +40,10 @@ namespace GameFramework.Core.Dev
             }
 
             _commandQueue = new Queue<string>();
+            _commandList = new List<object>();
 
-            GIVE_GOLD = new DebugCommand<int>("give_gold", "Gives <x> gold to the current player", "give_gold <desiredAmount>", (int x) =>
-            {
-                Debug.Log(x);
-            });
-
-            HELP = new DebugCommand("help", "Toggles helpful description of all commands to the developer", "help", () =>
-            {
-                _bShowHelp = !_bShowHelp;
-            });
-
-            _commandList = new List<object>()
-        {
-            HELP,
-            GIVE_GOLD
-        };
+            CreateCommand(HELP, "help", "Toggles helpful descriptions of all commands to the developer", () => _bShowHelp = !_bShowHelp);
+            CreateCommandInt(GIVE_GOLD, "give_gold", "Gives the player X gold", "give_gold <desiredAmount>", (int x) => Debug.Log(x));
         }
 
         //////////////////////////////////////////////////
@@ -158,6 +147,27 @@ namespace GameFramework.Core.Dev
                 GUI.Label(new Rect(5.0f, y, Screen.width - 20.0f, 20), _error);
             }
         }
+
+        //////////////////////////////////////////////////
+        public void CreateCommand(object command, string cmd, string desc, Action function)
+        {
+            if(command == null)
+            {
+                command = new DebugCommand(cmd, desc, cmd, function);
+                AddCommand(command);
+            }
+        }
+
+        //////////////////////////////////////////////////
+        public void CreateCommandInt(object command, string cmd, string desc, string format, Action<int> function)
+        {
+            if(command == null)
+            {
+                command = new DebugCommand<int>(cmd, desc, format, function);
+                AddCommand(command);
+            }
+        }
+
 
         //////////////////////////////////////////////////
         public void AddCommand(object command)
@@ -270,7 +280,7 @@ namespace GameFramework.Core.Dev
                 DebugCommandBase commandBase = obj as DebugCommandBase;
                 if (commandBase != null)
                 {
-                    if (_input.Contains(commandBase.CommandId))
+                    if (_input.ContainsInsensitive(commandBase.CommandId))
                     {
                         if (commandBase is DebugCommand)
                         {
