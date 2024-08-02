@@ -31,6 +31,11 @@ public class TimeUI : MonoBehaviour
             Debug.LogError("DayManager " + gameObject.name + " is missing TimeText!");
         }
 
+        if (!_dayText)
+        {
+            Debug.LogError("DayManager " + gameObject.name + " is missing DayText");
+        }
+
         if (!_seasonText)
         {
             Debug.LogError("DayManager " + gameObject.name + " is missing SeasonText");
@@ -58,14 +63,14 @@ public class TimeUI : MonoBehaviour
                     {
                         int sanitisedHours = (hour % 12) + 1;
                         timeString = sanitisedHours < 10 ? "0" + sanitisedHours + ":" : sanitisedHours + ":";
-                        timeString += minute < 10 ? "0" + minute.ToString() : minute.ToString();
+                        timeString += minute < 10 ? "0" + minute : minute.ToString();
                         timeString += hour < 12 ? " AM" : " PM";
                         break;
                     }
                 case TimeFormat.Hour_24:
                     {
-                        timeString += hour < 10 ? "0" + hour.ToString() : hour.ToString();
-                        timeString += minute < 10 ? "0" + minute.ToString() : minute.ToString();
+                        timeString += hour < 10 ? "0" + hour : hour.ToString();
+                        timeString += minute < 10 ? "0" + minute : minute.ToString();
                         break;
                     }
             }
@@ -74,14 +79,12 @@ public class TimeUI : MonoBehaviour
 
         if (_dayText)
         {
-            Days day = _timeManager.CurrentDay;
-            _dayText.text = day.ToString();
+            _dayText.text = _timeManager.CurrentDay.ToString();
         }
 
         if (_seasonText)
         {
-            Seasons season = _timeManager.CurrentSeason;
-            _seasonText.text = season.ToString();
+            _seasonText.text = _timeManager.CurrentSeason.ToString();
         }
     }
 }
