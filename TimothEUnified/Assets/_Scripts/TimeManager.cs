@@ -1,5 +1,6 @@
 using UnityEngine;
 using GameFramework.Core.Dev;
+using System;
 
 public enum Days
 {
@@ -49,6 +50,11 @@ public class TimeManager : MonoBehaviour
     int _daysInSeason = 28;
     int _seasonsInYear = 4;
 
+    public Action OnHourChanged;
+    public Action OnDayChanged;
+    public Action OnSeasonChanged;
+    public Action OnYearChanged;
+
     public static DebugCommand PROGRESS_HOUR; 
     public static DebugCommand PROGRESS_DAY;
     public static DebugCommand PROGRESS_SEASON;
@@ -92,6 +98,7 @@ public class TimeManager : MonoBehaviour
     //////////////////////////////////////////////////
     private void ProgressHour(int numHours)
     {
+        OnHourChanged.Invoke();
         _minutes = 0;
         _hours++;
 
@@ -104,6 +111,7 @@ public class TimeManager : MonoBehaviour
     //////////////////////////////////////////////////
     public void ProgressDay()
     {
+        OnDayChanged.Invoke();
         _currentDay++;
         _hours = 1;
         _minutes = 0;
@@ -113,18 +121,12 @@ public class TimeManager : MonoBehaviour
         {
             ProgressSeason();
         }
-
-        //Crop Progression
-        FarmableLand[] farmableLand = FindObjectsOfType<FarmableLand>();
-        foreach (FarmableLand farmland in farmableLand)
-        {
-            farmland.ProgressDay();
-        }
     }
 
     //////////////////////////////////////////////////
     private void ProgressSeason()
     {
+        OnSeasonChanged.Invoke();
         _currentDay = 1;
         _currentSeason++;
         if(_currentSeason == _currentSeason + 1)
@@ -136,6 +138,7 @@ public class TimeManager : MonoBehaviour
     //////////////////////////////////////////////////
     private void ProgressYear()
     {
+        OnYearChanged.Invoke();
         _currentSeason = 1;
         _currentYear++;
     }

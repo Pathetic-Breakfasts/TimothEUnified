@@ -53,6 +53,12 @@ public class FarmableLand : MonoBehaviour
         }
 
         IsTilled = false;
+
+        TimeManager timeManager = FindObjectOfType<TimeManager>();
+        if (timeManager)
+        {
+            timeManager.OnDayChanged += ProgressDay;
+        }
     }
 
     //////////////////////////////////////////////////
