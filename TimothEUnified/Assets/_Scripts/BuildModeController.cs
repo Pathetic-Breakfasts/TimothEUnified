@@ -1,3 +1,4 @@
+using GameFramework.Core.Dev;
 using Pathfinding;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -24,12 +25,15 @@ public class BuildModeController : MonoBehaviour
     CurrencyStore _currencyStore;
     WarehouseManager _warehouseManager;
 
+    int _costEnabled = 1;
+    static DebugCommand COST_ENABLED;
     //////////////////////////////////////////////////
     private void Awake()
     {
         _tilemaps = FindObjectsOfType<Tilemap>();
         _currencyStore = FindObjectOfType<CurrencyStore>();
         _warehouseManager = FindObjectOfType<WarehouseManager>();
+        DebugController.Instance.CreateCommandInt(COST_ENABLED, "buildMode_costEnabled", "Set to 0 for no resource/gold cost", "buildMode_costResources {0|1}", (int x) => _costEnabled = x);
     }
 
     //////////////////////////////////////////////////
@@ -74,18 +78,21 @@ public class BuildModeController : MonoBehaviour
             return; //TODO: Place SFX/VFX here?
         };
 
-        if (!CanAfford(_currentConfig))
+        if (_costEnabled == 1)
         {
-            return;
-        }
-
-        _currencyStore.SpendMoney(_currentConfig.goldCost);
-
-        if(_currentConfig.resourceCost.Count > 0)
-        {
-            foreach(ResourceCost cost in _currentConfig.resourceCost)
+            if (!CanAfford(_currentConfig))
             {
-                _warehouseManager.RemoveResource(cost.item, cost.quantity);
+                return;
+            }
+
+            _currencyStore.SpendMoney(_currentConfig.goldCost);
+
+            if(_currentConfig.resourceCost.Count > 0)
+            {
+                foreach(ResourceCost cost in _currentConfig.resourceCost)
+                {
+                    _warehouseManager.RemoveResource(cost.item, cost.quantity);
+                }
             }
         }
 
@@ -95,6 +102,11 @@ public class BuildModeController : MonoBehaviour
     public bool CanAfford(StructureConfig config)
     {
         if (!config) return false;
+
+        if(_costEnabled ==0)
+        {
+            return true;
+        }
 
         if (!_currencyStore.CanAfford(config.goldCost))
         {
