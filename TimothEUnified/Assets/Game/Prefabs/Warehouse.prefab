@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198dd356d3e904447a7dfeacda206d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 5e078fa42c7ddec4ead3b8ff48ca2f58, type: 2}
+  _bUseHourlyUpdates: 0
+  _bUseDailyUpdates: 0
   _maximumCapactity: 500
   _debugWarehouse: 0
 --- !u!61 &2795767910218243497

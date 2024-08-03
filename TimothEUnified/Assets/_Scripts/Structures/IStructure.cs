@@ -9,5 +9,7 @@ public interface IStructure
     void OnHourElapsed();
     void OnDayElapsed();
 
+    bool IsBuilt();
+
     StructureConfig GetConfig();
 }

@@ -98,7 +98,10 @@ public class TimeManager : MonoBehaviour
     //////////////////////////////////////////////////
     private void ProgressHour(int numHours)
     {
-        OnHourChanged.Invoke();
+        if(OnHourChanged != null)
+        {
+            OnHourChanged.Invoke();
+        }
         _minutes = 0;
         _hours++;
 
@@ -111,7 +114,10 @@ public class TimeManager : MonoBehaviour
     //////////////////////////////////////////////////
     public void ProgressDay()
     {
-        OnDayChanged.Invoke();
+        if(OnDayChanged != null)
+        {
+            OnDayChanged.Invoke();
+        }
         _currentDay++;
         _hours = 1;
         _minutes = 0;
@@ -126,7 +132,10 @@ public class TimeManager : MonoBehaviour
     //////////////////////////////////////////////////
     private void ProgressSeason()
     {
-        OnSeasonChanged.Invoke();
+        if(OnSeasonChanged != null)
+        {
+            OnSeasonChanged.Invoke();
+        }
         _currentDay = 1;
         _currentSeason++;
         if(_currentSeason == _currentSeason + 1)
@@ -138,7 +147,10 @@ public class TimeManager : MonoBehaviour
     //////////////////////////////////////////////////
     private void ProgressYear()
     {
-        OnYearChanged.Invoke();
+        if(OnYearChanged != null)
+        {
+            OnYearChanged.Invoke();
+        }
         _currentSeason = 1;
         _currentYear++;
     }

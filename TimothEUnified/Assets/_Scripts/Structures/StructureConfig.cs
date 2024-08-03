@@ -27,4 +27,7 @@ public class StructureConfig : ScriptableObject
     //Resource Costs
     public List<ResourceCost> resourceCost;
     public int goldCost;
+
+    //Time Cost
+    public int hoursToBuild = 0;
 }

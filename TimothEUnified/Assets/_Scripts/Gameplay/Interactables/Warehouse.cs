@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TimothE.Gameplay.Interactables
 {
     //////////////////////////////////////////////////
-    public class Warehouse : MonoBehaviour, IInteractable, IStructure
+    public class Warehouse : Structure, IInteractable
     {
         public Dictionary<ResourceType, int> ResourceMap { get => _resourceMap; }
         Dictionary<ResourceType, int> _resourceMap;
@@ -25,8 +25,9 @@ namespace TimothE.Gameplay.Interactables
             _warehouseManager = FindObjectOfType<WarehouseManager>();
         }
 
-        void Start()
+        protected void Start()
         {
+            base.Start();
             _warehouseManager = FindObjectOfType<WarehouseManager>();
         }
 
@@ -146,44 +147,12 @@ namespace TimothE.Gameplay.Interactables
         //////////////////////////////////////////////////
         public void OnUse(PlayerController controller)
         {
-            controller.SetWarehouseUIVisibility(true, this);
+            if (_bIsBuilt)
+            {
+                controller.SetWarehouseUIVisibility(true, this);
+            }
         }
 
         //IInteractable End
-
-
-        //IStructure Start
-
-        //////////////////////////////////////////////////
-        public void OnConstruction()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //////////////////////////////////////////////////
-        public void OnDestruction()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //////////////////////////////////////////////////
-        public void OnHourElapsed()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //////////////////////////////////////////////////
-        public void OnDayElapsed()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //////////////////////////////////////////////////
-        public StructureConfig GetConfig()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //IStructure End
     }
 }
